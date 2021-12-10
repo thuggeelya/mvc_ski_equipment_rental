@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Results</title>
+</head>
+<body>
+    <div id="search-results">
+
+        <form method="post" th:action="@{/equipment/see_results}">
+            <table class="equipment_items">
+                <tr th:each="equipment : ${equipmentFound}">
+                    <td th:text="${equipment.name}" th:object="${equipment}"></td>
+                    <td>
+                        <img class="equipment_image" th:src="@{/images/empty_img.png}" alt="No image" width="100px" height="100px">
+                    </td>
+                    <td>
+                        <input class="equipment_item" type="submit" value="Rent">
+                    </td>
+                </tr>
+            </table>
+        </form>
+
+    </div>
+</body>
+</html>
