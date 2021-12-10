@@ -4,113 +4,122 @@
     <meta charset="UTF-8">
     <title>My equipment rent</title>
     <style>
-        #search-input {
-            position: center;
+        body{
+            background-color: #eee;
         }
 
-        table {
-            margin: 25px;
+        #categories {
+            float:left;
+            width:20%;
+            background: #c3ffc8;
+        }
+        #catalogue-all {
+            float:left;
+            width:60%;
+            background: whitesmoke;
+            size: auto;
+        }
+        #equipment-all {
+            position: relative;
+            size: auto;
+        }
+        #equipment-submit-button, #equipment-name, #equipment-image {
+            position: relative;
+            float: inside;
+            width: auto;
+        }
+        #filter {
+            float:left;
+            width:20%;
+            background: #c3ffc8;
         }
 
-        th {
-            text-align: left;
+        #categories p, #filter p {
+            text-align: center;
         }
 
-        th, td {
-            border-bottom: 1px solid #ddd;
-        }
+        /*table {*/
+        /*    margin: 25px;*/
+        /*}*/
+
+        /*th {*/
+        /*    text-align: left;*/
+        /*}*/
+
+        /*th, td {*/
+        /*    border-bottom: 1px solid #ddd;*/
+        /*}*/
     </style>
 </head>
 <body>
 
-<div id="search-input">
+<div id="clickable-header">
 
-    <form method="post" th:action="@{/equipment/results}" th:object="${equipment}">
+    <div id="search-input">
 
-        <table>
-            <tr>
-                <td>
-                    <input id="search-bar" type="text" th:name="equipmentNameToFind">
-                </td>
-                <td>
-                    <input type="submit" value="Go">
-                </td>
-            </tr>
-        </table>
+        <form method="post" th:action="@{/equipment/results}" th:object="${equipment}">
 
-    </form>
-
-</div>
-
-<div id="main-body">
-    <div id="catalogue-all">
-
-        <form method="post" th:action="@{/equipment/see_equipment}">
-            <table class="equipment_items">
-                <tr th:each="equipment : ${equipmentList}">
-                    <td th:text="${equipment.name}" th:object="${equipment}"></td>
+            <table>
+                <tr>
                     <td>
-                        <img class="equipment_image" th:src="@{/images/empty_img.png}" alt="No image" width="100px" height="100px">
+                        <input id="search-bar" type="text" th:name="equipmentNameToFind">
                     </td>
                     <td>
-                        <input class="equipment_item" type="submit" value="Rent">
+                        <input type="submit" value="Go">
                     </td>
                 </tr>
             </table>
+
         </form>
 
     </div>
+
+    <div id="lease">
+        <input id="lease-button" type="submit" value="Lease equipment">
+    </div>
+
 </div>
 
-<!--<div id="root_container">-->
+<br>
 
-<!--    <form method="post" th:action="@{/equipment/save}" th:object="${equipment}">-->
-<!--        <table>-->
-<!--            <tr>-->
-<!--                <td>-->
-<!--                    <input type="text" placeholder="name" th:field="*{name}">-->
-<!--                </td>-->
-<!--                <td>-->
-<!--                    <input type="text" placeholder="firmName" th:field="*{firmName}">-->
-<!--                </td>-->
-<!--                <td>-->
-<!--                    <input type="text" placeholder="cost" th:field="*{cost}">-->
-<!--                </td>-->
-<!--                <td>-->
-<!--                    <input type="submit" value="save">-->
-<!--                </td>-->
-<!--            </tr>-->
-<!--        </table>-->
-<!--    </form>-->
+<div id="main-body">
 
-<!--    <form method="post" th:action="@{/equipment/remove}">-->
-<!--        <table>-->
-<!--            <tr>-->
-<!--                <td>-->
-<!--                    <input type="text" placeholder="id number" th:name="equipmentIdToRemove">-->
-<!--                </td>-->
-<!--                <td>-->
-<!--                    <input type="submit" value="remove">-->
-<!--                </td>-->
-<!--            </tr>-->
-<!--        </table>-->
-<!--    </form>-->
+    <div id="categories">
+        <p>
+            Categories
+        </p>
 
-<!--    <table id="equipment">-->
-<!--        <tr>-->
-<!--            <th>id</th>-->
-<!--            <th>name</th>-->
-<!--            <th>firm_name</th>-->
-<!--            <th>cost</th>-->
-<!--        </tr>-->
-<!--        <tr th:each="equipment : ${equipmentList}">-->
-<!--            <td th:text="${equipment.id}"></td>-->
-<!--            <td th:text="${equipment.name}"></td>-->
-<!--            <td th:text="${equipment.firmName}"></td>-->
-<!--            <td th:text="${equipment.cost}"></td>-->
-<!--        </tr>-->
-<!--    </table>-->
+        <div id="categories-body">
+<!--            -->
+        </div>
 
-<!--</div>-->
+    </div>
+
+    <div id="catalogue-all">
+
+        <form method="post" th:action="@{/equipment/see_equipment}">
+
+            <div id="equipment-all" th:each="equipment : ${equipmentList}">
+                <div id="equipment-name">
+                    <p th:text="${equipment.name}" th:object="${equipment}"></p>
+                </div>
+                <div id="equipment-image">
+                    <img th:src="@{/images/empty_img.png}" alt="No image">
+                </div>
+                <input id="equipment-submit-button" type="submit" value="Rent">
+                <hr/>
+            </div>
+
+        </form>
+
+    </div>
+
+    <div id="filter">
+        <p>
+            Filter
+        </p>
+    </div>
+
+</div>
 </body>
 </html>

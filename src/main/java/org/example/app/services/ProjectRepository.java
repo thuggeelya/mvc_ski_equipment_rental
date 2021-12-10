@@ -9,8 +9,6 @@ public interface ProjectRepository<T> {
 
     void store(T equipment);
 
-    boolean removeItemById(Integer equipmentIdToRemove);
-
     boolean findItemByName(String name);
 
     void setFave(T equipment);

@@ -69,17 +69,6 @@ public class EquipmentRepository implements ProjectRepository<Equipment>, Applic
     }
 
     @Override
-    public boolean removeItemById(Integer equipmentIdToRemove) {
-        for (Equipment equipment : retrieveAll()) {
-            if (equipment.getId().equals(equipmentIdToRemove)) {
-                logger.info("remove equipment completed: " + equipment);
-                return repo.remove(equipment);
-            }
-        }
-        return false;
-    }
-
-    @Override
     public boolean findItemByName(@NotNull String equipmentNameToFind) {
         filter.clear();
 
