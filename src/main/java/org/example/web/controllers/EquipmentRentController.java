@@ -40,7 +40,7 @@ public class EquipmentRentController {
         if(equipmentService.findEquipmentByName(equipmentNameToFind)){
             ModelAndView modelAndView = new ModelAndView();
             modelAndView.addObject("equipmentFound", equipmentService.getFoundEquipment()); // <- List
-            modelAndView.setViewName("view_results_page"); // "redirect:/filtered_equipment/found"
+            modelAndView.setViewName("view_results_page"); // redirect:/filtered_equipment/found
             logger.info(modelAndView.getView());
             logger.info(modelAndView.toString());
             for (Equipment equipment : equipmentService.getFoundEquipment()) {
@@ -61,5 +61,10 @@ public class EquipmentRentController {
     public String setFave(Equipment equipment) {
         equipmentService.setFave(equipment);
         return "equipment_rent";
+    }
+
+    @GetMapping("/leasing")
+    public String lease() {
+        return "redirect:/equipment/lease";
     }
 }

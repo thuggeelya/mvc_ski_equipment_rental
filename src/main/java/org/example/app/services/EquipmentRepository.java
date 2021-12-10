@@ -102,6 +102,11 @@ public class EquipmentRepository implements ProjectRepository<Equipment>, Applic
         logger.info("set fave equipment: " + equipment);
     }
 
+    @Override
+    public void lease() {
+        logger.info("go for leasing");
+    }
+
     private void defaultInit() {
         logger.info("default INIT in equipment repo bean");
     }

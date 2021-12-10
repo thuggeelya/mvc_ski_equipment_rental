@@ -12,4 +12,6 @@ public interface ProjectRepository<T> {
     boolean findItemByName(String name);
 
     void setFave(T equipment);
+
+    void lease(); // for logs
 }

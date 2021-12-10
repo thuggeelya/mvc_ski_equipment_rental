@@ -75,7 +75,11 @@
     </div>
 
     <div id="lease">
-        <input id="lease-button" type="submit" value="Lease equipment">
+
+        <form method="get" th:action="@{/equipment/leasing}">
+            <input id="lease-button" type="submit" value="Lease equipment">
+        </form>
+
     </div>
 
 </div>
