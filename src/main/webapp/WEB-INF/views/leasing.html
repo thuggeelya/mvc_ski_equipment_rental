@@ -18,7 +18,7 @@
                         Name
                     </td>
                     <td>
-                        <input id="equipment-name" type="text" placeholder="Ski" th:field="*{name}">
+                        <input id="equipment-name" type="text" required placeholder="Ski" th:field="*{name}">
                     </td>
                 </tr>
                 <tr>
@@ -26,7 +26,7 @@
                         Firm
                     </td>
                     <td>
-                        <input id="equipment-firm" type="text" placeholder="Atom" th:field="*{firmName}">
+                        <input id="equipment-firm" type="text" required placeholder="Atom" th:field="*{firmName}">
                     </td>
                 </tr>
                 <tr>
@@ -34,7 +34,7 @@
                         Cost
                     </td>
                     <td>
-                        <input id="equipment-cost" type="text" placeholder="350 ₽" th:field="*{cost}">
+                        <input id="equipment-cost" type="text" required placeholder="350 ₽" th:field="*{cost}">
                     </td>
                 </tr>
             </table>
@@ -46,7 +46,7 @@
                         </p>
                     </td>
                     <td>
-                        <input id="owner-name" type="text" placeholder="James" th:field="*{person.name}">
+                        <input id="owner-name" type="text" required placeholder="James" th:field="*{person.name}">
                     </td>
                 </tr>
                 <tr>
@@ -56,7 +56,7 @@
                         </p>
                     </td>
                     <td>
-                        <input id="owner-last-name" type="text" placeholder="Bond" th:field="*{person.lastName}">
+                        <input id="owner-last-name" type="text" required placeholder="Bond" th:field="*{person.lastName}">
                     </td>
                 </tr>
                 <tr>
@@ -66,7 +66,7 @@
                         </p>
                     </td>
                     <td >
-                        <input id="owner-email" type="text" placeholder="james@bond.com" th:field="*{email}">
+                        <input id="owner-email" type="text" required placeholder="james@bond.com" th:field="*{email}">
                     </td>
                 </tr>
                 <tr>
@@ -76,7 +76,7 @@
                         </p>
                     </td>
                     <td>
-                        <input id="owner-phone" type="text" placeholder="666-666" th:field="*{person.phone}">
+                        <input id="owner-phone" type="text" required placeholder="666-666" th:field="*{person.phone}">
                     </td>
                 </tr>
             </table>

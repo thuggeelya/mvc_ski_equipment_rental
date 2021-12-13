@@ -62,11 +62,17 @@
             <table>
                 <tr>
                     <td>
-                        <input id="search-bar" type="text" th:name="equipmentNameToFind">
+<!--                        <input id="search-bar" type="text" th:field="*{name}">-->
+                        <input id="search-bar" th:name="equipmentNameToFind" type="text" required>
                     </td>
                     <td>
                         <input type="submit" value="Go">
                     </td>
+<!--                    <td th:if="${#fields.hasErrors()}">-->
+<!--                        <p>-->
+<!--                            Wrong input search-->
+<!--                        </p>-->
+<!--                    </td>-->
                 </tr>
             </table>
 
