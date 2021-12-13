@@ -21,16 +21,6 @@ public class EquipmentRepository implements ProjectRepository<Equipment>, Applic
     private final List<Equipment> filter = new ArrayList<>();
     private ApplicationContext applicationContext;
 
-    private boolean stored;
-
-    public EquipmentRepository() {
-        this.stored = true;
-    }
-
-    public boolean isStored() {
-        return stored;
-    }
-
     @Override
     public List<Equipment> retrieveAll() {
         Equipment equipment1 = new Equipment();

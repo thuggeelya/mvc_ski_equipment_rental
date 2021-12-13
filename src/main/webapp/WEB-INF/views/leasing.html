@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Leasing</title>
@@ -11,18 +11,78 @@
             Leasing form
         </p>
 
-        <input id="equipment-name" type="text">
-        <input id="equipment-firm" type="text">
-        <input id="equipment-cost" type="text">
-
-        <input id="owner-name" type="text">
-        <input id="owner-last-name" type="text">
-        <input id="owner-email" type="text">
-        <input id="owner-phone" type="text">
-
-        <form method="post">
+        <form method="post" th:action="@{/account}">
+            <table th:object="${equipment}">
+                <tr>
+                    <td>
+                        Name
+                    </td>
+                    <td>
+                        <input id="equipment-name" type="text" placeholder="Ski" th:field="*{name}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Firm
+                    </td>
+                    <td>
+                        <input id="equipment-firm" type="text" placeholder="Atom" th:field="*{firmName}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Cost
+                    </td>
+                    <td>
+                        <input id="equipment-cost" type="text" placeholder="350 ₽" th:field="*{cost}">
+                    </td>
+                </tr>
+            </table>
+            <table th:object="${user}">
+                <tr>
+                    <td>
+                        <p>
+                            Name
+                        </p>
+                    </td>
+                    <td>
+                        <input id="owner-name" type="text" placeholder="James" th:field="*{person.name}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>
+                            Last name
+                        </p>
+                    </td>
+                    <td>
+                        <input id="owner-last-name" type="text" placeholder="Bond" th:field="*{person.lastName}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>
+                            E-mail
+                        </p>
+                    </td>
+                    <td >
+                        <input id="owner-email" type="text" placeholder="james@bond.com" th:field="*{email}">
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>
+                            Phone
+                        </p>
+                    </td>
+                    <td>
+                        <input id="owner-phone" type="text" placeholder="666-666" th:field="*{person.phone}">
+                    </td>
+                </tr>
+            </table>
             <input id="leasing-submit-button" type="submit" value="Submit leasing">
         </form>
+
     </div>
 
 </body>

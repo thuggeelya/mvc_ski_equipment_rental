@@ -5,6 +5,8 @@ public class Equipment {
     private String name;
     private String firmName;
     private String cost;
+    private User owner;
+    private String description;
     private boolean isFave = false;
 
     public Integer getId() {
@@ -47,9 +49,32 @@ public class Equipment {
         isFave = !isFave;
     }
 
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     @Override
-    public String toString(){
-        return "Equipment{"+"id="+id+", name='"+ name +'\''+", firmName='"+ firmName +'\''+", cost="+ cost +'\'' +
-                ", fave='" + isFave +"'}";
+    public String toString() {
+        return "Equipment{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", firmName='" + firmName + '\'' +
+                ", cost='" + cost + '\'' +
+                ", owner=" + owner +
+                ", description='" + description + '\'' +
+                ", isFave=" + isFave +
+                '}';
     }
 }

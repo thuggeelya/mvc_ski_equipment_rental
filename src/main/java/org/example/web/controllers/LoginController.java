@@ -1,6 +1,7 @@
 package org.example.web.controllers;
 
 import org.apache.log4j.Logger;
+import org.example.app.exceptions.MyLoginException;
 import org.example.app.services.LoginService;
 import org.example.web.dto.LoginForm;
 import org.jetbrains.annotations.NotNull;
@@ -31,13 +32,13 @@ public class LoginController {
     }
 
     @PostMapping("/auth")
-    public String authenticate(LoginForm loginForm) {
+    public String authenticate(LoginForm loginForm) throws MyLoginException {
         if (loginService.authenticate(loginForm)) {
             logger.info("login OK redirect to rent");
             return "redirect:/equipment/rent";
         } else {
             logger.info("login FAIL redirect back to login");
-            return "redirect:/login";
+            throw new MyLoginException("invalid username or password");
         }
     }
 }
