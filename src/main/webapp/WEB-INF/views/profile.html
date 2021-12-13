@@ -36,13 +36,13 @@
 </style>
 
 <script th:inline="javascript">
-    let tabs = document.getElementById("tabs");
-
-    tabs.onload = function setChecked() {
+    // let tabs = document.getElementById("tabs");
+    let body = document.body;
+    body.onload = function setChecked() {
         let tab1 = document.getElementById("tab_1");
         let tab2 = document.getElementById("tab_2");
 
-        let isFirstTabCheckedAsDefault = /*[[${isFirstTabCheckedAsDefault}]]*/ true;
+        let isFirstTabCheckedAsDefault = [[${isFirstTabCheckedAsDefault}]];
         if (!isFirstTabCheckedAsDefault) {
             tab2.checked = true;
         } else {
@@ -118,7 +118,7 @@
                             </p>
                         </td>
                         <td>
-                            <input id="user-email" th:value="${user.email} ?: ''" type="text" required readonly="readonly">
+                            <input id="user-email" th:if="${user?.email}" th:value="${user.email} ?: ''" type="text" required readonly="readonly">
                         </td>
                     </tr>
 

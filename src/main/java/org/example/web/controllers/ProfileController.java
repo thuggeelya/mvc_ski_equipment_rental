@@ -12,7 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
@@ -41,6 +40,7 @@ public class ProfileController {
         logger.info("(USER): " + user);
 
         Enumeration<String> attributesSession = request.getSession().getAttributeNames();
+        logger.info("\nATTRIBUTES IN SESSION");
         while (attributesSession.hasMoreElements()) {
             String attribute = attributesSession.nextElement();
             logger.info("Session attribute: " + attribute);
@@ -59,7 +59,8 @@ public class ProfileController {
         profilePageVisitingCause = ProfilePageVisitingCause.SEE_EQUIPMENT;
 
         user.getUserEquipment().addToLeaseHistory(newLeaseEquipment);
-        logger.info("PERSON: " + user.getPerson() + " " + user.getUserEquipment().getLeaseHistory());
+        logger.info("USER: " + user);
+        logger.info("PERSON: " + user.getPerson() + "\n" + user.getUserEquipment().getLeaseHistory());
 
         request.getSession().removeAttribute("equipment_to_lease");
         request.getSession().setAttribute("login_user", user);
@@ -76,9 +77,11 @@ public class ProfileController {
         user.setPerson(person);
         request.getSession().setAttribute("login_user", user);
         if (profilePageVisitingCause == ProfilePageVisitingCause.SEE_EQUIPMENT) {
-            return "profile";
+            logger.info("updating profile page");
+            return "redirect:/profile";
         } else {
-            return "redirect:/lease";
+            logger.info("leaving profile page");
+            return "redirect:/equipment/rent";
         }
     }
 }
