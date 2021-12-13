@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,7 +8,7 @@
             let tab1 = document.getElementById("tab_1");
             let tab2 = document.getElementById("tab_2");
 
-            let isFirstTabCheckedAsDefault = [[${isFirstTabCheckedAsDefault}]];
+            let isFirstTabCheckedAsDefault = /*[[${isFirstTabCheckedAsDefault}]]*/ true;
             if (!isFirstTabCheckedAsDefault) {
                 tab2.checked = true;
             } else {
@@ -18,15 +18,15 @@
     </script>
 </head>
 <style>
-    .tabs { width: 100%; padding: 0; margin: 0 auto; }
-    .tabs>input { display: none; }
-    .tabs>div {
+    .tabs, .equipment_tabs{ width: 100%; padding: 0; margin: 0 auto; }
+    .tabs>input, .equipment_tabs>input { display: none; }
+    .tabs>div, .equipment_tabs>div {
         display: none;
         padding: 12px;
         /*border: 1px solid #C0C0C0;*/
         background: #FFFFFF;
     }
-    .tabs>label {
+    .tabs>label, .equipment_tabs>label {
         display: inline-block;
         padding: 7px;
         margin: 0 -5px -1px 0;
@@ -36,14 +36,19 @@
         background: #E0E0E0;
         cursor: pointer;
     }
-    .tabs>input:checked + label {
+    .tabs>input:checked + label, .equipment_tabs>input:checked + label {
         color: #000000;
         border: 1px solid #C0C0C0;
         border-bottom: 1px solid #FFFFFF;
         background: #FFFFFF;
     }
+
+    /**/
+
     #tab_1:checked ~ #txt_1,
     #tab_2:checked ~ #txt_2,
+    #tab_2_1:checked ~ #txt_2_1,
+    #tab_2_2:checked ~ #txt_2_2,
     #tab_3:checked ~ #txt_3,
     #tab_4:checked ~ #txt_4 { display: block; }
 </style>
@@ -125,8 +130,22 @@
             </form>
         </div>
 
-        <div id="txt_2">
-            <p>Equipment details.</p>
+        <div class="equipment_tabs" id="txt_2">
+
+            <input type="radio" name="inset" value="" id="tab_2_1" checked>
+            <label for="tab_2_1">Rent history</label>
+
+            <input type="radio" name="inset" value="" id="tab_2_2">
+            <label for="tab_2_2">Leasing history</label>
+
+            <div id="txt_2_1">
+
+            </div>
+
+            <div id="txt_2_2">
+
+            </div>
+
         </div>
 
         <div id="txt_3"></div>

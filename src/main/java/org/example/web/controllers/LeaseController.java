@@ -30,7 +30,7 @@ public class LeaseController {
         User user = (User) request.getSession().getAttribute("login_user");
         logger.info("USER: " + user);
 
-        if (user.getPerson().getId() == -1) { // means that no info at PROFILE - need to fill in
+        if (user == null || user.getPerson().getId() == -1) { // means that no info at PROFILE - need to fill it in or to auth
             return "redirect:/profile";
         }
 
