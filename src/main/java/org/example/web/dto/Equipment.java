@@ -1,6 +1,8 @@
 package org.example.web.dto;
 
-public class Equipment {
+import org.jetbrains.annotations.NotNull;
+
+public class Equipment implements Comparable<Equipment> {
     private Integer id;
     private String name;
     private String firmName;
@@ -8,6 +10,27 @@ public class Equipment {
     private User owner;
     private String description;
     private boolean isFave = false;
+    private boolean available;
+    private int availableLeft;
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
+
+    public int getAvailableLeft() {
+        return availableLeft;
+    }
+
+    public void setAvailableLeft(int availableLeft) {
+        this.availableLeft = Math.max(availableLeft, 0);
+        if (Math.max(availableLeft, 0) == 0) {
+            this.setAvailable(false);
+        }
+    }
 
     public Integer getId() {
         return id;
@@ -75,6 +98,16 @@ public class Equipment {
                 ", owner=" + owner +
                 ", description='" + description + '\'' +
                 ", isFave=" + isFave +
+                ", available=" + available +
+                ", availableLeft=" + availableLeft +
                 '}';
+    }
+
+    @Override
+    public int compareTo(@NotNull Equipment o) {
+        if (Integer.parseInt(this.getCost()) == Integer.parseInt(o.getCost())) {
+            return 0;
+        }
+        return Integer.parseInt(this.getCost()) > Integer.parseInt(o.getCost()) ? 1 : -1;
     }
 }

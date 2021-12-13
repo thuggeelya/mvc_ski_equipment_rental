@@ -23,7 +23,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
         logger.info("populate inmemory auth user");
         auth
                 .inMemoryAuthentication()
-                .withUser("root")
+                .withUser("thuggeelya")
                 .password(passwordEncoder().encode("123"))
                 .roles("USER");
     }

@@ -7,6 +7,8 @@ public class User {
     private String password;
     private Person person;
 
+    //
+
     public int getId() {
         return id;
     }
@@ -32,6 +34,10 @@ public class User {
     }
 
     public Person getPerson() {
+        if (person == null) {
+            person = new Person();
+            person.setId(-1);
+        }
         return person;
     }
 

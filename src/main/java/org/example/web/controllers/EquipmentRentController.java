@@ -19,6 +19,7 @@ public class EquipmentRentController {
 
     private final Logger logger = Logger.getLogger(EquipmentRentController.class);
     private EquipmentService equipmentService;
+    //private User user;
 
     @Autowired
     public EquipmentRentController(EquipmentService equipmentService) {

@@ -2,7 +2,7 @@ package org.example.web.dto;
 
 public class LoginForm {
 
-    private String username;
+    private String username; // login = email
     private String password;
 
     public LoginForm(String username, String password) {

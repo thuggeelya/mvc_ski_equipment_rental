@@ -8,8 +8,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Repository;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,8 +16,8 @@ import java.util.regex.Pattern;
 public class EquipmentRepository implements ProjectRepository<Equipment>, ApplicationContextAware {
 
     private final Logger logger = Logger.getLogger(EquipmentRepository.class);
-    private final List<Equipment> repo = new ArrayList<>();
-    private final List<Equipment> filter = new ArrayList<>();
+    private final Set<Equipment> repo = new TreeSet<>();
+    private final Set<Equipment> filter = new TreeSet<>();
     private ApplicationContext applicationContext;
 
     @Override
