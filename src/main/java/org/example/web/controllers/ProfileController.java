@@ -22,7 +22,8 @@ public class ProfileController {
     private final Logger logger = Logger.getLogger(ProfileController.class);
     private ProfileService profileService;
 
-    private static ProfilePageVisitingCause profilePageVisitingCause = ProfilePageVisitingCause.SEE_EQUIPMENT; // default state
+    private static ProfilePageVisitingCause profilePageVisitingCause =
+            ProfilePageVisitingCause.SEE_EQUIPMENT; // default state
 
     @Autowired
     public ProfileController(ProfileService profileService) {
