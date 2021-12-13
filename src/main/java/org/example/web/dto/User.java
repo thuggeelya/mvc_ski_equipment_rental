@@ -6,8 +6,7 @@ public class User {
     private String email; // login
     private String password;
     private Person person;
-
-    //
+    private UserEquipment userEquipment;
 
     public int getId() {
         return id;
@@ -15,6 +14,8 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
+        this.person.setId(id);
+        this.userEquipment.setId(id);
     }
 
     public String getEmail() {
@@ -43,6 +44,18 @@ public class User {
 
     public void setPerson(Person person) {
         this.person = person;
+        this.person.setId(id);
+    }
+
+    public UserEquipment getUserEquipment() {
+        if (userEquipment == null) {
+            userEquipment = new UserEquipment();
+        }
+        return userEquipment;
+    }
+
+    public void setUserEquipment(UserEquipment userEquipment) {
+        this.userEquipment = userEquipment;
     }
 
     @Override

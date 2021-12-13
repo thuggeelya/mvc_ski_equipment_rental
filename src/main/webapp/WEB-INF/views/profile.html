@@ -34,6 +34,23 @@
     #tab_3:checked ~ #txt_3,
     #tab_4:checked ~ #txt_4 { display: block; }
 </style>
+
+<script th:inline="javascript">
+    let tabs = document.getElementById("tabs");
+
+    tabs.onload = function setChecked() {
+        let tab1 = document.getElementById("tab_1");
+        let tab2 = document.getElementById("tab_2");
+
+        let isFirstTabCheckedAsDefault = /*[[${isFirstTabCheckedAsDefault}]]*/ true;
+        if (!isFirstTabCheckedAsDefault) {
+            tab2.checked = true;
+        } else {
+            tab1.checked = true;
+        }
+    }
+</script>
+
 <body>
 
     <div class="tabs">
@@ -44,10 +61,72 @@
         <label for="tab_2">Equipment details</label>
 
         <input type="radio" name="inset" value="" id="tab_3">
-        <label for="tab_3">Tab №3</label>
+        <label for="tab_3">Tab 3</label>
 
         <div id="txt_1">
-            <p>Произвольное содержимое...</p>
+
+            <form id="personal-data" method="post" th:object="${person}" th:action="@{/save}">
+                <table>
+                    <tr>
+                        <td>
+                            <p>
+                                Name
+                            </p>
+                        </td>
+                        <td>
+                            <input id="user-name" th:value="${person?.name} ?: ''" type="text" required th:field="*{name}">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <p>
+                                Last Name
+                            </p>
+                        </td>
+                        <td>
+                            <input id="user-last-name" th:if="${person}" th:value="${person.lastName} ?: ''" type="text" required th:field="*{lastName}">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <p>
+                                Age
+                            </p>
+                        </td>
+                        <td>
+                            <input id="user-age" th:if="${person}" th:value="${person.age} ?: ''" type="number" required th:field="*{age}">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <p>
+                                Phone
+                            </p>
+                        </td>
+                        <td>
+                            <input id="user-phone" th:if="${person}" th:value="${person?.phone} ?: ''" type="tel" required th:field="*{phone}">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <p>
+                                E-mail
+                            </p>
+                        </td>
+                        <td>
+                            <input id="user-email" th:value="${user.email} ?: ''" type="text" required readonly="readonly">
+                        </td>
+                    </tr>
+
+                </table>
+
+                <input id="submit-changes-button" type="submit" value="Save">
+            </form>
+
         </div>
         <div id="txt_2">
             <p>Equipment details.</p>

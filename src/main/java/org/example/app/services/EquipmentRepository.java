@@ -1,6 +1,7 @@
 package org.example.app.services;
 
 import org.apache.log4j.Logger;
+import org.example.app.comparators.Comparators;
 import org.example.web.dto.Equipment;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeansException;
@@ -16,8 +17,8 @@ import java.util.regex.Pattern;
 public class EquipmentRepository implements ProjectRepository<Equipment>, ApplicationContextAware {
 
     private final Logger logger = Logger.getLogger(EquipmentRepository.class);
-    private final Set<Equipment> repo = new TreeSet<>();
-    private final Set<Equipment> filter = new TreeSet<>();
+    private final Set<Equipment> repo = new TreeSet<>(Comparators.equipmentCostComparator);
+    private final Set<Equipment> filter = new TreeSet<>(Comparators.equipmentCostComparator);
     private ApplicationContext applicationContext;
 
     @Override

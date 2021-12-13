@@ -1,8 +1,6 @@
 package org.example.web.dto;
 
-import org.jetbrains.annotations.NotNull;
-
-public class Equipment implements Comparable<Equipment> {
+public class Equipment {
     private Integer id;
     private String name;
     private String firmName;
@@ -101,13 +99,5 @@ public class Equipment implements Comparable<Equipment> {
                 ", available=" + available +
                 ", availableLeft=" + availableLeft +
                 '}';
-    }
-
-    @Override
-    public int compareTo(@NotNull Equipment o) {
-        if (Integer.parseInt(this.getCost()) == Integer.parseInt(o.getCost())) {
-            return 0;
-        }
-        return Integer.parseInt(this.getCost()) > Integer.parseInt(o.getCost()) ? 1 : -1;
     }
 }

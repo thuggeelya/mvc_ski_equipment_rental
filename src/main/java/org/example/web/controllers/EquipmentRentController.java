@@ -59,9 +59,9 @@ public class EquipmentRentController {
     }
 
     @PostMapping("/set_fave")
-    public String setFave(Equipment equipment) {
+    public void setFave(Equipment equipment) {
         equipmentService.setFave(equipment);
-        return "equipment_rent";
+        // return "equipment_rent";
     }
 
     @GetMapping("/leasing")
