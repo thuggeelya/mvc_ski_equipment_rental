@@ -46,12 +46,12 @@
 <body>
 
     <div id="message">
-        <h2 th:text="'Check your rent information of ' + ${equipment.name} + '(' + ${equipment.id} + ')'">
+        <h2 th:text="'Rent card of ' + ${equipment.name} + ' (ID: ' + ${equipment.id} + ')'">
             Check your rent information
         </h2>
     </div>
 
-    <form id="personal-data" method="post" th:action="'@{/equipment/rent/}' + ${equipment.name} + '/commit'">
+    <form id="personal-data" method="post" th:action="@{/equipment/rent/commit}">
         <div id="left">
         <table>
             <tr>
@@ -61,7 +61,7 @@
                     </p>
                 </td>
                 <td>
-                    <input id="user-name" th:value="${person?.name} ?: ''" type="text" required>
+                    <input id="user-name" th:value="${person?.name} ?: ''" type="text" required th:field="*{person.name}">
                 </td>
             </tr>
 
@@ -72,7 +72,7 @@
                     </p>
                 </td>
                 <td>
-                    <input id="user-last-name" th:if="${person}" th:value="${person.lastName} ?: ''" type="text" required>
+                    <input id="user-last-name" th:if="${person}" th:value="${person.lastName} ?: ''" type="text" required th:field="*{person.lastName}">
                 </td>
             </tr>
 
@@ -83,7 +83,7 @@
                     </p>
                 </td>
                 <td>
-                    <input id="user-phone" th:if="${person}" th:value="${person?.phone} ?: ''" type="tel" required>
+                    <input id="user-phone" th:if="${person}" th:value="${person?.phone} ?: ''" type="tel" required th:field="*{person.phone}">
                 </td>
             </tr>
 
@@ -105,7 +105,7 @@
                     </p>
                 </td>
                 <td>
-                    <input id="user-card" placeholder="0000 0000 0000 0000" onkeyup="return onKeyUp(this)" pattern="\d{4}\s\d{4}\s\d{4}\s\d{4}" type="text" required>
+                    <input id="user-card" placeholder="0000 0000 0000 0000" onkeyup="return onKeyUp(this)" maxlength="12" type="text" required>
                 </td>
             </tr>
 

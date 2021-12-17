@@ -6,9 +6,11 @@ import org.example.web.dto.Equipment;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Enumeration;
 
 @Controller
 @RequestMapping(value = "filtered_equipment")
@@ -23,15 +25,21 @@ public class FilterController {
     }
 
     @GetMapping("/found")
-    public String equipmentFound() {
+    public String equipmentFound(@NotNull HttpServletRequest request, Model model) {
         logger.info("got equipment found");
-        return "view_results_page";
-    }
 
-    @PostMapping("/see_results")
-    public void seeEquipment(@RequestParam(value = "equipment") @ModelAttribute(value = "equipment") Equipment equipment,
-                             @NotNull HttpServletRequest request) {
-        request.getSession().setAttribute("equipmentToGoTo", equipment);
-//        return "redirect:/equipment/rent/" + equipment.getId();
+        Enumeration<String> attributesSession = request.getSession().getAttributeNames();
+        logger.info("ATTRIBUTES IN SESSION:");
+        boolean isUserOnSession = false;
+        while (attributesSession.hasMoreElements()) {
+            String attribute = attributesSession.nextElement();
+            if (attribute.equals("login_user")) {
+                isUserOnSession = true;
+            }
+            logger.info("Session attribute: " + attribute);
+        }
+
+        model.addAttribute("isUserOnSession", isUserOnSession);
+        return "view_results_page";
     }
 }

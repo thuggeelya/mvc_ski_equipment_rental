@@ -108,7 +108,7 @@
                             </p>
                         </td>
                         <td>
-                            <input id="user-age" th:if="${person}" th:value="${person.age} ?: ''" type="number" required th:field="*{age}">
+                            <input id="user-age" th:if="${person}" th:value="${person.age} ?: ''" type="number" th:field="*{age}">
                         </td>
                     </tr>
 
@@ -193,7 +193,7 @@
                             <td th:if="${equipment_lease}" th:utext="${equipment_lease.description}">Details</td>
                             <td th:if="${equipment_lease}">
                                 <a href="equipment_unit.html" th:href="@{/equipment/{name}(name=${equipment_lease.name})}">
-                                    <input type="url" value="Info">
+                                    <input type="url" value="Edit">
                                 </a>
                             </td>
                         </tr>

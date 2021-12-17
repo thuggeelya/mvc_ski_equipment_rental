@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Enumeration;
 
 @Controller
 @RequestMapping(value = "equipment")
@@ -25,8 +26,21 @@ public class EquipmentRentController {
     }
 
     @GetMapping("/rent")
-    public String equipment(@NotNull Model model) {
+    public String equipment(@NotNull Model model, @NotNull HttpServletRequest request) {
         logger.info("got equipment");
+
+        Enumeration<String> attributesSession = request.getSession().getAttributeNames();
+        logger.info("ATTRIBUTES IN SESSION:");
+        boolean isUserOnSession = false;
+        while (attributesSession.hasMoreElements()) {
+            String attribute = attributesSession.nextElement();
+            if (attribute.equals("login_user")) {
+                isUserOnSession = true;
+            }
+            logger.info("Session attribute: " + attribute);
+        }
+
+        model.addAttribute("isUserOnSession", isUserOnSession);
         model.addAttribute("equipment", new Equipment());
         model.addAttribute("equipmentList", equipmentRentService.getAllEquipment());
         return "equipment_rent";
@@ -49,13 +63,6 @@ public class EquipmentRentController {
                 model.addAttribute("equipmentList", equipmentRentService.getAllEquipment());
                 return new ModelAndView("equipment_rent");
             }
-    }
-
-    @PostMapping("/see_equipment")
-    public void seeEquipment(@ModelAttribute(value = "equipment") @RequestParam(value = "equipment") Equipment equipment,
-                             @NotNull HttpServletRequest request) {
-        request.getSession().setAttribute("equipmentToGoTo", equipment);
-//        return "redirect:/equipment/rent/" + equipment.getName();
     }
 
     @PostMapping("/set_fave")

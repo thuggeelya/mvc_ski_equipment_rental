@@ -37,7 +37,7 @@ public class User {
     public Person getPerson() {
         if (person == null) {
             person = new Person();
-            person.setId(-1);
+            person.setId(id);
         }
         return person;
     }

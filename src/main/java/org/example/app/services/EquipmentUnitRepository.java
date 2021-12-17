@@ -2,21 +2,21 @@ package org.example.app.services;
 
 import org.apache.log4j.Logger;
 import org.example.web.dto.Equipment;
+import org.example.web.dto.User;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
+import javax.servlet.http.HttpServletRequest;
 import java.sql.ResultSet;
-import java.sql.Types;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.atomic.AtomicReference;
 
 @Repository
 @ComponentScan(value = "jdbc_template")
@@ -36,35 +36,50 @@ public class EquipmentUnitRepository implements ApplicationContextAware {
         this.applicationContext = applicationContext;
     }
 
-    public Equipment findEquipmentByName(String name) {
-        AtomicReference<Equipment> equipmentToFind = new AtomicReference<>(new Equipment());
-        logger.info("DB:");
-        List<Equipment> equipmentList = jdbcTemplate.query("SELECT * FROM equipment", (ResultSet rs, int rowNum) -> {
-            Equipment equipment = new Equipment();
-            equipment.setId(rs.getInt("id"));
-            equipment.setName(rs.getString("name"));
-            equipment.setFirmName(rs.getString("firm_name"));
-            equipment.setCost(rs.getString("cost"));
-            if (equipment.getName().equals(name)) {
-                equipmentToFind.set(equipment);
-            }
-            logger.info("got equipment: " + equipment);
-            return equipment;
-        });
+    public Map<Equipment, Boolean> findEquipmentByName(String name, @NotNull HttpServletRequest request) {
+        logger.info("findEquipmentByName():");
+        User user = (User) request.getSession().getAttribute("login_user");
+        if (user == null) {
+            user = new User();
+            logger.info("user is null");
+            return null;
+        }
+        logger.info("user is not null");
 
-        if (equipmentToFind.get().getName() == null) {
-            equipmentToFind.get().setId(equipmentToFind.get().hashCode());
-            equipmentToFind.get().setName(name);
-            equipmentToFind.get().setFirmName("CUSTOM");
-            equipmentToFind.get().setCost("0");
-            Map<String, Object> paramMap = new HashMap<>();
-            paramMap.put("id", equipmentToFind.get().getId());
-            paramMap.put ("name", name);
-            paramMap.put ("firm_name", "CUSTOM");
-            paramMap.put("cost", "0");
-            jdbcTemplate.update("INSERT INTO equipment(id,name,firm_name,cost) VALUES (:id,:name,:firm_name,:cost)", paramMap);
+        final Equipment[] searchedEquipment = {null};
+
+        Map<Equipment, Boolean> map = new HashMap<>();
+
+        for (Equipment equipment : user.getUserEquipment().getLeaseHistory()) {
+            if (equipment.getName().equals(name)) {
+                map.put(equipment, true); // isLease = true
+                logger.info("equipment is in lease history: " + equipment);
+                return map;
+            }
         }
 
-        return (equipmentToFind.get().getName() == null) ? null : equipmentToFind.get();
+        jdbcTemplate.query("SELECT * FROM equipment", (ResultSet rs, int rowNum) -> {
+            if (rs.getString("name").equals(name)) {
+                searchedEquipment[0] = new Equipment();
+                searchedEquipment[0].setId(rs.getInt("id"));
+                searchedEquipment[0].setName(rs.getString("name"));
+                searchedEquipment[0].setFirmName(rs.getString("firm_name"));
+                searchedEquipment[0].setCost(rs.getString("cost"));
+                searchedEquipment[0].setDescription(rs.getString("description"));
+                searchedEquipment[0].setAvailable(rs.getBoolean("available"));
+                searchedEquipment[0].setAvailableLeft(rs.getInt("available_left"));
+                map.put(searchedEquipment[0], false);
+                logger.info("equipment is in db: " + searchedEquipment[0]);
+            }
+            return searchedEquipment[0];
+        });
+
+        if (searchedEquipment[0] != null) {
+            return map;
+        }
+
+        logger.info("equipment is null");
+        map.put(null, false);
+        return null;
     }
 }

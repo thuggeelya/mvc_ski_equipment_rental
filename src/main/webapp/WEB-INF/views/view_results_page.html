@@ -23,7 +23,7 @@
             position: relative;
             size: auto;
         }
-        #equipment-submit-button, #equipment-name, #equipment-image {
+        #equipment-submit-button, #equipment-submit-button-return-login-page, #equipment-name, #equipment-image {
             position: relative;
             float: inside;
             width: auto;
@@ -67,18 +67,21 @@
         </div>
 
         <div id="catalogue-all">
-<!--            <form method="post" th:action="@{/equipment/see_results}">-->
-            <form method="post" th:action="@{/equipment/see_results}" th:object="${equipment}">
 
-                <div id="equipment-all" th:each="equipmentt : ${equipmentFound}">
+            <form>
+
+                <div id="equipment-all" th:each="equipment : ${equipmentFound}">
                     <div id="equipment-name">
-                        <p th:text="${equipmentt.name}"></p>
+                        <p th:text="${equipment.name}"></p>
                     </div>
                     <div id="equipment-image">
                         <img th:src="@{/images/empty_img.png}" alt="No image">
                     </div>
-                    <a href="equipment_unit.html" th:href="@{/equipment/rent/{name}(name=${equipment.name})}">
-                        <input type="submit" value="Rent">
+                    <a th:if="${isUserOnSession}" href="equipment_unit.html" th:href="@{/equipment/rent/{name}(name=${equipment.name})}">
+                        <input id="equipment-submit-button" type="url" value="Info" readonly="readonly">
+                    </a>
+                    <a th:if="${isUserOnSession} == false" href="login_page.html" th:href="@{/login}">
+                        <input id="equipment-submit-button-return-login-page" type="url" value="Info" readonly="readonly">
                     </a>
                     <hr/>
                 </div>

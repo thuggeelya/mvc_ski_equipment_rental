@@ -23,7 +23,7 @@
             position: relative;
             size: auto;
         }
-        #equipment-submit-button, #equipment-name, #equipment-image {
+        #equipment-submit-button, #equipment-submit-button-return-login-page, #equipment-name, #equipment-image {
             position: relative;
             float: inside;
             width: auto;
@@ -105,7 +105,7 @@
 
     <div id="catalogue-all">
 
-        <form method="post" th:action="@{/equipment/see_equipment}">
+        <form>
 
             <div id="equipment-all" th:each="equipment : ${equipmentList}">
                 <div id="equipment-name">
@@ -114,7 +114,12 @@
                 <div id="equipment-image">
                     <img th:src="@{/images/empty_img.png}" alt="No image">
                 </div>
-                <input id="equipment-submit-button" type="submit" value="Rent">
+                <a th:if="${isUserOnSession} == true" href="equipment_unit.html" th:href="@{/equipment/{name}(name=${equipment.name})}">
+                    <input id="equipment-submit-button" type="url" value="Info" readonly="readonly">
+                </a>
+                <a th:if="${isUserOnSession} == false" href="login_page.html" th:href="@{/login}">
+                    <input id="equipment-submit-button-return-login-page" type="url" value="Info" readonly="readonly">
+                </a>
                 <hr/>
             </div>
 

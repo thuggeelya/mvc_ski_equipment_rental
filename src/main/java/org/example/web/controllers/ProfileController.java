@@ -38,6 +38,8 @@ public class ProfileController {
     public String openProfile(Model model, @NotNull HttpServletRequest request) {
         User user = getSessionUser(request);
 
+        request.getSession().setAttribute("isLease", false);
+
         if (user == null) {
             logger.info("redirect to /login for authorization");
             return "redirect:/login";
@@ -55,6 +57,7 @@ public class ProfileController {
         model.addAttribute("rent_equipment", user.getUserEquipment().getRentHistory());
         model.addAttribute("lease_equipment", user.getUserEquipment().getLeaseHistory());
         model.addAttribute("user", user);
+        model.addAttribute("isLease", true);
 
         Equipment newLeaseEquipment = (Equipment) request.getSession().getAttribute("equipment_to_lease");
 
@@ -67,7 +70,6 @@ public class ProfileController {
 
         profilePageVisitingCause = ProfilePageVisitingCause.SEE_EQUIPMENT;
 
-        user.getUserEquipment().addToLeaseHistory(newLeaseEquipment);
         logger.info("USER: " + user);
         logger.info("PERSON: " + user.getPerson() + "\n" + user.getUserEquipment().getLeaseHistory());
 
@@ -94,9 +96,4 @@ public class ProfileController {
             return "redirect:/lease";
         }
     }
-
-//    @PostMapping("/equipment_unit")
-//    public void equipmentPage() {
-//        logger.info("redirect to equipment page");
-//    }
 }

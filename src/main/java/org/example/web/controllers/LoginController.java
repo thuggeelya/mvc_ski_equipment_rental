@@ -27,7 +27,7 @@ public class LoginController {
         this.loginService = loginService;
     }
 
-    @GetMapping
+    @GetMapping()
     public String login(@NotNull Model model) {
         logger.info("GET /login returns login_page.html");
         model.addAttribute("user", new User());

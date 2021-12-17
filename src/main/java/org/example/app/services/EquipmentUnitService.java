@@ -4,6 +4,9 @@ import org.example.web.dto.Equipment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
+
 @Service
 public class EquipmentUnitService {
 
@@ -14,7 +17,7 @@ public class EquipmentUnitService {
         this.equipmentUnitRepository = equipmentUnitRepository;
     }
 
-    public Equipment findEquipmentByName(String name) {
-        return equipmentUnitRepository.findEquipmentByName(name);
+    public Map<Equipment, Boolean> findEquipmentByName(String name, HttpServletRequest request) {
+        return equipmentUnitRepository.findEquipmentByName(name, request);
     }
 }
