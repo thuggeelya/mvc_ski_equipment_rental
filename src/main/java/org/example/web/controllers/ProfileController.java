@@ -68,7 +68,6 @@ public class ProfileController {
         profilePageVisitingCause = ProfilePageVisitingCause.SEE_EQUIPMENT;
 
         user.getUserEquipment().addToLeaseHistory(newLeaseEquipment);
-        user.getUserEquipment().addToRentHistory(newLeaseEquipment); //
         logger.info("USER: " + user);
         logger.info("PERSON: " + user.getPerson() + "\n" + user.getUserEquipment().getLeaseHistory());
 

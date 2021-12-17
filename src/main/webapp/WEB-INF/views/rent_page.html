@@ -4,7 +4,126 @@
     <meta charset="UTF-8">
     <title>Rent</title>
 </head>
+<style>
+    #left {
+        position: absolute;
+        left: 30px;
+        top: 50px;
+        width: 50%;
+    }
+
+    #right {
+        position: absolute;
+        right: 30px;
+        top: 50px;
+        width: 50%;
+    }
+</style>
+
+<!--<script>-->
+<!--        $( document ).ready(function() {-->
+<!--        $(".hour_button").on('change', function() {-->
+<!--            let hours = $(this).val();-->
+<!--            let hourArray = hours.split(' ');-->
+<!--            let hour= hourArray[0];-->
+<!--            let currentVal = $("#cost_multiply_hours").html();-->
+<!--            $("#cost_multiply_hours").html(currentVal*hour);-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
+
+<script>
+    let regexp = "/[-/|{}*\\()\\v\\s\\t\\n\\r\\f\\<\\>\\[\\]!&?#№%@$^_\\=+.;\":'а-яА-Яa-zA-Z]/";
+    function onKeyUp(input) {
+        let val = input.value;
+        if (regexp.test(val)) {
+            val = val.replace(regexp, '');
+            input.value = val;
+        }
+    }
+</script>
+
 <body>
+
+    <div id="message">
+        <h2 th:text="'Check your rent information of ' + ${equipment.name} + '(' + ${equipment.id} + ')'">
+            Check your rent information
+        </h2>
+    </div>
+
+    <form id="personal-data" method="post" th:action="'@{/equipment/rent/}' + ${equipment.name} + '/commit'">
+        <div id="left">
+        <table>
+            <tr>
+                <td>
+                    <p>
+                        Name
+                    </p>
+                </td>
+                <td>
+                    <input id="user-name" th:value="${person?.name} ?: ''" type="text" required>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <p>
+                        Last Name
+                    </p>
+                </td>
+                <td>
+                    <input id="user-last-name" th:if="${person}" th:value="${person.lastName} ?: ''" type="text" required>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <p>
+                        Phone
+                    </p>
+                </td>
+                <td>
+                    <input id="user-phone" th:if="${person}" th:value="${person?.phone} ?: ''" type="tel" required>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <p>
+                        E-mail
+                    </p>
+                </td>
+                <td>
+                    <input id="user-email" th:if="${user}" th:value="${user.email} ?: ''" type="text" required>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <p>
+                        Card
+                    </p>
+                </td>
+                <td>
+                    <input id="user-card" placeholder="0000 0000 0000 0000" onkeyup="return onKeyUp(this)" pattern="\d{4}\s\d{4}\s\d{4}\s\d{4}" type="text" required>
+                </td>
+            </tr>
+
+        </table>
+        </div>
+
+        <div id="right">
+            <p th:text="${equipment.name}"></p>
+            <br>
+            <img class="equipment-img" th:src="@{/images/empty_img.png}" width="150px" height="150px" alt="No image">
+            <br>
+            <input class="btn btn-default hour_button" id="hours-input" type="number" value="1" placeholder="hours rent">
+            <br>
+            <p id="cost_multiply_hours" th:text="${equipment.cost} + ' RUB / hour'"></p>
+            <br>
+            <input id="submit-changes-button" type="submit" value="Pay">
+        </div>
+    </form>
 
 </body>
 </html>

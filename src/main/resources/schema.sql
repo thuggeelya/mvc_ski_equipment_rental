@@ -9,5 +9,5 @@ CREATE TABLE equipment(
     description VARCHAR(250),
     is_fave BIT,
     available BIT,
-    available_left INTEGER
+    available_left INT
 );
