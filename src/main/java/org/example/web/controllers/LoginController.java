@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping(value = "/login")
-// @SessionAttributes(value = "login_user")
 public class LoginController {
 
     private final Logger logger = Logger.getLogger(LoginController.class);
@@ -38,7 +37,7 @@ public class LoginController {
     @PostMapping("/auth")
     public String authenticate(@ModelAttribute("login_user") User user, HttpServletRequest request) throws MyLoginException {
         if (loginService.authenticate(user)) {
-            request.getSession().setAttribute("login_user", user);
+            request.getSession().setAttribute("login_user", user); // session user
             logger.info("login OK redirect to rent");
             return "redirect:/equipment/rent";
         } else {

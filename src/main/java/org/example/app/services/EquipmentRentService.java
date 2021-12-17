@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class EquipmentService {
+public class EquipmentRentService {
     private final ProjectRepository<Equipment> equipmentRepo;
 
     @Autowired
-    public EquipmentService(EquipmentRepository equipmentRepo) {
+    public EquipmentRentService(EquipmentRentRepository equipmentRepo) {
         this.equipmentRepo = equipmentRepo;
     }
 

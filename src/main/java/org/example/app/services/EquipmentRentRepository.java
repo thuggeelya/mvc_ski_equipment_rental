@@ -5,45 +5,42 @@ import org.example.app.comparators.Comparators;
 import org.example.web.dto.Equipment;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.sql.ResultSet;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Repository
-public class EquipmentRepository implements ProjectRepository<Equipment>, ApplicationContextAware {
+public class EquipmentRentRepository implements ProjectRepository<Equipment>, ApplicationContextAware {
 
-    private final Logger logger = Logger.getLogger(EquipmentRepository.class);
+    private final Logger logger = Logger.getLogger(EquipmentRentRepository.class);
     private final Set<Equipment> repo = new TreeSet<>(Comparators.equipmentCostComparator);
     private final Set<Equipment> filter = new TreeSet<>(Comparators.equipmentCostComparator);
     private ApplicationContext applicationContext;
+    private final NamedParameterJdbcTemplate jdbcTemplate;
+
+    @Autowired
+    public EquipmentRentRepository(NamedParameterJdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 
     @Override
     public List<Equipment> retrieveAll() {
-        Equipment equipment1 = new Equipment();
-        equipment1.setName("Ski Bounce");
-        equipment1.setCost("300");
-        equipment1.setFirmName("ATOM");
-        store(equipment1);
-        Equipment equipment2 = new Equipment();
-        equipment2.setName("Snowboard Beepoo");
-        equipment2.setCost("350");
-        equipment2.setFirmName("IDK");
-        store(equipment2);
-        Equipment equipment3 = new Equipment();
-        equipment3.setName("Sticks Pro");
-        equipment3.setCost("50");
-        equipment3.setFirmName("ATOM");
-        store(equipment3);
-        Equipment equipment4 = new Equipment();
-        equipment4.setName("Ski Pro");
-        equipment4.setCost("400");
-        equipment4.setFirmName("SMTH");
-        store(equipment4);
-        return new ArrayList<>(repo);
+        List<Equipment> equipmentList = jdbcTemplate.query("SELECT * FROM equipment", (ResultSet rs, int rowNum) -> {
+            Equipment equipment = new Equipment();
+            equipment.setName(rs.getString("name"));
+            equipment.setFirmName(rs.getString("firm_name"));
+            equipment.setCost(rs.getString("cost"));
+            store(equipment);
+            return equipment;
+        });
+        return new ArrayList<>(equipmentList);
     }
 
     @Override
@@ -70,15 +67,21 @@ public class EquipmentRepository implements ProjectRepository<Equipment>, Applic
 
         String regexp = "\\S*(" + equipmentNameToFind.toLowerCase() + ")\\S*";
         Pattern p = Pattern.compile(regexp);
-        for (Equipment equipment : new ArrayList<>(repo)) { // do db instead of retrieveAll()
+        for (Equipment equipment : new ArrayList<>(repo)) {
             String name = equipment.getName().toLowerCase();
             Matcher m = p.matcher(name);
             if (m.find()) {
                 logger.info("found equipment: " + equipment);
                 filter.add(equipment);
             }
+            String firmName = equipment.getFirmName().toLowerCase();
+            m = p.matcher(firmName);
+            if (m.find()) {
+                logger.info("found equipment: " + equipment);
+                filter.add(equipment);
+            }
         }
-        return !filter.isEmpty(); // add '!': go next if filter is NOT empty
+        return !filter.isEmpty(); // add '!', go next if filter is NOT empty
     }
 
     @Override

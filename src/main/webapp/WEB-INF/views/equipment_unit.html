@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Equipment</title>
+</head>
+<body th:object="${equipment}">
+
+    <div id="equipment-name">
+        <h1 th:text="${equipment?.name} ?: ''"></h1>
+    </div>
+
+    <div id="content">
+        <table>
+            <tr>
+                <td>
+                    <p>
+                        Id
+                    </p>
+                </td>
+                <td>
+                    <p th:text="${equipment?.id} ?: ''"></p>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <p>
+                        Firm
+                    </p>
+                </td>
+                <td>
+                    <p th:text="${equipment?.firmName} ?: ''"></p>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <p>
+                        Cost
+                    </p>
+                </td>
+                <td>
+                    <p th:text="${equipment?.cost} ?: ''"></p>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <p>
+                        Owner
+                    </p>
+                </td>
+                <td>
+                    <p th:text="${equipment?.owner?.id} ?: 'Equipment is vacant'"></p>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <p>
+                        Description
+                    </p>
+                </td>
+                <td>
+                    <p th:text="${equipment?.description} ?: ${equipment?.id}"></p>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <p>
+                        Availability
+                    </p>
+                </td>
+                <td>
+                    <p th:if="${equipment}" th:text="${equipment.isAvailable()} ? 'Yes' : 'No'"></p>
+                </td>
+            </tr>
+
+            <tr th:if="${equipment?.available}">
+                <td>
+                    <p>
+                        Remaining
+                    </p>
+                </td>
+                <td>
+                    <p th:text="${equipment?.availableLeft}"></p>
+                </td>
+            </tr>
+
+        </table>
+
+        <a href="rent_page.html" th:href="@{/equipment/rent/{name}(name=${equipment.name})}">
+            <button>Rent</button>
+        </a>
+    </div>
+
+</body>
+</html>

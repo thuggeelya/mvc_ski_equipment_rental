@@ -1,7 +1,7 @@
 package org.example.web.dto;
 
 public class Equipment {
-    private Integer id;
+    private int id;
     private String name;
     private String firmName;
     private String cost;
@@ -12,6 +12,9 @@ public class Equipment {
     private int availableLeft;
 
     public boolean isAvailable() {
+        if (availableLeft == 0) {
+            setAvailable(false);
+        }
         return available;
     }
 
@@ -30,11 +33,11 @@ public class Equipment {
         }
     }
 
-    public Integer getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 

@@ -8,9 +8,6 @@
             background-color: #eee;
         }
 
-        #search-input {
-
-        }
         #categories {
             float:left;
             width:20%;
@@ -70,16 +67,19 @@
         </div>
 
         <div id="catalogue-all">
-            <form method="post" th:action="@{/equipment/see_results}">
+<!--            <form method="post" th:action="@{/equipment/see_results}">-->
+            <form method="post" th:action="@{/equipment/see_results}" th:object="${equipment}">
 
-                <div id="equipment-all" th:each="equipment : ${equipmentFound}">
+                <div id="equipment-all" th:each="equipmentt : ${equipmentFound}">
                     <div id="equipment-name">
-                        <p th:text="${equipment.name}" th:object="${equipment}"></p>
+                        <p th:text="${equipmentt.name}"></p>
                     </div>
                     <div id="equipment-image">
                         <img th:src="@{/images/empty_img.png}" alt="No image">
                     </div>
-                    <input id="equipment-submit-button" type="submit" value="Rent">
+                    <a href="equipment_unit.html" th:href="@{/equipment/rent/{name}(name=${equipment.name})}">
+                        <input type="submit" value="Rent">
+                    </a>
                     <hr/>
                 </div>
 

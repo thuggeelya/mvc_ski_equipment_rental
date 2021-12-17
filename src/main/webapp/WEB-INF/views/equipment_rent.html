@@ -62,7 +62,6 @@
             <table>
                 <tr>
                     <td>
-<!--                        <input id="search-bar" type="text" th:field="*{name}">-->
                         <input id="search-bar" th:name="equipmentNameToFind" type="text" required>
                     </td>
                     <td>
@@ -110,7 +109,7 @@
 
             <div id="equipment-all" th:each="equipment : ${equipmentList}">
                 <div id="equipment-name">
-                    <p th:text="${equipment.name}" th:object="${equipment}"></p>
+                    <p th:text="${equipment.name}"></p>
                 </div>
                 <div id="equipment-image">
                     <img th:src="@{/images/empty_img.png}" alt="No image">

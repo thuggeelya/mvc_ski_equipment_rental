@@ -30,9 +30,13 @@ public class ProfileController {
         this.profileService = profileService;
     }
 
+    private static User getSessionUser(@NotNull HttpServletRequest request) {
+        return (User) request.getSession().getAttribute("login_user");
+    }
+
     @GetMapping("/profile")
     public String openProfile(Model model, @NotNull HttpServletRequest request) {
-        User user = (User) request.getSession().getAttribute("login_user");
+        User user = getSessionUser(request);
 
         if (user == null) {
             logger.info("redirect to /login for authorization");
@@ -48,10 +52,14 @@ public class ProfileController {
         }
 
         model.addAttribute("person", user.getPerson());
+        model.addAttribute("rent_equipment", user.getUserEquipment().getRentHistory());
+        model.addAttribute("lease_equipment", user.getUserEquipment().getLeaseHistory());
         model.addAttribute("user", user);
+
         Equipment newLeaseEquipment = (Equipment) request.getSession().getAttribute("equipment_to_lease");
 
         if (newLeaseEquipment == null) {
+            // get 1st tab checked
             model.addAttribute("isFirstTabCheckedAsDefault", true);
             profilePageVisitingCause = ProfilePageVisitingCause.FILL_IN_PERSONAL_DETAILS;
             return "profile";
@@ -60,6 +68,7 @@ public class ProfileController {
         profilePageVisitingCause = ProfilePageVisitingCause.SEE_EQUIPMENT;
 
         user.getUserEquipment().addToLeaseHistory(newLeaseEquipment);
+        user.getUserEquipment().addToRentHistory(newLeaseEquipment); //
         logger.info("USER: " + user);
         logger.info("PERSON: " + user.getPerson() + "\n" + user.getUserEquipment().getLeaseHistory());
 
@@ -74,7 +83,7 @@ public class ProfileController {
 
     @PostMapping("/save")
     public String saveProfileChanges(Person person, @NotNull HttpServletRequest request) {
-        User user = (User) request.getSession().getAttribute("login_user");
+        User user = getSessionUser(request);
         user.setPerson(person);
         request.getSession().setAttribute("login_user", user);
         if (profilePageVisitingCause == ProfilePageVisitingCause.SEE_EQUIPMENT) {
@@ -82,7 +91,13 @@ public class ProfileController {
             return "redirect:/profile";
         } else {
             logger.info("leaving profile page");
-            return "redirect:/equipment/rent";
+            profilePageVisitingCause = ProfilePageVisitingCause.SEE_EQUIPMENT; // default state
+            return "redirect:/lease";
         }
     }
+
+//    @PostMapping("/equipment_unit")
+//    public void equipmentPage() {
+//        logger.info("redirect to equipment page");
+//    }
 }

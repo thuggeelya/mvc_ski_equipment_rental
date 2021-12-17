@@ -18,15 +18,15 @@
     </script>
 </head>
 <style>
-    .tabs, .equipment_tabs{ width: 100%; padding: 0; margin: 0 auto; }
-    .tabs>input, .equipment_tabs>input { display: none; }
-    .tabs>div, .equipment_tabs>div {
+    .tabs { width: 100%; padding: 0; margin: 0 auto; }
+    .tabs>input { display: none; }
+    .tabs>div {
         display: none;
         padding: 12px;
         /*border: 1px solid #C0C0C0;*/
         background: #FFFFFF;
     }
-    .tabs>label, .equipment_tabs>label {
+    .tabs>label {
         display: inline-block;
         padding: 7px;
         margin: 0 -5px -1px 0;
@@ -36,19 +36,29 @@
         background: #E0E0E0;
         cursor: pointer;
     }
-    .tabs>input:checked + label, .equipment_tabs>input:checked + label {
+    .tabs>input:checked + label {
         color: #000000;
         border: 1px solid #C0C0C0;
         border-bottom: 1px solid #FFFFFF;
         background: #FFFFFF;
     }
 
-    /**/
+    #left {
+        position: absolute;
+        left: 30px;
+        top: 50px;
+        width: 50%;
+    }
+
+    #right {
+        position: absolute;
+        right: 30px;
+        top: 50px;
+        width: 50%;
+    }
 
     #tab_1:checked ~ #txt_1,
     #tab_2:checked ~ #txt_2,
-    #tab_2_1:checked ~ #txt_2_1,
-    #tab_2_2:checked ~ #txt_2_2,
     #tab_3:checked ~ #txt_3,
     #tab_4:checked ~ #txt_4 { display: block; }
 </style>
@@ -130,20 +140,74 @@
             </form>
         </div>
 
-        <div class="equipment_tabs" id="txt_2">
+        <div class="equipment" id="txt_2">
 
-            <input type="radio" name="inset" value="" id="tab_2_1" checked>
-            <label for="tab_2_1">Rent history</label>
-
-            <input type="radio" name="inset" value="" id="tab_2_2">
-            <label for="tab_2_2">Leasing history</label>
-
-            <div id="txt_2_1">
-
+            <div id="left">
+                <b><p>
+                    RENT HISTORY
+                </p></b>
+<!--            <form method="post" th:action="@{/equipment_page}">-->
+                <form>
+                    <table id="rent-table">
+                            <tr>
+                                <th>No</th>
+                                <th>Equipment</th>
+                                <th>Firm</th>
+                                <th>Cost</th>
+                                <th>Details</th>
+                            </tr>
+                            <tr th:each="equipment_rent, iter : ${rent_equipment}">
+                                <td th:if="${equipment_rent}" th:utext="${iter.count}">No</td>
+                                <td th:if="${equipment_rent}" th:utext="${equipment_rent.name}">Equipment</td>
+                                <td th:if="${equipment_rent}" th:utext="${equipment_rent.firmName}">Firm</td>
+                                <td th:if="${equipment_rent}" th:utext="${equipment_rent.cost}">Cost</td>
+                                <td th:if="${equipment_rent}" th:utext="${equipment_rent.description}">Details</td>
+                                <td th:if="${equipment_rent}">
+                                    <a href="equipment_unit.html" th:href="@{/equipment/{name}(name=${equipment_rent.name})}">
+                                        <input type="url" id="${iter.index}" value="More">
+                                    </a>
+                                </td>
+                            </tr>
+                    </table>
+                </form>
             </div>
 
-            <div id="txt_2_2">
-
+            <div id="right">
+                <form>
+                    <b><p>
+                        LEASE HISTORY
+                    </p></b>
+                    <table>
+                        <th:block th:each="equipment_rent : ${lease_equipment}">
+                            <tr>
+                                <td>
+                                    <p th:if="${equipment_rent}">Equipment: </p>
+                                    <p th:if="${equipment_rent}" th:text="${equipment_rent.name}"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p th:if="${equipment_rent}">Firm: </p>
+                                    <p th:if="${equipment_rent}" th:text="${equipment_rent.firmName}"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p th:if="${equipment_rent}" th:text="${equipment_rent.cost}"></p>
+                                    <p th:if="${equipment_rent}"> RUB</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <p th:if="${equipment_rent}" th:text="${equipment_rent.description}"></p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <input type="submit" value="More">
+                            </tr>
+                        </th:block>
+                    </table>
+                </form>
             </div>
 
         </div>

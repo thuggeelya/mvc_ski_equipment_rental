@@ -6,9 +6,9 @@ import org.example.web.dto.Equipment;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 @RequestMapping(value = "filtered_equipment")
@@ -29,7 +29,9 @@ public class FilterController {
     }
 
     @PostMapping("/see_results")
-    public String seeEquipment(@NotNull Equipment equipment) {
-        return "redirect:/equipment/rent/" + equipment.getId();
+    public void seeEquipment(@RequestParam(value = "equipment") @ModelAttribute(value = "equipment") Equipment equipment,
+                             @NotNull HttpServletRequest request) {
+        request.getSession().setAttribute("equipmentToGoTo", equipment);
+//        return "redirect:/equipment/rent/" + equipment.getId();
     }
 }
