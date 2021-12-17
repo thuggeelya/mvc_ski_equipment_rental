@@ -57,12 +57,13 @@ public class LeaseController {
             logger.info("Session attribute: " + attribute);
         }
 
-        Equipment equipmentToLease = leaseService.newLeaseEquipment(user, equipment);
+        Equipment equipmentToLease = leaseService.newLeaseEquipment(user, equipment); // sets as its owner - session user
         equipmentToLease.setId(equipmentToLease.hashCode());
         equipmentToLease.setAvailable(true);
         equipmentToLease.setAvailableLeft(1);
 
         user.getUserEquipment().addToLeaseHistory(equipmentToLease);
+        user.getUserEquipment().addToLeaseNow(equipmentToLease);
 
         request.getSession().setAttribute("equipment_to_lease", equipmentToLease);
         logger.info("got new leasing equipment: " + equipmentToLease);
