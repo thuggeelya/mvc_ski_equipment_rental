@@ -107,7 +107,7 @@
                     </p>
                 </td>
                 <td>
-                    <input id="user-card" placeholder="0000 0000 0000 0000" onkeyup="return onKeyUp(this)" maxlength="12" type="text" required>
+                    <input id="user-card" placeholder="0000 0000 0000 0000" pattern="\d{12}" onkeyup="return onKeyUp(this)" maxlength="12" type="text" required>
                 </td>
             </tr>
 
@@ -119,7 +119,7 @@
             <br>
             <img class="equipment-img" th:src="@{/images/empty_img.png}" width="150px" height="150px" alt="No image">
             <br>
-            <input class="btn btn-default hour_button" id="hours-input" type="number" required value="1" placeholder="hours rent" th:field="${equipment.hoursRent}">
+            <input class="btn btn-default hour_button" id="hours-input" pattern="[^0]" type="number" required value="1" placeholder="hours rent" th:field="${equipment.hoursRent}">
             <br>
             <p id="cost_multiply_hours" th:text="${equipment.cost} + ' RUB / hour'"></p>
             <br>
