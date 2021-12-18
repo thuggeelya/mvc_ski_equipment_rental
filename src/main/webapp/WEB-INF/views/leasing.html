@@ -42,7 +42,7 @@
                         </p>
                     </td>
                     <td>
-                        <input id="equipment-cost" maxlength="10" type="number" required placeholder="350" th:field="*{equipment.cost}">
+                        <input id="equipment-cost" pattern="\d+" maxlength="10" type="number" required placeholder="350" th:field="*{equipment.cost}">
                     </td>
                 </tr>
                 <tr>
