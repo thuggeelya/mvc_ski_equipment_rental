@@ -63,7 +63,7 @@
                     </p>
                 </td>
                 <td>
-                    <input id="user-name" th:value="${person?.name} ?: ''" type="text" required th:field="*{person.name}">
+                    <input id="user-name" pattern="[^а-яА-Я]" th:value="${person?.name} ?: ''" type="text" required th:field="*{person.name}">
                 </td>
             </tr>
 
@@ -74,7 +74,7 @@
                     </p>
                 </td>
                 <td>
-                    <input id="user-last-name" th:if="${person}" th:value="${person.lastName} ?: ''" type="text" required th:field="*{person.lastName}">
+                    <input id="user-last-name" pattern="[^а-яА-Я]" th:if="${person}" th:value="${person.lastName} ?: ''" type="text" required th:field="*{person.lastName}">
                 </td>
             </tr>
 
@@ -96,7 +96,7 @@
                     </p>
                 </td>
                 <td>
-                    <input id="user-email" th:if="${user}" th:value="${user.email} ?: ''" type="text" required>
+                    <input id="user-email" th:if="${user}" th:value="${user.email} ?: ''" type="email" required>
                 </td>
             </tr>
 
