@@ -45,6 +45,8 @@ public class WebContextConfig implements WebMvcConfigurer {
     public ThymeleafViewResolver viewResolver() {
         ThymeleafViewResolver viewResolver = new ThymeleafViewResolver();
         viewResolver.setTemplateEngine(templateEngine());
+        viewResolver.setCharacterEncoding("UTF-8");
+        viewResolver.setContentType("text/html");
         viewResolver.setOrder(1);
 
         return viewResolver;

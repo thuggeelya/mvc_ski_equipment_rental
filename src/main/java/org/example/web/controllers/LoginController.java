@@ -45,4 +45,16 @@ public class LoginController {
             throw new MyLoginException("Invalid username or password");
         }
     }
+
+    @PostMapping("/register")
+    public String register(@ModelAttribute("login_user") User user, @NotNull HttpServletRequest request) throws MyLoginException {
+        if (loginService.register(user)) {
+            logger.info("registration fail back to login");
+            throw new MyLoginException("User with this e-mail has already been registered");
+        } else {
+            request.getSession().setAttribute("login_user", user); // session user
+            logger.info("registration OK redirect to rent");
+            return "redirect:/equipment/rent";
+        }
+    }
 }

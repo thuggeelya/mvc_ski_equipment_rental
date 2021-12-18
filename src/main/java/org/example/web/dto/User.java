@@ -7,6 +7,7 @@ public class User {
     private String password;
     private Person person;
     private UserEquipment userEquipment;
+    private Role role;
 
     public int getId() {
         return id;
@@ -36,8 +37,7 @@ public class User {
 
     public Person getPerson() {
         if (person == null) {
-            person = new Person();
-            person.setId(id);
+            this.setPerson(new Person());
         }
         return person;
     }
@@ -49,13 +49,22 @@ public class User {
 
     public UserEquipment getUserEquipment() {
         if (userEquipment == null) {
-            userEquipment = new UserEquipment();
+            this.setUserEquipment(new UserEquipment());
         }
         return userEquipment;
     }
 
     public void setUserEquipment(UserEquipment userEquipment) {
         this.userEquipment = userEquipment;
+        this.userEquipment.setId(id);
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @Override
@@ -65,6 +74,7 @@ public class User {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", person=" + person +
+                ", " + role +
                 '}';
     }
 }

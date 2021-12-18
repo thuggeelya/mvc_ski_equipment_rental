@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
@@ -51,30 +52,40 @@ public class EquipmentUnitController {
             return "equipment_unit";
         }
 
-        request.getSession().setAttribute("old_lease_equipment", equipment); // not lease< but I need this to be leaseEquipment
-        request.getSession().setAttribute("is_lease", false);
-        model.addAttribute("is_lease", false);
-        model.addAttribute("equipment", equipment);
+        boolean isOnRentNow = user.getUserEquipment().getRentHistory().contains(equipment);
 
-        return "equipment_unit";
-    }
-
-    @PostMapping("/save_lease")
-    public String saveLease(Equipment equipment, @NotNull HttpServletRequest request) {
-        User user = (User) request.getSession().getAttribute("login_user");
-
-        boolean isLease = false;
-        Enumeration<String> attributesSession = request.getSession().getAttributeNames();
-        while (attributesSession.hasMoreElements()) {
-            String attribute = attributesSession.nextElement();
-            if (attribute.equals("is_lease")) {
-                isLease = (boolean) request.getSession().getAttribute("is_lease");
-                logger.info("isLease = " + isLease);
-            }
-            logger.info("Session attribute: " + attribute);
+        model.addAttribute("is_on_rent_now", isOnRentNow);
+        if (isOnRentNow) {
+            Integer hours = (Integer) request.getSession().getAttribute("rent_hours");
+            model.addAttribute("hours", hours);
+            LocalDateTime timeRentCurrentEquipment = (LocalDateTime) request.getSession().getAttribute("time_rent_" + equipment.getId());
+            model.addAttribute("time_rent", timeRentCurrentEquipment.toString());
+            model.addAttribute("is_rent_time_passed", LocalDateTime.now().isAfter(timeRentCurrentEquipment.plusHours(hours)));
         }
-
-        Equipment newEquipment = (Equipment) request.getSession().getAttribute("old_lease_equipment");
+        request.getSession().setAttribute("old_lease_equipment", equipment); // not lease, but I need this to be old_lease_equipment
+        request.getSession().setAttribute("is_lease", false);                                                       //
+        model.addAttribute("is_lease", false);                                                    //
+        model.addAttribute("equipment", equipment);                                                          //
+                                                                                                                        //
+        return "equipment_unit";                                                                                        //
+    }                                                                                                                   //
+                                                                                                                        //
+    @PostMapping("/save_lease")                                                                                      //
+    public String saveLease(Equipment equipment, @NotNull HttpServletRequest request) {                                 //
+        User user = (User) request.getSession().getAttribute("login_user");                                          //
+                                                                                                                        //
+        boolean isLease = false;                                                                                        //
+        Enumeration<String> attributesSession = request.getSession().getAttributeNames();                               //
+        while (attributesSession.hasMoreElements()) {                                                                   //
+            String attribute = attributesSession.nextElement();                                                         //
+            if (attribute.equals("is_lease")) {                                                                         //
+                isLease = (boolean) request.getSession().getAttribute("is_lease");                                   //
+                logger.info("isLease = " + isLease);                                                                   //
+            }                                                                                                         //
+            logger.info("Session attribute: " + attribute);                                                          //
+        }                                                                                                           //
+                                                                                                                   //
+        Equipment newEquipment = (Equipment) request.getSession().getAttribute("old_lease_equipment");          // that's it
         // re-save only cost, firmName, description if not null
         if (equipment.getCost() != null) {
             newEquipment.setCost(equipment.getCost());
@@ -119,7 +130,13 @@ public class EquipmentUnitController {
             return "redirect:/profile";
         } else {
             logger.info("go rent " + newEquipment.getName());
+            request.getSession().setAttribute("new_rent_equipment", newEquipment);
             return "redirect:/equipment/rent/" + newEquipment.getName();
         }
+    }
+
+    @GetMapping("/back")
+    public String backToProfile() {
+        return "redirect:/profile";
     }
 }

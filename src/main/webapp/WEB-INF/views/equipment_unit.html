@@ -6,6 +6,8 @@
 </head>
 <body th:object="${equipment}">
 
+<header th:insert="fragments/header :: head (equipmentNameToFind)"></header>
+
 <form method="post" th:action="@{/equipment/save_lease}">
     <div id="equipment-name">
         <h1 th:text="${equipment?.name} ?: ''"></h1>
@@ -102,7 +104,7 @@
 
         </table>
 
-        <a th:if="${is_lease} == false" href="rent_page.html" th:href="@{/equipment/rent/{name}(name=${equipment.name})}">
+        <a th:if="${is_lease} == false and ${is_on_rent_now} == false" href="rent_page.html" th:href="@{/equipment/rent/{name}(name=${equipment.name})}">
             <button>Rent</button>
         </a>
         <a th:if="${is_lease}">
@@ -110,6 +112,16 @@
         </a>
     </div>
 </form>
+
+<div id="on-rent-now" th:if="${is_lease} == false and ${is_on_rent_now} == true">
+
+    <form method="get" th:action="@{/equipment/back}">
+        <p th:text="'You have rent it at ' + ${time_rent} + ' for ' + ${hours} + ' hours'"></p>
+        <i><p th:if="${is_rent_time_passed}">Rent time has been passed</p></i>
+        <input type="submit" value="OK">
+    </form>
+
+</div>
 
 </body>
 </html>

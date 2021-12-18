@@ -23,9 +23,9 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
         logger.info("populate inmemory auth user");
         auth
                 .inMemoryAuthentication()
-                .withUser("thuggeelya")
+                .withUser("thuggeelya@mail.ru")
                 .password(passwordEncoder().encode("123"))
-                .roles("USER");
+                .roles("ADMIN");
     }
 
     @Bean

@@ -23,6 +23,10 @@
             position: relative;
             size: auto;
         }
+        #results-h3 {
+            position: relative;
+            text-align: center;
+        }
         #equipment-submit-button, #equipment-submit-button-return-login-page, #equipment-name, #equipment-image {
             position: relative;
             float: inside;
@@ -53,6 +57,9 @@
 </head>
 
 <body>
+
+<header th:insert="fragments/header :: head (equipmentNameToFind)"></header>
+
     <div id="main-body">
 
         <div id="categories">
@@ -69,6 +76,8 @@
         <div id="catalogue-all">
 
             <form>
+
+                <h3 id="results-h3">Results</h3>
 
                 <div id="equipment-all" th:each="equipment : ${equipmentFound}">
                     <div id="equipment-name">

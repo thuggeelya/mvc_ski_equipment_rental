@@ -10,12 +10,21 @@ public class Equipment {
     private boolean isFave = false;
     private boolean available;
     private int availableLeft;
+    private Integer hoursRent;
 
     public boolean isAvailable() {
         if (availableLeft == 0) {
             setAvailable(false);
         }
         return available;
+    }
+
+    public Integer getHoursRent() {
+        return hoursRent;
+    }
+
+    public void setHoursRent(Integer hoursRent) {
+        this.hoursRent = hoursRent;
     }
 
     public void setAvailable(boolean available) {

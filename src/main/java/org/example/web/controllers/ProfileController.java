@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDateTime;
 import java.util.Enumeration;
 
 @Controller
@@ -60,20 +61,25 @@ public class ProfileController {
         model.addAttribute("isLease", true);
 
         Equipment newLeaseEquipment = (Equipment) request.getSession().getAttribute("equipment_to_lease");
+        Equipment newRentEquipment = (Equipment) request.getSession().getAttribute("new_rent_equipment");
 
-        if (newLeaseEquipment == null) {
+        if (newLeaseEquipment == null && newRentEquipment == null) {
             // get 1st tab checked
             model.addAttribute("isFirstTabCheckedAsDefault", true);
-            profilePageVisitingCause = ProfilePageVisitingCause.FILL_IN_PERSONAL_DETAILS;
             return "profile";
         }
 
-        profilePageVisitingCause = ProfilePageVisitingCause.SEE_EQUIPMENT;
-
         logger.info("USER: " + user);
-        logger.info("PERSON: " + user.getPerson() + "\n" + user.getUserEquipment().getLeaseHistory());
 
-        request.getSession().removeAttribute("equipment_to_lease");
+        if (newLeaseEquipment != null) { // then it's already in lease history (LeaseController.class)
+            request.getSession().removeAttribute("equipment_to_lease");
+        }
+        if (newRentEquipment != null) {
+            user.getUserEquipment().addToRentHistory(newRentEquipment);
+            user.getUserEquipment().addToRentNow(newRentEquipment);
+            request.getSession().setAttribute("time_rent_" + newRentEquipment.getId(), LocalDateTime.now());
+            request.getSession().removeAttribute("new_rent_equipment");
+        }
         request.getSession().setAttribute("login_user", user);
 
         // get 2nd tab checked
@@ -87,13 +93,7 @@ public class ProfileController {
         User user = getSessionUser(request);
         user.setPerson(person);
         request.getSession().setAttribute("login_user", user);
-        if (profilePageVisitingCause == ProfilePageVisitingCause.SEE_EQUIPMENT) {
-            logger.info("updating profile page");
-            return "redirect:/profile";
-        } else {
-            logger.info("leaving profile page");
-            profilePageVisitingCause = ProfilePageVisitingCause.SEE_EQUIPMENT; // default state
-            return "redirect:/lease";
-        }
+        logger.info("updating profile page");
+        return "redirect:/profile";
     }
 }

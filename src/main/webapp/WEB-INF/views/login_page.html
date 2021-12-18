@@ -5,9 +5,13 @@
     <style>
         #login_form {
             position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
+            float: bottom;
+        }
+
+        #registration_form {
+            position: relative;
+            float: bottom;
+            left: 300px;
         }
 
         .login_item {
@@ -15,18 +19,48 @@
         }
 
     </style>
+
+    <script>
+        let registerButton = document.querySelector('#register-button');
+        registerButton.disabled = true;
+        let passwordInput = document.querySelector('#password-input');
+        let password = passwordInput.value;
+
+        function onConfirm(input) {
+            let value = input.value;
+            if (value === password) {
+                registerButton.disabled = false;
+            }
+        }
+    </script>
 </head>
 <body>
-<div id="login_form">
-    <form method="post" th:action="@{/login/auth}" th:object="${user}">
+    <div id="logo">
         <img class="login_item" th:src="@{/images/logo.png}">
-        <br>
-        <input class="login_item" type="email" required placeholder="Enter e-mail" th:field="*{email}">
-        <br>
-        <input class="login_item" type="password" required placeholder="Password" th:field="*{password}">
-        <br>
-        <input class="login_item" type="submit" value="login">
-    </form>
-</div>
+    </div>
+    <br>
+    <div id="login_form">
+        <form method="post" th:action="@{/login/auth}" th:object="${user}">
+<!--            <img class="login_item" th:src="@{/images/logo.png}">-->
+<!--            <br>-->
+            <input class="login_item" type="email" required placeholder="Enter e-mail" th:field="*{email}">
+            <br>
+            <input class="login_item" type="password" required placeholder="Password" th:field="*{password}">
+            <br>
+            <input class="login_item" type="submit" value="login">
+        </form>
+    </div>
+
+    <div id="registration_form">
+        <form method="post" th:action="@{/login/register}" th:object="${user}">
+            <input class="register_item" type="email" required placeholder="Enter e-mail" th:field="*{email}">
+            <br>
+            <input class="register_item" type="password" required placeholder="Password" id="password-input" th:field="*{password}">
+            <br>
+            <input class="register_item" type="password" required placeholder="Confirm password" onkeyup="return onConfirm(this)">
+            <br>
+            <input class="register_item" type="submit" id="register-button" value="Register">
+        </form>
+    </div>
 </body>
 </html>

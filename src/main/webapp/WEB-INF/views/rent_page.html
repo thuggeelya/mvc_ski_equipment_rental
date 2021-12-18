@@ -45,6 +45,8 @@
 
 <body>
 
+<header th:insert="fragments/header :: head (equipmentNameToFind)"></header>
+
     <div id="message">
         <h2 th:text="'Rent card of ' + ${equipment.name} + ' (ID: ' + ${equipment.id} + ')'">
             Check your rent information
@@ -117,7 +119,7 @@
             <br>
             <img class="equipment-img" th:src="@{/images/empty_img.png}" width="150px" height="150px" alt="No image">
             <br>
-            <input class="btn btn-default hour_button" id="hours-input" type="number" value="1" placeholder="hours rent">
+            <input class="btn btn-default hour_button" id="hours-input" type="number" required value="1" placeholder="hours rent" th:field="${equipment.hoursRent}">
             <br>
             <p id="cost_multiply_hours" th:text="${equipment.cost} + ' RUB / hour'"></p>
             <br>

@@ -31,7 +31,7 @@ public class RentController {
     public String rent(@PathVariable String name, @NotNull HttpServletRequest request, @NotNull Model model) {
         logger.info("renting process of " + name);
         User user = (User) request.getSession().getAttribute("login_user");
-        Equipment equipment = (Equipment) request.getSession().getAttribute("new_equipment");
+        Equipment equipment = (Equipment) request.getSession().getAttribute("new_rent_equipment");
 
         if (equipment == null) {
             equipment = (Equipment) rentService.findEquipmentByName(name, request).keySet().toArray()[0];
@@ -44,7 +44,7 @@ public class RentController {
     }
 
     @PostMapping("/commit")
-    public String commitRent(@NotNull HttpServletRequest request, @NotNull Person person) {
+    public String commitRent(@NotNull HttpServletRequest request, @NotNull Person person, Equipment equipment) {
         User loginUser = (User) request.getSession().getAttribute("login_user");
         if (person.getName() != null) {
             loginUser.getPerson().setName(person.getName());
@@ -56,6 +56,7 @@ public class RentController {
             loginUser.getPerson().setPhone(person.getPhone());
         }
         request.getSession().setAttribute("login_user", loginUser);
-        return "commit_rent_page";
+        request.getSession().setAttribute("rent_hours", equipment.getHoursRent());
+        return "redirect:/equipment/rent/" + ((Equipment) request.getSession().getAttribute("new_rent_equipment") ).getName() + "/pay";
     }
 }

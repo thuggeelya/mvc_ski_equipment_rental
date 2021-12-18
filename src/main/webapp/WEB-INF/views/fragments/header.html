@@ -1,0 +1,23 @@
+<div th:fragment="head (equipmentName)">
+    <form method="post" th:action="@{/equipment/results}">
+            <table>
+                <tr>
+                    <td>
+                        <input id="search-bar" th:name="${equipmentName}" type="text" required>
+                    </td>
+                    <td>
+                        <input type="submit" value="Go">
+                    </td>
+                    <!--                    <td th:if="${#fields.hasErrors()}">-->
+                    <!--                        <p>-->
+                    <!--                            Wrong input search-->
+                    <!--                        </p>-->
+                    <!--                    </td>-->
+                </tr>
+            </table>
+    </form>
+
+     <form method="get" th:action="@{/equipment/leasing}">
+            <input id="lease-button" type="submit" value="Lease equipment">
+     </form>
+</div>
