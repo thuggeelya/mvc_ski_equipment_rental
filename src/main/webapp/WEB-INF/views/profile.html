@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Profile</title>
@@ -59,7 +59,6 @@
 
     #tab_1:checked ~ #txt_1,
     #tab_2:checked ~ #txt_2,
-    #tab_3:checked ~ #txt_3,
     #tab_4:checked ~ #txt_4 { display: block; }
 </style>
 
@@ -73,9 +72,6 @@
 
         <input type="radio" name="inset" value="" id="tab_2">
         <label for="tab_2">Equipment details</label>
-
-        <input type="radio" name="inset" value="" id="tab_3">
-        <label for="tab_3">Tab 3</label>
 
         <div id="txt_1">
 
@@ -203,9 +199,6 @@
                 </form>
             </div>
 
-        </div>
-
-        <div id="txt_3"></div>
     </div>
 
 </body>
