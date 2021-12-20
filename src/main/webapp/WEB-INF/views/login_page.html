@@ -54,32 +54,7 @@
         .registerbtn:hover {
             opacity: 1;
         }
-
-        /* Add a blue text color to links */
-        a {
-            color: dodgerblue;
-        }
-
-        /* Set a grey background color and center the text of the "sign in" section */
-        .signin {
-            background-color: #f1f1f1;
-            text-align: center;
-        }
     </style>
-
-    <script>
-        let registerButton = document.querySelector('#register-button');
-        registerButton.disabled = true;
-        let passwordInput = document.querySelector('#password-input');
-        let password = passwordInput.value;
-
-        function onConfirm(input) {
-            let value = input.value;
-            if (value === password) {
-                registerButton.disabled = false;
-            }
-        }
-    </script>
 </head>
 
 <body>
@@ -102,7 +77,7 @@
             <input type="password" placeholder="Repeat Password" id="psw-repeat" required>
             <hr>
 
-            <button type="submit" class="registerbtn">Register</button>
+            <button type="submit" class="registerbtn" id="reg-btn">Register</button>
         </div>
     </form>
 
@@ -119,7 +94,7 @@
             <input type="password" th:field="*{password}" placeholder="Enter Password" id="pswd" required>
             <hr>
 
-            <button type="submit" class="registerbtn">Sign In</button>
+            <button type="submit" class="registerbtn" id="log-btn">Sign In</button>
         </div>
     </form>
 </div>
