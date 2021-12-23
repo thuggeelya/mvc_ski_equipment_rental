@@ -1,18 +1,32 @@
-<div th:fragment="head (equipmentName)">
+<meta charset="UTF-8">
+
+<div th:fragment="head (equipmentName)" class="div_header">
+
     <form method="post" th:action="@{/equipment/results}">
-            <table>
-                <tr>
-                    <td>
-                        <input id="search-bar" th:name="${equipmentName}" type="text" required>
-                    </td>
-                    <td>
-                        <input type="submit" value="Go">
-                    </td>
-                </tr>
-            </table>
+        <table>
+            <tr class="table_search">
+                <td><img  class="logo" th:src="@{/images/logo.jpg}"></td>  <!--@{/images/logo.jpg}-->
+                <td class="search">
+
+                    <input id="search-bar" th:name="${equipmentName}" type="text" required placeholder="&nbsp&nbsp&#128269;Search">
+                </td>
+                <td class="button_go">
+                    <input type="submit" value="Go">
+                </td>
+<!--                <td class="button_nav">-->
+<!--                    <input type="submit" value="Address">-->
+<!--                </td>-->
+                <td class="button_signin" th:insert="fragments/lease_button :: lease_button"></td>
+                <td class="button_signin">
+                    <a href="login_page.html" th:href="@{/login}">
+                        <input type="button" value="Sign In">
+                    </a>
+                </td>
+            </tr>
+        </table>
     </form>
 
-     <form method="get" th:action="@{/equipment/leasing}">
-            <input id="lease-button" type="submit" value="Lease equipment">
-     </form>
+<!--    <form method="get" th:action="@{/equipment/leasing}">-->
+<!--        <input id="lease-button" type="submit" value="Lease equipment">-->
+<!--    </form>-->
 </div>

@@ -71,8 +71,8 @@ public class EquipmentRentController {
         // return "equipment_rent";
     }
 
-    @GetMapping("/leasing")
-    public String lease() {
-        return "redirect:/lease";
-    }
+//    @GetMapping("/leasing")
+//    public String lease() {
+//        return "redirect:/lease";
+//    }
 }

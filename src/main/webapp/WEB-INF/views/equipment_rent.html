@@ -1,55 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <title>My equipment rent</title>
-    <style>
-        body{
-            background-color: #eee;
-        }
-
-        #categories {
-            float:left;
-            width:20%;
-            background: #c3ffc8;
-        }
-        #catalogue-all {
-            float:left;
-            width:60%;
-            background: whitesmoke;
-            size: auto;
-        }
-        #equipment-all {
-            position: relative;
-            size: auto;
-        }
-        #equipment-submit-button, #equipment-submit-button-return-login-page, #equipment-name, #equipment-image {
-            position: relative;
-            float: inside;
-            width: auto;
-        }
-        #filter {
-            float:left;
-            width:20%;
-            background: #c3ffc8;
-        }
-
-        #categories p, #filter p {
-            text-align: center;
-        }
-
-        /*table {*/
-        /*    margin: 25px;*/
-        /*}*/
-
-        /*th {*/
-        /*    text-align: left;*/
-        /*}*/
-
-        /*th, td {*/
-        /*    border-bottom: 1px solid #ddd;*/
-        /*}*/
-    </style>
+    <link rel="stylesheet" th:href="@{/main_styles.css}">
 </head>
 <body>
 
@@ -59,12 +14,18 @@
 <div id="main-body">
 
     <div id="categories">
-        <p>
-            Categories
-        </p>
 
+        <ul class="ul_categoies">
+
+            <li><img class="icon_cat" th:src="@{/images/icon_ski.png}"><a href="#">Snowboards</a></li>
+            <li><img class="icon_cat" th:src="@{/images/icon_ski.png}"><a href="#">Ski</a></li>
+            <li><img class="icon_cat" th:src="@{/images/icon_ski.png}"><a href="#">Skates</a></li>
+            <li><img class="icon_cat" th:src="@{/images/icon_ski.png}"><a href="#">Cycles</a></li>
+            <li><img class="icon_cat" th:src="@{/images/icon_ski.png}"><a href="#">Rollers</a></li>
+            <li><img class="icon_cat" th:src="@{/images/icon_ski.png}"><a href="#">Sledges</a></li>
+        </ul>
         <div id="categories-body">
-<!--            -->
+            <!--            -->
         </div>
 
     </div>
@@ -94,11 +55,146 @@
     </div>
 
     <div id="filter">
-        <p>
-            Filter
-        </p>
+        Filter
     </div>
 
 </div>
 </body>
+<style>
+    body{
+        background-color: #eee;
+    }
+
+    #categories {
+        float:left;
+        width:20%;
+        margin: 0 15px;
+        background: #aed4e4;
+        border-radius: 8px;
+    }
+    #catalogue-all {
+        float:left;
+        width:60%;
+        background: whitesmoke;
+        size: auto;
+    }
+    #equipment-all {
+        position: relative;
+        size: auto;
+    }
+    #equipment-submit-button, #equipment-submit-button-return-login-page, #equipment-name, #equipment-image {
+        position: relative;
+        float: inside;
+        width: auto;
+    }
+    #filter {
+        float:left;
+        width:20%;
+        background: #aed4e4;
+    }
+
+    #categories p, #filter p {
+        text-align: center;
+    }
+    .icon_cat{
+        text-align: left;
+        max-width: 40px;
+
+    }
+    .ul_categoies{
+        padding: 0;
+        margin: 0 ;
+        list-style: none;
+        font-family: Tahoma;
+        font-size: 19px;
+        color: #20498f;
+    }
+    .ul_categoies li:first-child:hover{
+        background: #9abbf3;
+        border-radius: 8px 8px 0 0;
+    }
+    .ul_categoies li:hover{
+        background: #9abbf3;
+    }
+    .ul_categoies li:last-child:hover{
+        background: #9abbf3;
+        border-radius:  0 0 8px 8px;
+        color: #9abbf3;
+    }
+    .ul_categoies a{
+        color: #122c58;
+    }
+
+    .div_header {
+        background: #242750;
+        height: 108px;
+        font-size: 20px;
+        font-family: Tahoma;
+        font-weight: bold;
+
+    }
+    .logo{
+        margin-top: 10px;
+        display: block;
+        height: 93px;
+    }
+    #search-bar{
+        padding: 0 0;
+        border-radius: 20px 0 0 20px;
+        border:0px;
+        margin:0;
+
+
+    }
+    .search {
+        width: 600px;
+    }
+    .search input {
+        width: 600px;
+        height: 45px;
+        margin-right: 0;
+    }
+    .button_go input{
+        margin-left: 0;
+        padding: 0;
+        height: 45px;
+        width: 45px;
+        border-radius: 0 20px 20px 0;
+        background: #ffffff;
+        border:0;
+    }
+    .button_go input:hover{
+        background: #dbd6d6;
+    }
+    .button_nav input{
+        margin-left: 25px;
+        border-radius: 20px;
+        width: 100px;
+        height: 45px;
+        background: #ffffff;
+    }
+    .button_nav input:hover{
+        border-radius: 20px;
+        width: 100px;
+        height: 45px;
+        background: #dbd6d6;
+    }
+    .button_signin{
+        width: 100%;
+    }
+    .button_signin input{
+        float: right;
+        margin-right: 10px;
+        border-radius: 20px;
+        width: 100px;
+        height: 45px;
+        background: #ffffff;
+    }
+    .button_signin input:hover{
+        border-radius: 20px;
+        width: 100px;
+        height: 45px;
+        background: #dbd6d6;
+    }
+</style>
 </html>

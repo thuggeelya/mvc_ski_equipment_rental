@@ -1,0 +1,63 @@
+body{
+    background-color: #eee;
+}
+
+#categories {
+    float:left;
+    width:20%;
+    margin: 0 15px;
+    background: #aed4e4;
+    border-radius: 8px;
+}
+#catalogue-all {
+    float:left;
+    width:60%;
+    background: whitesmoke;
+    size: auto;
+}
+#equipment-all {
+    position: relative;
+    size: auto;
+}
+#equipment-submit-button, #equipment-submit-button-return-login-page, #equipment-name, #equipment-image {
+    position: relative;
+    float: inside;
+    width: auto;
+}
+#filter {
+    float:left;
+    width:20%;
+    background: #aed4e4;
+}
+
+#categories p, #filter p {
+    text-align: center;
+}
+.icon_cat{
+    text-align: left;
+    max-width: 40px;
+
+}
+.ul_categoies{
+    padding: 0;
+    margin: 0 ;
+    list-style: none;
+    font-family: Tahoma;
+    font-size: 19px;
+    color: #20498f;
+}
+.ul_categoies li:first-child:hover{
+    background: #9abbf3;
+    border-radius: 8px 8px 0 0;
+}
+.ul_categoies li:hover{
+    background: #9abbf3;
+}
+.ul_categoies li:last-child:hover{
+    background: #9abbf3;
+    border-radius:  0 0 8px 8px;
+    color: #9abbf3;
+}
+.ul_categoies a{
+    color: #122c58;
+}
