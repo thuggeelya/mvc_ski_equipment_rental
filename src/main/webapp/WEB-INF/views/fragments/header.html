@@ -18,8 +18,12 @@
 <!--                </td>-->
                 <td class="button_signin" th:insert="fragments/lease_button :: lease_button"></td>
                 <td class="button_signin">
-                    <a href="login_page.html" th:href="@{/login}">
+                    <a th:if="${session.login_user} == null" href="login_page.html" th:href="@{/login}">
                         <input type="button" value="Sign In">
+                    </a>
+                    <a th:if="${session.login_user}" href="profile.html" th:href="@{/profile}">
+                        <input th:if="${session.login_user.getPerson().getName()} == null" type="button" value="Profile">
+                        <input th:if="${session.login_user.getPerson().getName()}" type="button" th:value="${session.login_user.getPerson().getName()}">
                     </a>
                 </td>
             </tr>
