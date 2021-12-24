@@ -31,16 +31,11 @@ public class EquipmentRentController {
 
         Enumeration<String> attributesSession = request.getSession().getAttributeNames();
         logger.info("ATTRIBUTES IN SESSION:");
-        boolean isUserOnSession = false;
         while (attributesSession.hasMoreElements()) {
             String attribute = attributesSession.nextElement();
-            if (attribute.equals("login_user")) {
-                isUserOnSession = true;
-            }
             logger.info("Session attribute: " + attribute);
         }
 
-        model.addAttribute("isUserOnSession", isUserOnSession);
         model.addAttribute("equipment", new Equipment());
         model.addAttribute("equipmentList", equipmentRentService.getAllEquipment());
         return "equipment_rent";
@@ -70,9 +65,4 @@ public class EquipmentRentController {
         equipmentRentService.setFave(equipment);
         // return "equipment_rent";
     }
-
-//    @GetMapping("/leasing")
-//    public String lease() {
-//        return "redirect:/lease";
-//    }
 }

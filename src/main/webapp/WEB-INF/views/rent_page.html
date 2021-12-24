@@ -144,14 +144,14 @@
     #left {
         position: absolute;
         left: 30px;
-        top: 50px;
+        top: 150px;
         width: 50%;
     }
 
     #right {
         position: absolute;
         right: 30px;
-        top: 50px;
+        top: 150px;
         width: 50%;
     }
 </style>
@@ -171,14 +171,13 @@
 
 <header th:insert="fragments/header :: head (equipmentNameToFind)"></header>
 
-    <div id="message">
-        <h2 th:text="'Rent card of ' + ${equipment.name} + ' (ID: ' + ${equipment.id} + ')'">
-            Check your rent information
-        </h2>
-    </div>
-
     <form id="personal-data" method="post" th:action="@{/equipment/rent/commit}">
         <div id="left">
+            <div id="message">
+                <h2 th:text="'Rent card of ' + ${equipment.name} + ' (ID: ' + ${equipment.id} + ')'">
+                    Check your rent information
+                </h2>
+            </div>
         <table>
             <tr>
                 <td>

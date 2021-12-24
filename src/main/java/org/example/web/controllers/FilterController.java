@@ -30,16 +30,11 @@ public class FilterController {
 
         Enumeration<String> attributesSession = request.getSession().getAttributeNames();
         logger.info("ATTRIBUTES IN SESSION:");
-        boolean isUserOnSession = false;
         while (attributesSession.hasMoreElements()) {
             String attribute = attributesSession.nextElement();
-            if (attribute.equals("login_user")) {
-                isUserOnSession = true;
-            }
             logger.info("Session attribute: " + attribute);
         }
 
-        model.addAttribute("isUserOnSession", isUserOnSession);
         return "view_results_page";
     }
 }

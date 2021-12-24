@@ -40,12 +40,14 @@
                     <div id="equipment-image">
                         <img th:src="@{/images/empty_img.png}" alt="No image">
                     </div>
-                    <a th:if="${isUserOnSession}" href="equipment_unit.html" th:href="@{/equipment/rent/{name}(name=${equipment.name})}">
-                        <input id="equipment-submit-button" type="url" value="Info" readonly="readonly">
-                    </a>
-                    <a th:if="${isUserOnSession} == false" href="login_page.html" th:href="@{/login}">
-                        <input id="equipment-submit-button-return-login-page" type="url" value="Info" readonly="readonly">
-                    </a>
+                    <div>
+                        <a th:if="${session.login_user}" href="equipment_unit.html" th:href="@{/equipment/{name}(name=${equipment.name})}">
+                            <input id="equipment-submit-button" type="url" value="Info" readonly="readonly">
+                        </a>
+                        <a th:if="${session.login_user} == null" href="login_page.html" th:href="@{/login}">
+                            <input id="equipment-submit-button-return-login-page" type="url" value="Info" readonly="readonly">
+                        </a>
+                    </div>
                     <hr/>
                 </div>
 
@@ -83,9 +85,9 @@
         size: auto;
     }
     #equipment-submit-button, #equipment-submit-button-return-login-page, #equipment-name, #equipment-image {
-        position: relative;
-        float: inside;
-        width: auto;
+        /*position: relative;*/
+        /*float: inside;*/
+        /*width: auto;*/
     }
     #filter {
         float:left;

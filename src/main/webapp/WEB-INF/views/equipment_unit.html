@@ -116,7 +116,7 @@
 <div id="on-rent-now" th:if="${is_lease} == false and ${is_on_rent_now} == true">
 
     <form method="get" th:action="@{/equipment/back}">
-        <p th:text="'You have rent it at ' + ${time_rent} + ' for ' + ${hours} + ' hours'"></p>
+        <p th:if="${hours}" th:text="'You have rent it at ' + ${time_rent} + ' for ' + ${hours} + ' hours'"></p>
         <i><p th:if="${is_rent_time_passed}">Rent time has been passed</p></i>
         <input type="submit" value="OK">
     </form>
