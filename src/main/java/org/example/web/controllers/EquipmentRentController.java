@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.thymeleaf.expression.Strings;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
@@ -26,17 +27,8 @@ public class EquipmentRentController {
     }
 
     @GetMapping("/rent")
-    public String equipment(@NotNull Model model, @NotNull HttpServletRequest request) {
+    public String equipment(@NotNull Model model) {
         logger.info("got equipment");
-
-        Enumeration<String> attributesSession = request.getSession().getAttributeNames();
-        logger.info("ATTRIBUTES IN SESSION:");
-        while (attributesSession.hasMoreElements()) {
-            String attribute = attributesSession.nextElement();
-            logger.info("Session attribute: " + attribute);
-        }
-
-        model.addAttribute("equipment", new Equipment());
         model.addAttribute("equipmentList", equipmentRentService.getAllEquipment());
         return "equipment_rent";
     }

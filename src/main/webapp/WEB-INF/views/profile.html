@@ -17,9 +17,49 @@
         });
     </script>
 </head>
+<div class="footer">
+    <div class="main-footer">
+        <div class="image-block"><img src="logo.jpg "></div>
+        <div class="text-block">
+            <div><span><h3>TO THE RENT</h3><br>
+            <span><a href="#">How to rent
+</a></span><br>
+                <span><a href="#">Questions and answers</a></span><br></span></div>
+
+            <div><h3>TO THE LANDLORD</h3><br>
+                <span><a href="#">How to rent
+</a></span><br>
+                <span><a href="#">QPublication rules</a></span><br>
+
+                </a></span>
+                <span><a href="#">Collateral insurance</a></span><br></div>
+
+
+
+            <div><h3>ABOUT COMPANY</h3><br>
+                <span><a href="#">Documents
+                </a></span><br>
+                <span><a href="#">Publication rules</a></span><br>
+                <span><a href="#">Rental offer</a></span><br>
+                <span><a href="#">Rental management system</a></span><br>
+                <span><a href="#">Questions and answers
+</a></span><br>
+                <span><a href="#">Collateral insurance</a></span><br></div>
+        </div>
+    </div>
+    <div class="line"></div>
+    <div class="copy">
+        <div class="c">&#169; 2021 All rights reserved</div>
+        <div class="social"><img src="twitter_logo.png">
+            <img src="inst_logo.png">
+            <img src="youtube_logo.png"></div>
+    </div>
+</div>
 <style>
     body{
         background-color: #eee;
+        margin: 0;
+        padding: 0;
     }
 
     #categories {
@@ -106,10 +146,14 @@
     .search {
         width: 600px;
     }
+    input{
+        font-family: Montserrat,sans-serif;
+    }
     .search input {
         width: 600px;
         height: 45px;
         margin-right: 0;
+
     }
     .button_go input{
         padding: 0;
@@ -164,7 +208,7 @@
     }
     .tabs>label {
         display: inline-block;
-        padding: 7px;
+        padding: 5px 23.5px;
         margin: 0 -5px -1px 0;
         text-align: center;
         color: #666666;
@@ -180,28 +224,128 @@
     }
 
     #left {
-        position: absolute;
-        left: 30px;
-        top: 150px;
-        width: 50%;
+
+        padding: 10px;
+
     }
 
     #right {
+
+        padding: 10px;
+
+    }
+    .footer{
+        font-family: Montserrat,sans-serif;
         position: absolute;
-        right: 30px;
-        top: 150px;
-        width: 50%;
+        background: #242750;
+        left: 0;
+        top: 500px;
+        width: 100%;
+        height: 320px;
+        color: #f5f5f5;
+    }
+    .footer h3{
+        font-family: Montserrat,sans-serif;
+        font-size: 14px;
+
+    }
+    .main-footer{
+        height: 250px;
+    }
+    .image-block{
+        float: left;
+        width:25%;
+    }
+    .image-block img{
+        width:150px;
+        margin-top:62px;
+        margin-left: 20%;
+        text-align: center;
+    }
+    .text-block{
+        margin:5px;
+        margin-top: 50px;
+        float: left;
+        width: 70%;
+        height:100px;
+    }
+    .text-block div{
+        float:left;
+        width: 30%;
+    }
+    .footer a{
+        text-decoration: none;
+        color: #f5f5f5;
+    }
+    .footer a:hover{
+        color:#ba9797;
+    }
+    .line{
+        width:95%;
+        height: 1px;
+        background:#ba9797;
+        margin: auto;
+    }
+    .copy{
+        margin-top: 10px;
+    }
+    .c{
+        margin-top: 10px;
+        margin-left: 40px;
+        float: left;
+        font-size: 14px;
+    }
+    .social{
+        margin-right: 40px;
+        float: right;
+    }
+    .social img{
+        margin: 10px;
+        width:30px;
+    }
+    .div-fields{
+        font-family: Montserrat,sans-serif;
+        font-size: 12px;
+        width:20%;
+        margin: auto;
+        margin-top: 10px;
+        border: solid 1px #d7d7d7;
+    }
+    #submit-changes-button{
+        margin-top: 5px;
+        padding: 5px;
+        font-family: Montserrat,sans-serif;
+        background: #242750;
+        color: #f5f5f5;
+        border: 0px;
+        width: 100%;
+    }
+    #submit-changes-button:hover{
+        background: #575c99;
+    }
+    table input{
+        height:20px;
+        background: #f0f0f7;
+        border: 1px solid #C0C0C0;
     }
 
+    .tables{
+        margin: auto;
+    }
+    .details{
+        width:500px;
+
+    }
     #tab_1:checked ~ #txt_1,
     #tab_2:checked ~ #txt_2,
     #tab_4:checked ~ #txt_4 { display: block; }
+
 </style>
 
 <body>
 
 <header th:insert="fragments/header :: head (equipmentNameToFind)"></header>
-
+    <div class="div-fields">
     <div class="tabs">
         <input type="radio" name="inset" value="" id="tab_1" checked>
         <label for="tab_1">Personal details</label>
@@ -212,7 +356,7 @@
         <div id="txt_1">
 
             <form id="personal-data" method="post" th:object="${person}" th:action="@{/save}">
-                <table>
+                <table class="tables">
                     <tr>
                         <td>
                             <p>
@@ -275,7 +419,7 @@
         </div>
 
         <div class="equipment" id="txt_2">
-
+            <div class="details">
             <div id="left">
                 <b><p>
                     RENT HISTORY
@@ -296,13 +440,14 @@
                                 <td th:if="${equipment_rent}" th:utext="${equipment_rent.firmName}">Firm</td>
                                 <td th:if="${equipment_rent}" th:utext="${equipment_rent.cost}">Cost</td>
                                 <td th:if="${equipment_rent}" th:utext="${equipment_rent.description}">Details</td>
-                                <td th:if="${equipment_rent}">
-                                    <a href="equipment_unit.html" th:href="@{/equipment/{name}(name=${equipment_rent.name})}">
-                                        <input type="url" id="${iter.index}" value="Info">
-                                    </a>
-                                </td>
                             </tr>
+
                     </table>
+                    <p th:if="${equipment_rent}">
+                        <a href="equipment_unit.html" th:href="@{/equipment/{name}(name=${equipment_rent.name})}">
+                            <input type="url" id="${iter.index}" value="Info">
+                        </a>
+                    </p>
                 </form>
             </div>
 
@@ -325,18 +470,22 @@
                             <td th:if="${equipment_lease}" th:utext="${equipment_lease.firmName}">Firm</td>
                             <td th:if="${equipment_lease}" th:utext="${equipment_lease.cost}">Cost</td>
                             <td th:if="${equipment_lease}" th:utext="${equipment_lease.description}">Details</td>
-                            <td th:if="${equipment_lease}">
-                                <a href="equipment_unit.html" th:href="@{/equipment/{name}(name=${equipment_lease.name})}">
-                                    <input type="url" value="Edit">
-                                </a>
-                            </td>
+
                         </tr>
                     </table>
+                    <p th:if="${equipment_lease}">
+                        <a href="equipment_unit.html" th:href="@{/equipment/{name}(name=${equipment_lease.name})}">
+                            <input type="url" value="Edit">
+                        </a>
+                    </p>
                 </form>
             </div>
+            </div>
         </div>
-
     </div>
+    </div>
+
+<footer th:insert="fragments/footer :: foot"></footer>
 
 </body>
 </html>

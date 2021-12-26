@@ -5,10 +5,13 @@
     <form method="post" th:action="@{/equipment/results}">
         <table>
             <tr class="table_search">
-                <td><img  class="logo" th:src="@{/images/logo.jpg}"></td>  <!--@{/images/logo.jpg}-->
+                <td>
+                    <a href="http://localhost:8089/mvc_ski_equipment_rental_war_exploded/equipment/results">
+                        <img  class="logo" th:src="@{/images/logo.jpg}">
+                    </a>
+                </td>
                 <td class="search">
-
-                    <input id="search-bar" th:name="${equipmentName}" type="text" required placeholder="&nbsp&nbsp&#128269;Search">
+                    <input id="search-bar" th:name="${equipmentName}" type="text" required placeholder="&nbsp&nbsp;Search">
                 </td>
                 <td class="button_go">
                     <input type="submit" value="Go">
@@ -29,8 +32,4 @@
             </tr>
         </table>
     </form>
-
-<!--    <form method="get" th:action="@{/equipment/leasing}">-->
-<!--        <input id="lease-button" type="submit" value="Lease equipment">-->
-<!--    </form>-->
 </div>
