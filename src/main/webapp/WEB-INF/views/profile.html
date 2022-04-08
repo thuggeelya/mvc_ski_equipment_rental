@@ -433,6 +433,7 @@
                                 <th>Firm</th>
                                 <th>Cost</th>
                                 <th>Details</th>
+                                <th></th>
                             </tr>
                             <tr th:each="equipment_rent, iter : ${rent_equipment}">
                                 <td th:if="${equipment_rent}" th:utext="${iter.count}">No</td>
@@ -440,14 +441,14 @@
                                 <td th:if="${equipment_rent}" th:utext="${equipment_rent.firmName}">Firm</td>
                                 <td th:if="${equipment_rent}" th:utext="${equipment_rent.cost}">Cost</td>
                                 <td th:if="${equipment_rent}" th:utext="${equipment_rent.description}">Details</td>
+                                <td><p th:if="${equipment_rent}">
+                                    <a href="equipment_unit.html" th:href="@{/equipment/{name}(name=${equipment_rent.name})}">
+                                        <input type="url" id="${iter.index}" value="Info">
+                                    </a>
+                                </p></td>
                             </tr>
 
                     </table>
-                    <p th:if="${equipment_rent}">
-                        <a href="equipment_unit.html" th:href="@{/equipment/{name}(name=${equipment_rent.name})}">
-                            <input type="url" id="${iter.index}" value="Info">
-                        </a>
-                    </p>
                 </form>
             </div>
 
@@ -463,6 +464,7 @@
                             <th>Firm</th>
                             <th>Cost</th>
                             <th>Details</th>
+                            <th></th>
                         </tr>
                         <tr th:each="equipment_lease, iter : ${lease_equipment}">
                             <td th:if="${equipment_lease}" th:utext="${iter.count}">No</td>
@@ -470,14 +472,13 @@
                             <td th:if="${equipment_lease}" th:utext="${equipment_lease.firmName}">Firm</td>
                             <td th:if="${equipment_lease}" th:utext="${equipment_lease.cost}">Cost</td>
                             <td th:if="${equipment_lease}" th:utext="${equipment_lease.description}">Details</td>
-
+                            <td><p th:if="${equipment_lease}">
+                                <a href="equipment_unit.html" th:href="@{/equipment/{name}(name=${equipment_lease.name})}">
+                                    <input type="url" value="Edit">
+                                </a>
+                            </p></td>
                         </tr>
                     </table>
-                    <p th:if="${equipment_lease}">
-                        <a href="equipment_unit.html" th:href="@{/equipment/{name}(name=${equipment_lease.name})}">
-                            <input type="url" value="Edit">
-                        </a>
-                    </p>
                 </form>
             </div>
             </div>
