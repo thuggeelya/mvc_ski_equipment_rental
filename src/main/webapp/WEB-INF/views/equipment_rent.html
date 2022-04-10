@@ -10,7 +10,7 @@
 
 <header th:insert="fragments/header :: head (equipmentNameToFind)"></header>
 <div class="feedback" id='feedback_button_id' onclick="openfeedback()">
-    <img src="chat-bubble.svg" width="26px" alt="">
+    <img th:src="@{/images/chat.svg}" width="26px" alt="">
 </div>
 <div class="hidefeedback container_feednack" id="feed_id">
     <form>
