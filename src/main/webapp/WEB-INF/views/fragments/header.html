@@ -2,23 +2,27 @@
 
 <div th:fragment="head (equipmentName)" class="div_header">
 
-    <form method="post" th:action="@{/equipment/results}">
+    <form method="post" th:action="@{/equipment/results}" class="div_form">
         <table>
             <tr class="table_search">
                 <td>
-                    <a href="http://localhost:8089/mvc_ski_equipment_rental_war_exploded/equipment/rent">
-                        <img  class="logo" th:src="@{/images/logo.jpg}">
-                    </a>
+                    <img class="logo" th:src="@{/images/logo.jpg}">
                 </td>
                 <td class="search">
-                    <input id="search-bar" th:name="${equipmentName}" type="text" required placeholder="&nbsp&nbsp;Search">
+                    <input id="search-bar" th:name="${equipmentName}" type="text" required placeholder="Search">
                 </td>
+
                 <td class="button_go">
-                    <input type="submit" value="Go">
+                    <div class="search_logo">
+                        <svg width="19" height="19" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.336 13.335L18 18m-2.665-9.494a6.828 6.828 0 11-13.656 0 6.828 6.828 0 0113.656 0z" stroke="#AFAFAF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                    </div>
+
                 </td>
-<!--                <td class="button_nav">-->
-<!--                    <input type="submit" value="Address">-->
-<!--                </td>-->
+
+                <!--                <td class="button_nav">-->
+                <!--                    <input type="submit" value="Address">-->
+                <!--                </td>-->
                 <td class="button_signin" th:insert="fragments/lease_button :: lease_button"></td>
                 <td class="button_signin">
                     <a th:if="${session.login_user} == null" href="login_page.html" th:href="@{/login}">
@@ -28,6 +32,12 @@
                         <input th:if="${session.login_user.getPerson().getName()} == null" type="button" value="Profile">
                         <input th:if="${session.login_user.getPerson().getName()}" type="button" th:value="${session.login_user.getPerson().getName()}">
                     </a>
+                </td>
+                <td>
+                    <div class="cart" id="cart_id" onclick="showCart()">
+                        <svg width="20" height="20" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M0.25 1C0.25 0.585786 0.585786 0.25 1 0.25H2.38197C3.04482 0.25 3.65078 0.624504 3.94721 1.21738L3.27639 1.55279L3.94721 1.21738L4.46353 2.25H18.1384C19.0982 2.25 19.6999 3.28685 19.2237 4.12017L15.9391 9.86824C15.6275 10.4135 15.0477 10.75 14.4197 10.75H6.91567L5.59225 12.8675C5.48818 13.034 5.60789 13.25 5.80425 13.25H17C17.4142 13.25 17.75 13.5858 17.75 14C17.75 14.4142 17.4142 14.75 17 14.75H5.80425C4.42974 14.75 3.59176 13.2381 4.32025 12.0725L5.67159 9.91033L3.30898 3.295L2.60557 1.8882C2.56322 1.8035 2.47666 1.75 2.38197 1.75H1C0.585786 1.75 0.25 1.41421 0.25 1ZM5.06427 3.75L7.02855 9.25H14.4197C14.5094 9.25 14.5922 9.20193 14.6368 9.12403L17.7076 3.75H5.06427ZM8 17.5C8 18.3284 7.32843 19 6.5 19C5.67157 19 5 18.3284 5 17.5C5 16.6716 5.67157 16 6.5 16C7.32843 16 8 16.6716 8 17.5ZM15.5 19C16.3284 19 17 18.3284 17 17.5C17 16.6716 16.3284 16 15.5 16C14.6716 16 14 16.6716 14 17.5C14 18.3284 14.6716 19 15.5 19Z" fill="#afafaf"></path>
+                        </svg>
+                    </div>
                 </td>
             </tr>
         </table>

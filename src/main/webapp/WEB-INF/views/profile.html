@@ -17,6 +17,25 @@
         });
     </script>
 </head>
+<div class="feedback" id='feedback_button_id' onclick="openfeedback()">
+    <img src="chat-bubble.svg" width="26px" alt="">
+</div>
+<div class="hidefeedback container_feednack" id="feed_id">
+    <form>
+        <input name="name" placeholder="Имя" class="textbox" required />
+        <input name="emailaddress" placeholder="Email" class="textbox" type="email" required />
+        <input name="theme" placeholder="Тема" class="textbox" type="textbox" required />
+        <textarea rows="4" cols="50" name="subject" placeholder="Введите ваше сообщение:" class="message" required></textarea>
+        <input name="submit" class="button" type="submit" value="Отправить" />
+    </form>
+</div>
+<div class='cart_field cart_field_num2 show_cart' id="cart_field_id">
+    <div class="calc">
+        <input class='calcbutton' type="button" value="Calculation" onclick="calculateTotal()">
+        <input class='buybutton calcbutton' type="button" value="Buy">
+    </div>
+    <div class="total"></div>
+</div>
 <div class="footer">
     <div class="main-footer">
         <div class="image-block"><img src="logo.jpg "></div>
@@ -61,7 +80,147 @@
         margin: 0;
         padding: 0;
     }
+    .container_feednack p{
+        color:rgba(0,0,0,.7);
+        width:100%;
+        margin: 100px auto;
+        font-weight:300;
+        text-align:center;
+    }
 
+    .container_feednack a{
+        text-decoration:none;
+        color:#0079f2;
+    }
+    .container_feednack .container{
+        max-width: 29em;
+    }
+    .hidefeedback{
+        display: none;
+    }
+    .container_feednack form{
+        position: fixed;
+        max-width: 20%;
+        box-sizing: border-box;
+        padding: 36px;
+        border-radius: 5px;
+        background: RGBA(255,255,255,1);
+        -webkit-box-shadow: 0px 0px 15px 0px rgb(0 0 0 / 45%);
+        box-shadow: 0px 0px 15px 0px rgb(0 0 0 / 45%);
+        bottom: 0;
+        right: 0;
+        margin-right: 30px;
+        margin-bottom: 100px;
+        z-index: 4;
+    }
+    .container_feednack .textbox{
+        height: 33px;
+        width: 100%;
+        border-radius: 3px;
+        border: rgba(0,0,0,.3) 2px solid;
+        box-sizing: border-box;
+        font-size: 13px;
+        padding: 14px;
+        margin-bottom: 15px;
+    }
+    .container_feednack .message:focus,
+    .textbox:focus{
+        outline:none;
+        border:rgba(24,149,215,1) 2px solid;
+        color:rgba(24,149,215,1);
+    }
+    .container_feednack .message{
+        background: rgba(255, 255, 255, 0.4);
+        width: 100%;
+        height: 80px;
+        border: rgba(0,0,0,.3) 2px solid;
+        box-sizing: border-box;
+        -moz-border-radius: 3px;
+        font-size: 15px;
+        webkit-border-radius: 3px;
+        border-radius: 3px;
+        display: block;
+        padding: 10px;
+        margin-bottom: 14px;
+        overflow: hidden;
+    }
+    .container_feednack .button{
+        height:40px;
+        width:100%;
+        border-radius:3px;
+        border:rgba(0,0,0,.3) 0px solid;
+        box-sizing:border-box;
+        padding:10px;background: rgb(252, 133, 7);
+        color:#FFF;
+        font-weight:400;
+        font-size: 15px;
+        transition:background .4s;
+        cursor:pointer;
+    }
+    .container_feednack .button:hover{
+        background: #C26705FF;
+    }
+    .calcbutton{
+        margin: auto;
+        width: 118px;
+        height: 34px;
+        background: #ffe100;
+        border: none;
+        border-radius: 2px;
+        transition: .2s;
+    }
+    .calcbutton:hover{
+        cursor: pointer;
+        transition: .2s;
+        background: #ffc711;
+    }
+
+    .cart{
+        cursor: pointer;
+    }
+    .cart_field{
+
+    }
+    .cart_field_num2{
+        display: none;
+    }
+    .calc{
+        display: flex;
+    }
+    .feedback{
+        position: fixed;
+        width: 27px;
+        box-shadow: 0 4px 12px 0 rgb(0 0 0 / 20%);
+        cursor: pointer;
+        height: 27px;
+        border-radius: 50%;
+        background: #fc8507;
+        margin-right: 24px;
+        padding: 17px;
+        right: 0;
+        margin-bottom: 24px;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 6;
+    }
+    .total{
+        text-align: center;
+        margin: 10px;
+        font-weight: 600;
+        font-size: 15px;
+    }
+    .show_cart{
+        background: white;
+        position: absolute;
+        right: 7.5%;
+        width: 300px;
+        height: 350px;
+        z-index: 3;
+        border-radius: 8px;
+        box-shadow: 0 14px 28px rgba(0,0,0,0.02), 0 10px 10px rgba(0,0,0,0.02);
+    }
     #categories {
         float:left;
         width:20%;
@@ -123,12 +282,12 @@
     }
 
     .div_header {
+        width: 84%;
+    }
+    header{
         background: #242750;
-        height: 108px;
-        font-size: 20px;
-        font-family: Tahoma;
-        font-weight: bold;
-
+        display: flex;
+        justify-content: center;
     }
     .logo{
         margin-top: 10px;
@@ -136,25 +295,34 @@
         height: 93px;
     }
     #search-bar{
-        padding: 0 0;
         border-radius: 20px 0 0 20px;
-        border:0px;
-        margin:0;
-
-
+        border: 0px;
+        margin-right: -5px;
+        padding: 0 0 0 20px;
     }
     .search {
         width: 600px;
     }
-    input{
-        font-family: Montserrat,sans-serif;
+    .search_logo{
+        display: flex;
+        width: 39px;
+        background: white;
+        height: 45px;
+        margin-right: 11px;
+        border-radius: 0px 20px 20px 0px;
+        align-items: center;
     }
     .search input {
         width: 600px;
         height: 45px;
         margin-right: 0;
-
     }
+    .button_go{
+        display: flex;
+        height: 105px;
+        align-items: center;
+    }
+
     .button_go input{
         padding: 0;
         height: 45px;
@@ -183,6 +351,15 @@
     .button_signin{
         width: 100%;
     }
+    input{
+        outline: none;
+    }
+    .div_header input::placeholder{
+        margin-left: 10px;
+    }
+    .slider_input input{
+        width:80px;
+    }
     .button_signin input{
         float: right;
         margin-right: 10px;
@@ -196,6 +373,86 @@
         width: 100px;
         height: 45px;
         background: #dbd6d6;
+    }
+    .button-b10{
+        line-height: 1.2;
+        font-size: 12px;
+        color: #000;
+        font-family: Montserrat,sans-serif;
+        margin-bottom: 10px!important;
+        display: block;
+        text-decoration: none;
+        border: none!important;
+        background: linear-gradient(to bottom,#ffe500 0,#fd0 100%);
+        margin-top: 10px;
+    }
+    .button-b10 div{
+        font-family: Montserrat,sans-serif;
+        display: block;
+        text-decoration: none;
+        border: none!important;
+        text-align: center;
+        height: 37px;
+        line-height: 37px;
+        font-size: 12px;
+        color: #000;
+        cursor: pointer;
+    }
+    .button-b10 input{
+        font-family: Montserrat,sans-serif;
+        background: 0 0;
+        border: 0;
+        outline: 0;
+        margin: 0;
+        padding: 0;
+        display: block;
+        width: 100%;
+        height: 37px;
+        line-height: 37px;
+        font-size: 12px;
+        color: #000;
+        cursor: pointer;
+        -webkit-border-radius: 0;
+        appearance: none;
+    }
+    .button_grey{
+        line-height: 1.2;
+        font-size: 12px;
+        font-family: Montserrat,sans-serif;
+        display: block;
+        text-decoration: none;
+        border: none!important;
+        background: linear-gradient(to bottom,#f4f5f5 0,#f1f1f1 100%);
+        color: #000;
+    }
+    .button_grey div{
+        font-family: Montserrat,sans-serif;
+        display: block;
+        text-decoration: none;
+        border: none!important;
+        text-align: center;
+        height: 37px;
+        line-height: 37px;
+        font-size: 12px;
+        color: #000;
+        cursor: pointer;
+    }
+    .button_grey input{
+        ffont-family: Montserrat,sans-serif;
+        background: 0 0;
+        border: 0;
+        outline: 0;
+        margin: 0;
+        padding: 0;
+        display: block;
+        width: 100%;
+        -webkit-appearance: none;
+        -webkit-border-radius: 0;
+        height: 37px;
+        line-height: 37px;
+        font-size: 12px;
+        cursor: pointer;
+        color: #000;
     }
 
     .tabs { width: 100%; padding: 0; margin: 0 auto; }
@@ -489,4 +746,63 @@
 <footer th:insert="fragments/footer :: foot"></footer>
 
 </body>
+<script>
+    prices = new Map();
+    let sum = 0;
+    let counter_equip = 0;
+    let cart_field = document.querySelector('.cart_field');
+    let cart_field_id = document.getElementById('cart_field_id');
+    let totalsum = cart_field.querySelector('.total');
+    function showCart() {
+        console.log('123');
+        cart_field.classList.toggle('cart_field_num2');
+    }
+    function counter(elem){
+        let number = elem.value
+        total = number*Number(elem.parentNode.parentNode.querySelector('.pricethis').innerHTML);
+        prices.set(elem, total);
+    }
+    function calculateTotal(){
+        if(sum != 0){
+            sum=0;
+        }
+        for(let [key, value] of prices){
+            sum += value;
+        }
+        totalsum.innerHTML = String(sum);
+    }
+    function addToCart(element){
+        let parent = element.parentNode.parentNode;
+        let name_equipment = parent.querySelector('.name').innerHTML;
+        let cost_equipment = parent.querySelector('.cost_equipmant').innerHTML;
+
+        cart_field.insertAdjacentHTML('afterbegin','<div class="part_equipment">\n' +
+            '        <div class="name_equipment">'+ name_equipment +'</div>\n' +
+            '        <div className="counter"><input type="number" min=\'0\' value=\'0\' onClick="counter(this)"></div>' +
+            '        <div class="pricethis">'+cost_equipment+'</div>\n' +
+            '    </div>');
+        element.onclick = null;
+        counter_equip++;
+        console.log(counter_equip);
+    }
+    let feedback_field = document.getElementById('feed_id');
+    function openfeedback(){
+        feedback_field.classList.toggle('hidefeedback');
+    }
+    let cart_button = document.getElementById('cart_id');
+    let feedback_button = document.getElementById('feedback_button_id');
+    document.addEventListener('click', (e) => {
+        const withinCart = e.composedPath().includes(cart_field);
+        const withinFeedback = e.composedPath().includes(feedback_field);
+        const withinCartbutton = e.composedPath().includes(cart_button);
+        const withinFeedbackbutton = e.composedPath().includes(feedback_button);
+
+
+        if((!withinCart)&&(!withinFeedback)&&(!withinCartbutton)&&(!withinFeedbackbutton)){
+            cart_field.classList.add('cart_field_num2');
+            feedback_field.classList.add('hidefeedback');
+        }
+    })
+
+</script>
 </html>

@@ -9,13 +9,31 @@
 <body>
 
 <header th:insert="fragments/header :: head (equipmentNameToFind)"></header>
-
+<div class="feedback" id='feedback_button_id' onclick="openfeedback()">
+    <img src="chat-bubble.svg" width="26px" alt="">
+</div>
+<div class="hidefeedback container_feednack" id="feed_id">
+    <form>
+        <input name="name" placeholder="Имя" class="textbox" required />
+        <input name="emailaddress" placeholder="Email" class="textbox" type="email" required />
+        <input name="theme" placeholder="Тема" class="textbox" type="textbox" required />
+        <textarea rows="4" cols="50" name="subject" placeholder="Введите ваше сообщение:" class="message" required></textarea>
+        <input name="submit" class="button" type="submit" value="Отправить" />
+    </form>
+</div>
+<div class='cart_field cart_field_num2 show_cart' id="cart_field_id">
+    <div class="calc">
+        <input class='calcbutton' type="button" value="Calculation" onclick="calculateTotal()">
+        <input class='buybutton calcbutton' type="button" value="Buy">
+    </div>
+    <div class="total"></div>
+</div>
 <div id="main-body">
 <br>
     <div id="categories">
 
         <ul class="ul_categoies">
-            <li><h3 class="h3-catalog">CATALOG</h3></li>
+            <li><h3 class="h3-catalog">Cata</h3></li>
             <li><img><a href="#"><h3>Snowboards</h3></a></li>
             <li class="small-li"><br><a>Equipment</a></li><br>
             <li class="small-li"><br><a>Cloth</a></li><br>
@@ -79,51 +97,43 @@
     </div>
         <div id="catalogue-all">
 
-        <form>
 
-            <div id="equipment-all" th:each="equipment : ${equipmentList}">
-               <div class="div-part-item">
-                    <div id="equipment-image">
-                        <img th:if="${'/images/' + #strings.replace(equipment.name,' ','_') + '.png'}" th:src="@{${'/images/' + #strings.replace(equipment.name,' ','_') + '.png'}}" alt="No image">
-                        <img th:if="${'/images/' + #strings.replace(equipment.name,' ','_') + '.png'} == null" th:src="@{/images/empty_img.png}" alt="No image">
+
+            <form>
+                <div class="equipment_part" th:each="equipment : ${equipmentList}">
+                    <div class="image_part">
+                        <a th:href="@{#}"><img th:if="${'/images/' + #strings.replace(equipment.name,' ','_') + '.png'}" th:src="@{${'/images/' + #strings.replace(equipment.name,' ','_') + '.png'}}" width="200px" height="200px" alt="No image"></a>
+                        <a th:href="@{#}"><img th:if="${'/images/' + #strings.replace(equipment.name,' ','_') + '.png'} == null" th:src="@{/images/empty_img.png}"  width="200px" height="200px"alt="No image"></a>
                     </div>
-                    <div class="text-block">
-                        <div id="equipment-name">
-                          <a><span th:text="${equipment.name}" class="size-name"></span></a>
+                    <div class="info_part">
+                        <div class="text" onclick="func(this)">
+                            <div class="name">
+                                <span th:text="${equipment.name}" class="size-name" id="size_name_id"></span>
+                            </div>
+                            <div class="description">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur cum doloremque eligendi enim error laudantium non omnis voluptas? Aliquam architecto, atque culpa dolorum facilis in necessitatibus odio qui quos sunt?
+                            </div>
+                            <div class="brandseason"><div class="brand">
+                                Brand:<span class="brand" th:text="${equipment.firmName}"></span>
+                            </div>
+                                <div class="season">
+                                    Season: 2021
+                                </div>
+                            </div>
                         </div>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.…</p>
-                        <div class="brand-info">
-                            <span class="brand">Brand:</span><span class="brand" th:text="${equipment.firmName}"></span><br>
-                            <span class="season">Season: 2021</span>
+
+
+                        <div class="price">
+                            <div class="wrap_valueprice"><div class="value_price">
+                                <span th:text="${equipment.cost}" class="value cost_equipmant"></span> Rub/H
+                            </div>
+                            </div>
+                            <input id='BuyButton' type="button" value="Add to cart" onclick="addToCart(this)">
                         </div>
-
-                        <span class="checks">
-							<span class="check"><input type="checkbox" id="compare" value="1">For compare</label><i></i></span>
-							<span class="check"><input type="checkbox" id="notepad" value="1" >
-							To favorites</label><i></i></span>
-                        </span>
-
                     </div>
-                   <div class="info-block">
-                   <div class="price"><span th:text="${equipment.cost}" class="value"></span><span class="value">RUB/H</span></div>
-                   <div class="available"><span class="value">In the presence of two rentals</span>
-                   </div>
-                    <div class="button-info">
-                    <a th:if="${session.login_user}" href="equipment_unit.html" th:href="@{/equipment/{name}(name=${equipment.name})}">
-                        <input id="equipment-submit-button" type="url" value="more detailed" readonly="readonly">
-                    </a>
-                    <a th:if="${session.login_user} == null" href="login_page.html" th:href="@{/login}">
-                        <input id="equipment-submit-button-return-login-page" type="url" value="more detailed" readonly="readonly">
-                    </a>
-                    </div>
-               </div>
-                   <br>
-            </div>
-
-            </div>
+                </div>
             </form>
-
-    </div>
+            </div>
 
     <div id="filter">
         <h3>FILTERS</h3>
@@ -150,38 +160,7 @@
 
                 </div>
 
-                <div class="form_field form_field_togg strnal_mob closed " rel="strnal">
-                    <h4>Availability</h4>
-                    <div class="check"><input type="checkbox" name="strnal_mob[]" id="strnalim" value="im"><label for="strnalim">Red Str. 218/2</label><i></i></div>
 
-                    <div class="check"><input type="checkbox" name="strnal_mob[]" id="strnalall" value="all"><label for="strnalall">All</label><i></i></div>
-
-                    <div class="check"><input type="checkbox" name="strnal_mob[]" id="strnal106" value="106"><label for="strnal106"><span> Zaeltsovskaya,</span> Red Str. 218/2</label><i></i></div>
-
-                    <div class="check"><input type="checkbox" name="strnal_mob[]" id="strnal158" value="158"><label for="strnal158"><span> Student's,</span>&nbsp;Gorskaya Str. 58</label><i></i></div>
-
-
-                </div>
-
-                <div class="form_field form_field_togg closed " rel="size">
-                    <h4>Size</h4>
-
-                    <div class="check"><input type="checkbox" name="sizes[]" id="size138 cm" value="138 cm"><label for="size138 cm">138 - 153 cm</label><i></i></div>
-
-
-                    <div class="check"><input type="checkbox" name="sizes[]" id="size139 cm" value="139 cm"><label for="size139 cm">153 - 170 cm</label><i></i></div>
-
-
-                    <div class="check"><input type="checkbox" name="sizes[]" id="size140 cm" value="140 cm"><label for="size140 cm">170 - 190 cm</label><i></i></div>
-
-
-                    <div class="check"><input type="checkbox" name="sizes[]" id="size142 cm" value="142 cm"><label for="size142 cm">190 - 205 cm</label><i></i></div>
-
-
-
-
-
-                </div>
 
                 <div class="form_field form_field_togg closed " rel="brand">
                     <h4>Brand</h4>
@@ -217,35 +196,24 @@
                 </div>
 
 
-                <div class="form_field form_field_togg closed " rel="target">
-                    <h4>Sex</h4>
-                    <div class="check"><input type="checkbox" name="gender[]" id="target1070506" value="1070506"><label for="target1070506">female</label><i></i></div>
-                    <div class="check"><input type="checkbox" name="gender[]" id="target1070509" value="1070509"><label for="target1070509">unisex</label><i></i></div>
 
-                </div>
 
-                <div class="form_field form_field_togg closed ischeked" rel="target1">
-                    <h4>Age</h4>
-                    <div class="check check_on"><input type="checkbox" name="age[]" id="target1070483" value="1070483" checked="checked"><label for="target1070483">adults</label><i></i></div>
-                    <div class="check"><input type="checkbox" name="age[]" id="target1070538" value="1070538"><label for="target1070538">kids</label><i></i></div>
-                    <div class="check"><input type="checkbox" name="age[]" id="target1071417" value="1071417"><label for="target1071417">teenagers</label><i></i></div>
 
-                </div>
 
 
                 <div class="form_field form_field_togg closed ischeked" rel="collection">
                     <h4>Season</h4>
 
-                    <div class="check check_on"><input type="checkbox" name="year[]" id="collection2018/2019" value="2018/2019" checked="checked"><label for="collection2018/2019">2018/2019</label><i></i></div>
+                    <div class="check check_on"><input type="checkbox" name="year[]" id="collection2018/2019" value="2018/2019" ><label for="collection2018/2019">2018/2019</label><i></i></div>
 
 
-                    <div class="check check_on"><input type="checkbox" name="year[]" id="collection2019/2020" value="2019/2020" checked="checked"><label for="collection2019/2020">2019/2020</label><i></i></div>
+                    <div class="check check_on"><input type="checkbox" name="year[]" id="collection2019/2020" value="2019/2020" ><label for="collection2019/2020">2019/2020</label><i></i></div>
 
 
-                    <div class="check check_on"><input type="checkbox" name="year[]" id="collection2020/2021" value="2020/2021" checked="checked"><label for="collection2020/2021">2020/2021</label><i></i></div>
+                    <div class="check check_on"><input type="checkbox" name="year[]" id="collection2020/2021" value="2020/2021" ><label for="collection2020/2021">2020/2021</label><i></i></div>
 
 
-                    <div class="check check_on"><input type="checkbox" name="year[]" id="collection2021/2022" value="2021/2022" checked="checked"><label for="collection2021/2022">2021/2022</label><i></i></div>
+                    <div class="check check_on"><input type="checkbox" name="year[]" id="collection2021/2022" value="2021/2022" ><label for="collection2021/2022">2021/2022</label><i></i></div>
 
 
                     <div class="check"><input type="checkbox" name="year[]" id="collection2017/2018" value="2017/2018"><label for="collection2017/2018">2017/2018</label><i></i></div>
@@ -261,69 +229,11 @@
                 </div>
 
 
-                <div class="form_field form_field_togg closed " rel="subcategory_pf1">
-                    <h4>Rigidity</h4>
-
-                    <!-- vals for 1643525-->
-                    <div class="check"><input type="checkbox" name="param_1643525_dict[]" id="param1643525_val1643755_1" value="1643755"><label for="param1643525_val1643755_1">2</label><i></i></div>
-                    <div class="check"><input type="checkbox" name="param_1643525_dict[]" id="param1643525_val1643756_2" value="1643756"><label for="param1643525_val1643756_2">3</label><i></i></div>
-                    <div class="check"><input type="checkbox" name="param_1643525_dict[]" id="param1643525_val1643757_3" value="1643757"><label for="param1643525_val1643757_3">4</label><i></i></div>
-                    <div class="check"><input type="checkbox" name="param_1643525_dict[]" id="param1643525_val1643758_4" value="1643758"><label for="param1643525_val1643758_4">5</label><i></i></div>
-                    <div class="check"><input type="checkbox" name="param_1643525_dict[]" id="param1643525_val1643759_5" value="1643759"><label for="param1643525_val1643759_5">6</label><i></i></div>
-                    <div class="check"><input type="checkbox" name="param_1643525_dict[]" id="param1643525_val1643760_6" value="1643760"><label for="param1643525_val1643760_6">7</label><i></i></div>
-                    <div class="check"><input type="checkbox" name="param_1643525_dict[]" id="param1643525_val1643761_7" value="1643761"><label for="param1643525_val1643761_7">8</label><i></i></div>
-                    <div class="check"><input type="checkbox" name="param_1643525_dict[]" id="param1643525_val1643762_8" value="1643762"><label for="param1643525_val1643762_8">9</label><i></i></div>
-                    <div class="check"><input type="checkbox" name="param_1643525_dict[]" id="param1643525_val1643763_9" value="1643763"><label for="param1643525_val1643763_9">10</label><i></i></div>
-
-                </div>
-                <div class="form_field form_field_togg closed " rel="subcategory_pf2">
-                    <h4>Appointment</h4>
-
-                    <!-- vals for 1643614-->
-                    <div class="check"><input type="checkbox" name="param_1643614_dict[]" id="param1643614_val1644069_1" value="1644069"><label for="param1643614_val1644069_1">all-mountain</label><i></i></div>
-                    <div class="check"><input type="checkbox" name="param_1643614_dict[]" id="param1643614_val1644070_2" value="1644070"><label for="param1643614_val1644070_2">free-ride</label><i></i></div>
-                    <div class="check"><input type="checkbox" name="param_1643614_dict[]" id="param1643614_val1644071_3" value="1644071"><label for="param1643614_val1644071_3">park</label><i></i></div>
-                    <div class="check"><input type="checkbox" name="param_1643614_dict[]" id="param1643614_val1644072_4" value="1644072"><label for="param1643614_val1644072_4">back-country</label><i></i></div>
-
-                </div>
-                <div class="form_field form_field_togg closed " rel="subcategory_pf3">
-                    <h4>Training level</h4>
-
-                    <!-- vals for 1643723-->
-                    <div class="check"><input type="checkbox" name="param_1643723_dict[]" id="param1643723_val1644233_1" value="1644233"><label for="param1643723_val1644233_1">beginner</label><i></i></div>
-                    <div class="check"><input type="checkbox" name="param_1643723_dict[]" id="param1643723_val1644235_2" value="1644235"><label for="param1643723_val1644235_2">experienced</label><i></i></div>
-                    <div class="check"><input type="checkbox" name="param_1643723_dict[]" id="param1643723_val1644234_3" value="1644234"><label for="param1643723_val1644234_3">improving</label><i></i></div>
-                    <div class="check"><input type="checkbox" name="param_1643723_dict[]" id="param1643723_val1644237_4" value="1644237"><label for="param1643723_val1644237_4">sportsman</label><i></i></div>
-                    <div class="check"><input type="checkbox" name="param_1643723_dict[]" id="param1643723_val1644236_5" value="1644236"><label for="param1643723_val1644236_5">expert</label><i></i></div>
-
-                </div>
 
 
 
 
 
-
-
-                <div class="form_field form_field_togg closed " rel="discounts">
-                    <h4>Discount</h4>
-
-                    <div class="check"><input type="checkbox" name="discounts[]" id="discounts1-10" value="1-10"><label for="discounts1-10">1-10%</label><i></i></div>
-
-
-                    <div class="check"><input type="checkbox" name="discounts[]" id="discounts21-30" value="21-30"><label for="discounts21-30">21-30%</label><i></i></div>
-
-
-                    <div class="check"><input type="checkbox" name="discounts[]" id="discounts31-40" value="31-40"><label for="discounts31-40">31-40%</label><i></i></div>
-
-
-                    <div class="check"><input type="checkbox" name="discounts[]" id="discounts41-50" value="41-50"><label for="discounts41-50">41-50%</label><i></i></div>
-
-
-                    <div class="check"><input type="checkbox" name="discounts[]" id="discounts61-70" value="61-70"><label for="discounts61-70">61-70%</label><i></i></div>
-
-
-
-                </div>
 
                 <div class="button-b10"><div ><input type="submit" value="Show"></div></div>
                 <div class="button button_grey"><div><input type="button" value="Reset"></div></div>
@@ -333,6 +243,9 @@
         </div>
 
     </div>
+    </div>
+
+
 
 </div>
 
@@ -345,14 +258,173 @@
         background-color: #eee;
         font-family: Montserrat,sans-serif;
         font-size: 12px;
+
+    }
+    .container_feednack p{
+        color:rgba(0,0,0,.7);
+        width:100%;
+        margin: 100px auto;
+        font-weight:300;
+        text-align:center;
+    }
+
+    .container_feednack a{
+        text-decoration:none;
+        color:#0079f2;
+    }
+    .container_feednack .container{
+        max-width: 29em;
+    }
+    .hidefeedback{
+        display: none;
+    }
+    .container_feednack form{
+        position: fixed;
+        max-width: 20%;
+        box-sizing: border-box;
+        padding: 36px;
+        border-radius: 5px;
+        background: RGBA(255,255,255,1);
+        -webkit-box-shadow: 0px 0px 15px 0px rgb(0 0 0 / 45%);
+        box-shadow: 0px 0px 15px 0px rgb(0 0 0 / 45%);
+        bottom: 0;
+        right: 0;
+        margin-right: 30px;
+        margin-bottom: 100px;
+        z-index: 4;
+    }
+    .container_feednack .textbox{
+        height: 33px;
+        width: 100%;
+        border-radius: 3px;
+        border: rgba(0,0,0,.3) 2px solid;
+        box-sizing: border-box;
+        font-size: 13px;
+        padding: 14px;
+        margin-bottom: 15px;
+    }
+    .container_feednack .message:focus,
+    .textbox:focus{
+        outline:none;
+        border:rgba(24,149,215,1) 2px solid;
+        color:rgba(24,149,215,1);
+    }
+    .container_feednack .message{
+        background: rgba(255, 255, 255, 0.4);
+        width: 100%;
+        height: 80px;
+        border: rgba(0,0,0,.3) 2px solid;
+        box-sizing: border-box;
+        -moz-border-radius: 3px;
+        font-size: 15px;
+        webkit-border-radius: 3px;
+        border-radius: 3px;
+        display: block;
+        padding: 10px;
+        margin-bottom: 14px;
+        overflow: hidden;
+    }
+    .container_feednack .button{
+        height:40px;
+        width:100%;
+        border-radius:3px;
+        border:rgba(0,0,0,.3) 0px solid;
+        box-sizing:border-box;
+        padding:10px;background: rgb(252, 133, 7);
+        color:#FFF;
+        font-weight:400;
+        font-size: 15px;
+        transition:background .4s;
+        cursor:pointer;
+    }
+    .container_feednack .button:hover{
+        background: #C26705FF;
+    }
+    .part_equipment{
+        display: flex;
+        justify-content: space-around;
+        margin: 9px;
+        background: white;
+        align-items: center;
+        border-bottom: 1px black solid;
+        height: 30px;
+        width: 90%;
+    }
+    .part_equipment input {
+        width: 20%;
+    }
+    .part_equipment .name_equipment{
+        width: 50%;
+    }
+    .calcbutton{
+        margin: auto;
+        width: 118px;
+        height: 34px;
+        background: #ffe100;
+        border: none;
+        border-radius: 2px;
+        transition: .2s;
+    }
+    .calcbutton:hover{
+        cursor: pointer;
+        transition: .2s;
+        background: #ffc711;
+    }
+
+    .cart{
+        cursor: pointer;
+    }
+    .cart_field{
+
+    }
+    .cart_field_num2{
+        display: none;
+    }
+    .calc{
+        display: flex;
+    }
+    .feedback{
+        position: fixed;
+        width: 27px;
+        box-shadow: 0 4px 12px 0 rgb(0 0 0 / 20%);
+        cursor: pointer;
+        height: 27px;
+        border-radius: 50%;
+        background: #fc8507;
+        margin-right: 24px;
+        padding: 17px;
+        right: 0;
+        margin-bottom: 24px;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .total{
+        text-align: center;
+        margin: 10px;
+        font-weight: 600;
+        font-size: 15px;
+    }
+    .show_cart{
+        background: white;
+        position: absolute;
+        right: 7.5%;
+        width: 300px;
+        height: 350px;
+        z-index: 3;
+        border-radius: 8px;
+        box-shadow: 0 14px 28px rgba(0,0,0,0.02), 0 10px 10px rgba(0,0,0,0.02);
     }
     input{
         font-family: Montserrat,sans-serif;
     }
+    #main-body{
+        display: flex;
+        justify-content: center;
+    }
     #categories {
-        float:left;
         width:15%;
-        margin: 0 1% 0 5%;
         background: whitesmoke;
         box-shadow: 0 14px 28px rgba(0,0,0,0.02), 0 10px 10px rgba(0,0,0,0.02);
     }
@@ -382,89 +454,68 @@
         color: #122c58;
     }
     #catalogue-all {
-        float:left;
-        width:56%;
-        background: whitesmoke;
-        size: auto;
+        margin: 0 20px;
+        width:50%;
     }
-    #equipment-all {
-        position: relative;
-        height:213px;
-        margin-bottom: 8px;
-        margin-right: 1px;
-        background: #ebebeb;
-        ox-shadow: 0 14px 28px rgb(0 0 0), 0 10px 10px rgb(0 0 0)
-    }
-    .div-part-item{
-        height: 213px;
-        margin-bottom: 15px;
-        background: #f5f5f5;
-        box-shadow: 0 14px 28px rgba(0,0,0,0.02), 0 10px 10px rgba(0,0,0,0.02);
-    }
-    #equipment-image{
-        float:left;
-        height: 200px;
-        padding: 5px;
-        background: #FFFFFF;
-    }
-    #equipment-image img{
-        width:200px;
-        margin: auto;
-    }
-    .div-part-item:hover{
-        display: block;
-        width: auto;
-        position: absolute;
-        left: -1%;
-        top: -0.5%;
-        right: -0.5%;
-        -webkit-box-shadow: 0 0 20px rgba(0,0,0,.3);
-        box-shadow: 0 0 20px rgba(0,0,0,.3);
-        background: #fff;
-    }
-    #equipment-name{
-        margin-top: -15px;
-    }
-    .price .value{
-        font-size: 16px;
-        font-weight: 500;
-    }
-    .size-name{
-        width:67%;
-        font-size: 15px;
-        border-bottom: solid 1px #000;
-    }
-    .size-name:hover{
-        border-bottom: solid 0px #000;
-    }
-    .info-block{
-        float: right;
-        width:18%;
-    }
-    .checks{
-        display: flex;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-        align-items: center;
-        margin-top: 50px;
-    }
-    .price{
-
-        margin-top: 40px;
-        font-size: 20px;
-        line-height: 1;
-    }
-
-    .available{
-        margin-top:20px;
-        margin-bottom: 20px;
-    }
-    .button-info{
-        width: 50%;
-    }
-    .button-info input{
+    #equipment-all {}
+    .equipment_part{
+        margin: 10px 0;
         width: 100%;
-        text-align: center;
+        display: flex;
+        align-content: center;
+        box-shadow: 0 14px 28px rgb(0 0 0 / 2%), 0 10px 10px rgb(0 0 0 / 2%);
+        background: #f5f5f5;
+    }
+    .info_part{
+        width: 100%;
+        display: flex;
+    }
+    .info_part .text:hover{
+        transition: .2s;
+        cursor: pointer;
+    }
+    .image_part img{
+        padding: 5px;
+        filter: brightness(0.98);
+    }
+    .info_part .text{
+        transition: .2s;
+        display: flex;
+        padding: 10px;
+        flex-direction: column;
+        justify-content: space-evenly;
+    }
+    .info_part .price{
+        float: right;
+        width:80%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .equipment_part .name{
+        font-size: 15px;
+    }
+    .value_price{
+        font-size: 15px;
+        text-align: end;
+        font-weight: bold;
+    }
+    .wrap_valueprice{
+        width: 118px;
+    }
+    #BuyButton{
+        width: 118px;
+        height: 34px;
+        background: #ffe100;
+        border: none;
+        border-radius: 2px;
+        transition: .2s;
+    }
+    #BuyButton:hover{
+        cursor: pointer;
+        transition: .2s;
+        background: #ffc711;
     }
     #filter {
         float:left;
@@ -498,18 +549,16 @@
     .ul_categoies a:hover{
         color: #3030dc;
     }
-   .ul_categoies a{
+    .ul_categoies a{
         color: #122c58;
     }
-
-
     .div_header {
+        width: 84%;
+    }
+    header{
         background: #242750;
-        height: 108px;
-        font-size: 20px;
-        font-family: Montserrat,sans-serif;
-        font-weight: bold;
-
+        display: flex;
+        justify-content: center;
     }
     .logo{
         margin-top: 10px;
@@ -517,21 +566,34 @@
         height: 93px;
     }
     #search-bar{
-        padding: 0 0;
         border-radius: 20px 0 0 20px;
-        border:0px;
-        margin:0;
-
-
+        border: 0px;
+        margin-right: -5px;
+        padding: 0 0 0 20px;
     }
     .search {
         width: 600px;
+    }
+    .search_logo{
+        display: flex;
+        width: 39px;
+        background: white;
+        height: 45px;
+        margin-right: 11px;
+        border-radius: 0px 20px 20px 0px;
+        align-items: center;
     }
     .search input {
         width: 600px;
         height: 45px;
         margin-right: 0;
     }
+    .button_go{
+        display: flex;
+        height: 105px;
+        align-items: center;
+    }
+
     .button_go input{
         padding: 0;
         height: 45px;
@@ -559,6 +621,12 @@
     }
     .button_signin{
         width: 100%;
+    }
+    input{
+        outline: none;
+    }
+    .div_header input::placeholder{
+        margin-left: 10px;
     }
     .slider_input input{
         width:80px;
@@ -760,6 +828,64 @@
         margin: 10px;
         width:30px;
     }
-
 </style>
+<script>
+    prices = new Map();
+    let sum = 0;
+    let counter_equip = 0;
+    let cart_field = document.querySelector('.cart_field');
+    let cart_field_id = document.getElementById('cart_field_id');
+    let totalsum = cart_field.querySelector('.total');
+    function showCart() {
+        console.log('123');
+        cart_field.classList.toggle('cart_field_num2');
+    }
+    function counter(elem){
+        let number = elem.value
+        total = number*Number(elem.parentNode.parentNode.querySelector('.pricethis').innerHTML);
+        prices.set(elem, total);
+    }
+    function calculateTotal(){
+        if(sum != 0){
+            sum=0;
+        }
+        for(let [key, value] of prices){
+            sum += value;
+        }
+        totalsum.innerHTML = String(sum);
+    }
+    function addToCart(element){
+        let parent = element.parentNode.parentNode;
+        let name_equipment = parent.querySelector('.name').innerHTML;
+        let cost_equipment = parent.querySelector('.cost_equipmant').innerHTML;
+
+        cart_field.insertAdjacentHTML('afterbegin','<div class="part_equipment">\n' +
+            '        <div class="name_equipment">'+ name_equipment +'</div>\n' +
+            '        <div className="counter"><input type="number" min=\'0\' value=\'0\' onClick="counter(this)"></div>' +
+            '        <div class="pricethis">'+cost_equipment+'</div>\n' +
+            '    </div>');
+        element.onclick = null;
+        counter_equip++;
+        console.log(counter_equip);
+    }
+    let feedback_field = document.getElementById('feed_id');
+    function openfeedback(){
+        feedback_field.classList.toggle('hidefeedback');
+    }
+    let cart_button = document.getElementById('cart_id');
+    let feedback_button = document.getElementById('feedback_button_id');
+    document.addEventListener('click', (e) => {
+        const withinCart = e.composedPath().includes(cart_field);
+        const withinFeedback = e.composedPath().includes(feedback_field);
+        const withinCartbutton = e.composedPath().includes(cart_button);
+        const withinFeedbackbutton = e.composedPath().includes(feedback_button);
+
+
+        if((!withinCart)&&(!withinFeedback)&&(!withinCartbutton)&&(!withinFeedbackbutton)){
+            cart_field.classList.add('cart_field_num2');
+            feedback_field.classList.add('hidefeedback');
+        }
+    })
+
+</script>
 </html>
