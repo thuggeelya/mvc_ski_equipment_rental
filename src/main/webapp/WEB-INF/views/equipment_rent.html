@@ -104,7 +104,7 @@
                         <a th:href="@{#}"><img th:if="${'/images/' + #strings.replace(equipment.name,' ','_') + '.png'} == null" th:src="@{/images/empty_img.png}"  width="200px" height="200px"alt="No image"></a>
                     </div>
                     <div class="info_part">
-                        <div class="text" th:id="${equipment.name}" onclick="func(this.id)">
+                        <div class="text" th:id="${equipment.name}" onclick="func(this)">
                             <div class="name">
                                 <span th:text="${equipment.name}" class="size-name" id="size_name_id"></span>
                             </div>
@@ -822,12 +822,18 @@
     }
 </style>
 <script>
+
     prices = new Map();
     let sum = 0;
     let counter_equip = 0;
     let cart_field = document.querySelector('.cart_field');
     let cart_field_id = document.getElementById('cart_field_id');
     let totalsum = cart_field.querySelector('.total');
+    function func(elem){
+        let par = elem.querySelector('.size-name').innerHTML;
+        console.log(par);
+        location.href = 'http://localhost:8080/mvc_ski_equipment_rental_war_exploded/equipment/'+par;
+    }
     function showCart() {
         console.log('123');
         cart_field.classList.toggle('cart_field_num2');
@@ -894,6 +900,8 @@
             feedback_field.classList.add('hidefeedback');
         }
     })
-
+    function tomain(){
+        location.href = 'http://localhost:8080/mvc_ski_equipment_rental_war_exploded/equipment/rent';
+    }
 </script>
 </html>

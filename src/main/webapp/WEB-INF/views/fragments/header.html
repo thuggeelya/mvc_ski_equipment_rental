@@ -6,7 +6,7 @@
         <table>
             <tr class="table_search">
                 <td th:href="@{/equipment/rent}">
-                    <img class="logo" th:src="@{/images/logo.jpg}">
+                    <img class="logo" th:src="@{/images/logo.jpg}" onclick="tomain()">
                 </td>
                 <td class="search">
                     <input id="search-bar" th:name="${equipmentName}" type="text" required placeholder="Search">
