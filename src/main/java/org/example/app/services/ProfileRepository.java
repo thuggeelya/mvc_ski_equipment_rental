@@ -11,11 +11,6 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
-import java.sql.ResultSet;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicBoolean;
-
 @Repository
 public class ProfileRepository implements ApplicationContextAware {
 
@@ -34,12 +29,13 @@ public class ProfileRepository implements ApplicationContextAware {
 
     public void saveProfileChanges(@NotNull User user) {
         Person person = user.getPerson();
-        String exp = "UPDATE person SET name=:name, lastName=:lastName, age=:age, phone=:phone WHERE id=:id";
-        jdbcTemplate.update(exp, new MapSqlParameterSource()
-                .addValue("name", person.getName())
-                .addValue("lastName", person.getLastName())
-                .addValue("age", person.getAge())
-                .addValue("phone", person.getPhone()));
+        String exp = "UPDATE person SET name=:name,lastname=:lastname,age=:age,phone=:phone WHERE id=:id";
+//        jdbcTemplate.update(exp, new MapSqlParameterSource()
+//                .addValue("id", person.getId())
+//                .addValue("name", person.getName())
+//                .addValue("lastname", person.getLastName())
+//                .addValue("age", person.getAge())
+//                .addValue("phone", person.getPhone()));
     }
 
     public boolean exit() {
