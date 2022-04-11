@@ -92,6 +92,7 @@ public class ProfileController {
         User user = getSessionUser(request);
         user.setPerson(person);
         request.getSession().setAttribute("login_user", user);
+        profileService.saveProfileChanges(user);
         logger.info("updating profile page");
         return "redirect:/profile";
     }

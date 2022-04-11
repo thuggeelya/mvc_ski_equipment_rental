@@ -62,6 +62,7 @@ public class LoginService {
             params.put("password", loginForm.getPassword());
             String exp = "INSERT INTO users_table(id,email,password) VALUES (:id,:email,:password)";
             jdbcTemplate.update(exp, params);
+            exp = "INSERT INTO person(id,name,lastName,age,phone) VALUES (:id,null,null,null,null)";
             return false;
         }
         return true;

@@ -20,6 +20,8 @@ public class DbConfig {
                 .addScript("schema.sql")
                 .addScript("data.sql")
                 .addScript("users.sql")
+                .addScript("users_equipment.sql")
+                .addScript("person.sql")
                 .addScript("messages.sql")
                 .addScript("data_users.sql")
                 .setScriptEncoding("UTF-8")

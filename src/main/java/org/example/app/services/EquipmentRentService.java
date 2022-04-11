@@ -2,15 +2,14 @@ package org.example.app.services;
 
 import org.example.web.dto.Equipment;
 import org.example.web.dto.Message;
+import org.example.web.dto.User;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class EquipmentRentService {
@@ -51,6 +50,27 @@ public class EquipmentRentService {
         String exp = "INSERT INTO messages(id,name,email,topic,text)" +
                 " VALUES (:id,:name,:email,:topic,:text)";
         jdbcTemplate.update(exp, params);
+    }
+
+    public void saveUserEquipment(@NotNull User user, @NotNull List<String> cartList) {
+        Set<Equipment> equipmentSet = new HashSet<>();
+        if (!user.getUserEquipment().getRentHistory().isEmpty()) {
+            equipmentSet = user.getUserEquipment().getRentHistory().keySet();
+        }
+        if (!user.getUserEquipment().getOnRentNow().isEmpty()) {
+            equipmentSet.addAll(user.getUserEquipment().getOnRentNow().keySet());
+        }
+        Set<Equipment> cartSet = cartList.stream().map(this::getEquipmentByName).collect(Collectors.toSet());
+
+        for (Equipment e : cartSet) {
+            if (!equipmentSet.contains(e)) {
+                Map<String, Object> params = new HashMap<>();
+                params.put("id", user.getId());
+                params.put("eq_id", e.getId());
+                String exp = "INSERT INTO users_equipment(id,eq_id) VALUES (:id,:eq_id)";
+                jdbcTemplate.update(exp, params);
+            }
+        }
     }
 
     public void setFave(Equipment equipment) {

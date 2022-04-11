@@ -878,7 +878,9 @@
             pathVars += name + "," + num + ",";
         }
 
-        window.location.assign("https://onlinerentshop.herokuapp.com/equipment/buy/"
+        window.location.assign(
+            // "https://onlinerentshop.herokuapp.com/equipment/buy/"
+            "/mvc_ski_equipment_rental_war_exploded/equipment/buy/"
                                                                             + pathVars.substr(0, pathVars.length - 1));
     }
 

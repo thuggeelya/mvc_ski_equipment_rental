@@ -116,19 +116,7 @@ public class EquipmentRentRepository implements ProjectRepository<Equipment>, Ap
     }
 
     @Override
-    public void addMessage(@NotNull Message message) {
-        Map<String, Object> params = new HashMap<>();
-
-        params.put("id", new Random().nextInt());
-        params.put("name", message.getName());
-        params.put("email", message.getEmail());
-        params.put("topic", message.getTopic());
-        params.put("text", message.getText());
-
-        String exp = "INSERT INTO messages(id,name,email,topic,text)" +
-                " VALUES (:id,:name,:email,:topic,:text)";
-        jdbcTemplate.update(exp, params);
-    }
+    public void addMessage(@NotNull Message message) {}
 
     private void defaultInit() {
         logger.info("default INIT in equipment repo bean");
