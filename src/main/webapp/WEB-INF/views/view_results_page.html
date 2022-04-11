@@ -10,15 +10,6 @@
 <div class="feedback" id='feedback_button_id' onclick="openfeedback()">
     <img th:src="@{/images/chat.svg}" width="26px" alt="">
 </div>
-<div class="hidefeedback container_feednack" id="feed_id">
-    <form method="post" th:action="@{/equipment/add_message}" th:object="${message}">
-        <input name="name" th:field="*{name}" placeholder="Name" class="textbox" required />
-        <input name="emailaddress" th:field="*{email}" placeholder="E-mail" class="textbox" type="email" required />
-        <input name="theme" placeholder="Topic" th:field="*{topic}" class="textbox" required />
-        <textarea rows="4" cols="50" name="subject" th:field="*{text}" placeholder="Enter your message:" class="message" required></textarea>
-        <input name="submit" class="button" type="submit" value="Submit" />
-    </form>
-</div>
 <div class='cart_field cart_field_num2 show_cart' id="cart_field_id">
     <div class="calc">
         <input class='calcbutton' type="button" value="Calculation" onclick="calculateTotal()">

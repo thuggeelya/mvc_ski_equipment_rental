@@ -131,7 +131,7 @@ public class EquipmentUnitController {
         } else {
             logger.info("go rent " + newEquipment.getName());
             request.getSession().setAttribute("new_rent_equipment", newEquipment);
-            return "redirect:/equipment/rent/" + newEquipment.getName();
+            return "redirect:/profile";
         }
     }
 

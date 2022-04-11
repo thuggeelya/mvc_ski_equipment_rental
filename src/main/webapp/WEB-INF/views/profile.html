@@ -731,7 +731,7 @@
                             <td th:if="${equipment_lease}" th:utext="${equipment_lease.description}">Details</td>
                             <td><p th:if="${equipment_lease}">
                                 <a href="equipment_unit.html" th:href="@{/equipment/{name}(name=${equipment_lease.name})}">
-                                    <input type="url" value="Edit">
+                                    <input type="button" value="Edit">
                                 </a>
                             </p></td>
                         </tr>

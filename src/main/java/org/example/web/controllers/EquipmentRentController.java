@@ -36,7 +36,7 @@ public class EquipmentRentController {
         model.addAttribute("equipmentList", equipmentRentService.getAllEquipment());
         model.addAttribute("cartList", new ArrayList<String>());
         model.addAttribute("numList", new ArrayList<Integer>());
-        model.addAttribute(new Message());
+        model.addAttribute("message", new Message());
         return "equipment_rent";
     }
 
@@ -47,6 +47,7 @@ public class EquipmentRentController {
                 ModelAndView modelAndView = new ModelAndView();
                 modelAndView.addObject("equipmentFound", equipmentRentService.getFoundEquipment()); // <- List
                 modelAndView.setViewName("view_results_page"); // redirect:/filtered_equipment/found
+                model.addAttribute("message", new Message());
 
                 for (Equipment equipment : equipmentRentService.getFoundEquipment()) {
                     logger.info(equipment);
@@ -57,7 +58,7 @@ public class EquipmentRentController {
                 model.addAttribute("equipmentList", equipmentRentService.getAllEquipment());
                 model.addAttribute("cartList", new ArrayList<String>());
                 model.addAttribute("numList", new ArrayList<Integer>());
-                model.addAttribute(new Message());
+                model.addAttribute("message", new Message());
                 return new ModelAndView("equipment_rent");
             }
     }
