@@ -3,6 +3,7 @@ package org.example.web.controllers;
 import org.apache.log4j.Logger;
 import org.example.app.services.FilterService;
 import org.example.web.dto.Equipment;
+import org.example.web.dto.Message;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,8 @@ public class FilterController {
     @GetMapping("/found")
     public String equipmentFound(@NotNull HttpServletRequest request, Model model) {
         logger.info("got equipment found");
+
+        model.addAttribute("message", new Message());
 
         Enumeration<String> attributesSession = request.getSession().getAttributeNames();
         logger.info("ATTRIBUTES IN SESSION:");

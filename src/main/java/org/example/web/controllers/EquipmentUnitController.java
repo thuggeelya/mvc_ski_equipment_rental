@@ -52,15 +52,15 @@ public class EquipmentUnitController {
             return "equipment_unit";
         }
 
-        boolean isOnRentNow = user.getUserEquipment().getRentHistory().contains(equipment);
+        boolean isOnRentNow = user.getUserEquipment().getRentHistory().containsKey(equipment);
 
         model.addAttribute("is_on_rent_now", isOnRentNow);
         if (isOnRentNow) {
             Integer hours = (Integer) request.getSession().getAttribute("rent_hours");
             model.addAttribute("hours", hours);
             LocalDateTime timeRentCurrentEquipment = (LocalDateTime) request.getSession().getAttribute("time_rent_" + equipment.getId());
-            model.addAttribute("time_rent", timeRentCurrentEquipment.toString());
-            model.addAttribute("is_rent_time_passed", LocalDateTime.now().isAfter(timeRentCurrentEquipment.plusHours(hours)));
+            model.addAttribute("time_rent", timeRentCurrentEquipment == null ? "today" : timeRentCurrentEquipment.toString());
+            model.addAttribute("is_rent_time_passed", false);
         }
         request.getSession().setAttribute("old_lease_equipment", equipment); // not lease, but I need this to be old_lease_equipment
         request.getSession().setAttribute("is_lease", false);                                                       //

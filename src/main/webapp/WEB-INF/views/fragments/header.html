@@ -5,7 +5,7 @@
     <form method="post" th:action="@{/equipment/results}" class="div_form">
         <table>
             <tr class="table_search">
-                <td>
+                <td th:href="@{/equipment/rent}">
                     <img class="logo" th:src="@{/images/logo.jpg}">
                 </td>
                 <td class="search">
@@ -17,9 +17,13 @@
                         <svg width="19" height="19" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13.336 13.335L18 18m-2.665-9.494a6.828 6.828 0 11-13.656 0 6.828 6.828 0 0113.656 0z" stroke="#AFAFAF" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>
                         </svg>
                     </div>
-
                 </td>
 
+                <td class="button_signin">
+                    <a href="messages.html" th:href="@{/messages}">
+                        <input id="reviews-btn" type="button" value="Reviews">
+                    </a>
+                </td>
                 <!--                <td class="button_nav">-->
                 <!--                    <input type="submit" value="Address">-->
                 <!--                </td>-->

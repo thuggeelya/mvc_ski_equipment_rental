@@ -3,6 +3,7 @@ package org.example.app.services;
 import org.apache.log4j.Logger;
 import org.example.app.comparators.Comparators;
 import org.example.web.dto.Equipment;
+import org.example.web.dto.Message;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +56,20 @@ public class EquipmentRentRepository implements ProjectRepository<Equipment>, Ap
         repo.add(equipment);
     }
 
+    public Equipment getEquipmentByName(String name) {
+        Equipment equipment = new Equipment();
+        jdbcTemplate.query("SELECT * FROM equipment", (ResultSet rs, int rowNum) -> {
+            if (rs.getString("name").equals(name)) {
+                equipment.setName(rs.getString("name"));
+                equipment.setFirmName(rs.getString("firm_name"));
+                equipment.setCost(rs.getString("cost"));
+                equipment.setDescription(rs.getString("description"));
+            }
+            return equipment;
+        });
+        return equipment;
+    }
+
     @Override
     public boolean findItemByName(@NotNull String equipmentNameToFind) {
         filter.clear();
@@ -98,6 +113,21 @@ public class EquipmentRentRepository implements ProjectRepository<Equipment>, Ap
     @Override
     public void lease() {
         logger.info("go for leasing");
+    }
+
+    @Override
+    public void addMessage(@NotNull Message message) {
+        Map<String, Object> params = new HashMap<>();
+
+        params.put("id", new Random().nextInt());
+        params.put("name", message.getName());
+        params.put("email", message.getEmail());
+        params.put("topic", message.getTopic());
+        params.put("text", message.getText());
+
+        String exp = "INSERT INTO messages(id,name,email,topic,text)" +
+                " VALUES (:id,:name,:email,:topic,:text)";
+        jdbcTemplate.update(exp, params);
     }
 
     private void defaultInit() {

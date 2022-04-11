@@ -13,18 +13,18 @@
     <img th:src="@{/images/chat.svg}" width="26px" alt="">
 </div>
 <div class="hidefeedback container_feednack" id="feed_id">
-    <form>
-        <input name="name" placeholder="Имя" class="textbox" required />
-        <input name="emailaddress" placeholder="Email" class="textbox" type="email" required />
-        <input name="theme" placeholder="Тема" class="textbox" type="textbox" required />
-        <textarea rows="4" cols="50" name="subject" placeholder="Введите ваше сообщение:" class="message" required></textarea>
-        <input name="submit" class="button" type="submit" value="Отправить" />
+    <form method="post" th:action="@{/equipment/add_message}" th:object="${message}">
+        <input name="name" th:field="*{name}" placeholder="Name" class="textbox" required />
+        <input name="emailaddress" th:field="*{email}" placeholder="E-mail" class="textbox" type="email" required />
+        <input name="theme" placeholder="Topic" th:field="*{topic}" class="textbox" required />
+        <textarea rows="4" cols="50" name="subject" th:field="*{text}" placeholder="Enter your message:" class="message" required></textarea>
+        <input name="submit" class="button" type="submit" value="Submit" />
     </form>
 </div>
 <div class='cart_field cart_field_num2 show_cart' id="cart_field_id">
     <div class="calc">
         <input class='calcbutton' type="button" value="Calculation" onclick="calculateTotal()">
-        <input class='buybutton calcbutton' type="button" value="Buy">
+        <input class='buybutton calcbutton' type="submit" value="Buy" onclick="buy()">
     </div>
     <div class="total"></div>
 </div>
@@ -33,7 +33,7 @@
     <div id="categories">
 
         <ul class="ul_categoies">
-            <li><h3 class="h3-catalog">Cata</h3></li>
+            <li><h3 class="h3-catalog">Catalogue</h3></li>
             <li><img><a href="#"><h3>Snowboards</h3></a></li>
             <li class="small-li"><br><a>Equipment</a></li><br>
             <li class="small-li"><br><a>Cloth</a></li><br>
@@ -97,8 +97,6 @@
     </div>
         <div id="catalogue-all">
 
-
-
             <form>
                 <div class="equipment_part" th:each="equipment : ${equipmentList}">
                     <div class="image_part">
@@ -106,7 +104,7 @@
                         <a th:href="@{#}"><img th:if="${'/images/' + #strings.replace(equipment.name,' ','_') + '.png'} == null" th:src="@{/images/empty_img.png}"  width="200px" height="200px"alt="No image"></a>
                     </div>
                     <div class="info_part">
-                        <div class="text" onclick="func(this)">
+                        <div class="text" th:id="${equipment.name}" onclick="func(this.id)">
                             <div class="name">
                                 <span th:text="${equipment.name}" class="size-name" id="size_name_id"></span>
                             </div>
@@ -194,12 +192,6 @@
 
 
                 </div>
-
-
-
-
-
-
 
                 <div class="form_field form_field_togg closed ischeked" rel="collection">
                     <h4>Season</h4>
@@ -841,12 +833,12 @@
         cart_field.classList.toggle('cart_field_num2');
     }
     function counter(elem){
-        let number = elem.value
-        total = number*Number(elem.parentNode.parentNode.querySelector('.pricethis').innerHTML);
+        let number = elem.value;
+        let total = number * Number(elem.parentNode.parentNode.querySelector('.pricethis').innerHTML);
         prices.set(elem, total);
     }
     function calculateTotal(){
-        if(sum != 0){
+        if(sum !== 0){
             sum=0;
         }
         for(let [key, value] of prices){
@@ -861,13 +853,29 @@
 
         cart_field.insertAdjacentHTML('afterbegin','<div class="part_equipment">\n' +
             '        <div class="name_equipment">'+ name_equipment +'</div>\n' +
-            '        <div className="counter"><input type="number" min=\'0\' value=\'0\' onClick="counter(this)"></div>' +
+            '        <div className="counter"><input type="number" min=\'0\' value=\'1\' onClick="counter(this)"></div>' +
             '        <div class="pricethis">'+cost_equipment+'</div>\n' +
             '    </div>');
         element.onclick = null;
         counter_equip++;
         console.log(counter_equip);
     }
+
+    function buy() {
+        let partEquipment = document.getElementsByClassName("part_equipment");
+
+        let pathVars = "";
+        for (let i = 0; i < partEquipment.length; i++) {
+            let name = partEquipment.item(i).getElementsByTagName('div').item(0).textContent.trim();
+            let num = partEquipment.item(i).getElementsByTagName('div').item(1)
+                .getElementsByTagName('input').item(0).getAttribute('value');
+            pathVars += name + "," + num + ",";
+        }
+
+        window.location.assign("/mvc_ski_equipment_rental_war_exploded/equipment/buy/"
+                                                                            + pathVars.substr(0, pathVars.length - 1));
+    }
+
     let feedback_field = document.getElementById('feed_id');
     function openfeedback(){
         feedback_field.classList.toggle('hidefeedback');

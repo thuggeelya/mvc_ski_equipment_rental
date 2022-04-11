@@ -3,16 +3,20 @@ package org.example.web.controllers;
 import org.apache.log4j.Logger;
 import org.example.app.services.EquipmentRentService;
 import org.example.web.dto.Equipment;
+import org.example.web.dto.Message;
+import org.example.web.dto.User;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import org.thymeleaf.expression.Strings;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Enumeration;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Objects;
 
 @Controller
 @RequestMapping(value = "equipment")
@@ -30,6 +34,9 @@ public class EquipmentRentController {
     public String equipment(@NotNull Model model) {
         logger.info("got equipment");
         model.addAttribute("equipmentList", equipmentRentService.getAllEquipment());
+        model.addAttribute("cartList", new ArrayList<String>());
+        model.addAttribute("numList", new ArrayList<Integer>());
+        model.addAttribute(new Message());
         return "equipment_rent";
     }
 
@@ -48,8 +55,51 @@ public class EquipmentRentController {
             } else {
                 model.addAttribute("equipment", new Equipment());
                 model.addAttribute("equipmentList", equipmentRentService.getAllEquipment());
+                model.addAttribute("cartList", new ArrayList<String>());
+                model.addAttribute("numList", new ArrayList<Integer>());
+                model.addAttribute(new Message());
                 return new ModelAndView("equipment_rent");
             }
+    }
+
+    @PostMapping("/add_message")
+    public String addMessage(@ModelAttribute("message") Message message) {
+        logger.info("message: " + message);
+        equipmentRentService.addMessage(message);
+        return "redirect:/equipment/rent";
+    }
+
+    @PostMapping("/buy")
+    public String buyNull() {
+        return "redirect:/equipment/rent";
+    }
+
+    @GetMapping("/buy/{items}")
+    public String buy(@NotNull @PathVariable String[] items, @NotNull HttpServletRequest request) {
+        List<String> cartList = new ArrayList<>();
+        List<Integer> numList = new ArrayList<>();
+
+        for (int i = 0; i < items.length; i++) {
+            items[i] = items[i].replace("%20", " ");
+            if (i % 2 == 0) {
+                cartList.add(items[i]);
+            } else {
+                numList.add(Integer.parseInt(items[i]));
+            }
+        }
+
+        logger.info("cartList: " + cartList);
+        logger.info("numList: " + numList);
+        User user = (User) request.getSession().getAttribute("login_user");
+
+        for (int i = 0; i < Objects.requireNonNull(numList).size(); i++) {
+            if(numList.get(i) != 0) {
+                user.getUserEquipment()
+                        .addToRentHistory(equipmentRentService.getEquipmentByName(cartList.get(i)), numList.get(i));
+            }
+        }
+
+        return "commit_rent_page";
     }
 
     @PostMapping("/set_fave")

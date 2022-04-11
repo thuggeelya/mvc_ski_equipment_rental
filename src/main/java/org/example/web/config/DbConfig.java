@@ -20,6 +20,7 @@ public class DbConfig {
                 .addScript("schema.sql")
                 .addScript("data.sql")
                 .addScript("users.sql")
+                .addScript("messages.sql")
                 .addScript("data_users.sql")
                 .setScriptEncoding("UTF-8")
                 .ignoreFailedDrops(true)

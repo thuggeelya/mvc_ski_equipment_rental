@@ -18,8 +18,8 @@ public class PayController {
 //        this.profileService = profileService;
 //    }
 
-    @GetMapping("/{name}/pay")
-    public String pay(@PathVariable String name, @NotNull Model model) {
+    @GetMapping("/pay")
+    public String pay(@NotNull Model model) {
 //        model.addAttribute("equipment_name", name);
         return "commit_rent_page";
     }

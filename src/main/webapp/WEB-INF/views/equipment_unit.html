@@ -14,7 +14,7 @@
     <div id="equipment-name">
         <h1 th:text="${equipment?.name} ?: ''"></h1>
     </div>
-        <div class="img-item"><img src="empty_img.png"></div>
+        <div class="img-item"><img th:src="@{${'/images/' + #strings.replace(equipment.name,' ','_') + '.png'}}"></div>
 
     <div class="description">
         <span><h3>DESCRIPTION</h3></span>
@@ -112,8 +112,8 @@
 
         </table>
 
-        <a th:if="${is_lease} == false and ${is_on_rent_now} == false" href="rent_page.html" th:href="@{/equipment/rent/{name}(name=${equipment.name})}">
-            <button class="button-rent">Rent</button>
+        <a th:if="${is_lease} == false and ${is_on_rent_now} == false" href="equipment_rent.html" th:href="@{/equipment/rent}">
+            <button class="button-rent">Back</button>
         </a>
         <a th:if="${is_lease}">
             <input type="submit" value="Save">

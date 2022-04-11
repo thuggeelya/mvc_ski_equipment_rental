@@ -2,15 +2,17 @@ package org.example.web.dto;
 
 import org.example.app.comparators.Comparators;
 
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 public class UserEquipment {
 
     private int id;
-    private Set<Equipment> rentHistory = new TreeSet<>(Comparators.equipmentCostComparator);
+    private Map<Equipment, Integer> rentHistory = new TreeMap<>(Comparators.equipmentCostComparator);
     private Set<Equipment> leaseHistory = new TreeSet<>(Comparators.equipmentCostComparator);
-    private Set<Equipment> onRentNow = new TreeSet<>(Comparators.equipmentCostComparator);
+    private Map<Equipment, Integer> onRentNow = new TreeMap<>(Comparators.equipmentCostComparator);
     private Set<Equipment> onLeaseNow = new TreeSet<>(Comparators.equipmentCostComparator);
 
     public int getId() {
@@ -21,15 +23,15 @@ public class UserEquipment {
         this.id = id;
     }
 
-    public Set<Equipment> getRentHistory() {
+    public Map<Equipment, Integer> getRentHistory() {
         return rentHistory;
     }
 
-    public void setRentHistory(Set<Equipment> rentHistory) {
+    public void setRentHistory(Map<Equipment, Integer> rentHistory) {
         this.rentHistory = rentHistory;
     }
-    public void addToRentHistory(Equipment equipment) {
-        rentHistory.add(equipment);
+    public void addToRentHistory(Equipment equipment, int i) {
+        rentHistory.put(equipment, i);
     }
     public void removeFromRentHistory(Equipment equipment) {
         rentHistory.remove(equipment);
@@ -49,15 +51,15 @@ public class UserEquipment {
         leaseHistory.remove(equipment);
     }
 
-    public Set<Equipment> getOnRentNow() {
+    public Map<Equipment, Integer> getOnRentNow() {
         return onRentNow;
     }
 
-    public void setOnRentNow(Set<Equipment> onRentNow) {
+    public void setOnRentNow(Map<Equipment, Integer> onRentNow) {
         this.onRentNow = onRentNow;
     }
-    public void addToRentNow(Equipment equipment) {
-        onRentNow.add(equipment);
+    public void addToRentNow(Equipment equipment, int i) {
+        onRentNow.put(equipment, i);
     }
     public void removeFromRentNow(Equipment equipment) {
         onRentNow.remove(equipment);

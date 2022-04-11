@@ -3,6 +3,7 @@ package org.example.web.controllers;
 import org.apache.log4j.Logger;
 import org.example.app.services.LeaseService;
 import org.example.web.dto.Equipment;
+import org.example.web.dto.Message;
 import org.example.web.dto.User;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,7 @@ public class LeaseController {
     @GetMapping("/lease")
     public String lease(@NotNull Model model, @NotNull HttpServletRequest request) {
         User user = (User) request.getSession().getAttribute("login_user");
+        model.addAttribute("message", new Message());
         logger.info("USER: " + user);
 
         if (    user == null ||

@@ -21,12 +21,12 @@
     <img th:src="@{/images/chat.svg}" width="26px" alt="">
 </div>
 <div class="hidefeedback container_feednack" id="feed_id">
-    <form>
-        <input name="name" placeholder="Имя" class="textbox" required />
-        <input name="emailaddress" placeholder="Email" class="textbox" type="email" required />
-        <input name="theme" placeholder="Тема" class="textbox" type="textbox" required />
-        <textarea rows="4" cols="50" name="subject" placeholder="Введите ваше сообщение:" class="message" required></textarea>
-        <input name="submit" class="button" type="submit" value="Отправить" />
+    <form method="post" th:action="@{/equipment/add_message}" th:object="${message}">
+        <input name="name" th:field="*{name}" placeholder="Name" class="textbox" required />
+        <input name="emailaddress" th:field="*{email}" placeholder="E-mail" class="textbox" type="email" required />
+        <input name="theme" placeholder="Topic" th:field="*{topic}" class="textbox" required />
+        <textarea rows="4" cols="50" name="subject" th:field="*{text}" placeholder="Enter your message:" class="message" required></textarea>
+        <input name="submit" class="button" type="submit" value="Submit" />
     </form>
 </div>
 <div class='cart_field cart_field_num2 show_cart' id="cart_field_id">
@@ -69,9 +69,9 @@
     <div class="line"></div>
     <div class="copy">
         <div class="c">&#169; 2021 All rights reserved</div>
-        <div class="social"><img src="twitter_logo.png">
-            <img src="inst_logo.png">
-            <img src="youtube_logo.png"></div>
+        <div class="social"><img th:src="@{/images/twitter_logo.png}">
+            <img th:src="@{/images/inst_logo.png}">
+            <img th:src="@{/images/youtube_logo.png}"></div>
     </div>
 </div>
 <style>
@@ -700,7 +700,7 @@
                                 <td th:if="${equipment_rent}" th:utext="${equipment_rent.description}">Details</td>
                                 <td><p th:if="${equipment_rent}">
                                     <a href="equipment_unit.html" th:href="@{/equipment/{name}(name=${equipment_rent.name})}">
-                                        <input type="url" id="${iter.index}" value="Info">
+                                        <input type="button" id="${iter.index}" value="Info">
                                     </a>
                                 </p></td>
                             </tr>

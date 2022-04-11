@@ -3,6 +3,7 @@ package org.example.web.controllers;
 import org.apache.log4j.Logger;
 import org.example.app.services.RentService;
 import org.example.web.dto.Equipment;
+import org.example.web.dto.Message;
 import org.example.web.dto.Person;
 import org.example.web.dto.User;
 import org.jetbrains.annotations.NotNull;
@@ -30,6 +31,8 @@ public class RentController {
     @GetMapping("/{name}")
     public String rent(@PathVariable String name, @NotNull HttpServletRequest request, @NotNull Model model) {
         logger.info("renting process of " + name);
+
+        model.addAttribute("message", new Message());
         User user = (User) request.getSession().getAttribute("login_user");
         Equipment equipment = (Equipment) request.getSession().getAttribute("new_rent_equipment");
 

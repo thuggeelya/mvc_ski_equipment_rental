@@ -2,10 +2,7 @@ package org.example.web.controllers;
 
 import org.apache.log4j.Logger;
 import org.example.app.services.ProfileService;
-import org.example.web.dto.Equipment;
-import org.example.web.dto.Person;
-import org.example.web.dto.ProfilePageVisitingCause;
-import org.example.web.dto.User;
+import org.example.web.dto.*;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,6 +36,8 @@ public class ProfileController {
     public String openProfile(Model model, @NotNull HttpServletRequest request) {
         User user = getSessionUser(request);
 
+        model.addAttribute("message", new Message());
+
         request.getSession().setAttribute("isLease", false);
 
         if (user == null) {
@@ -55,7 +54,7 @@ public class ProfileController {
         }
 
         model.addAttribute("person", user.getPerson());
-        model.addAttribute("rent_equipment", user.getUserEquipment().getRentHistory());
+        model.addAttribute("rent_equipment", user.getUserEquipment().getRentHistory().keySet());
         model.addAttribute("lease_equipment", user.getUserEquipment().getLeaseHistory());
         model.addAttribute("user", user);
         model.addAttribute("isLease", true);
@@ -75,8 +74,8 @@ public class ProfileController {
             request.getSession().removeAttribute("equipment_to_lease");
         }
         if (newRentEquipment != null) {
-            user.getUserEquipment().addToRentHistory(newRentEquipment);
-            user.getUserEquipment().addToRentNow(newRentEquipment);
+            user.getUserEquipment().addToRentHistory(newRentEquipment, 1);
+            user.getUserEquipment().addToRentNow(newRentEquipment, 1);
             request.getSession().setAttribute("time_rent_" + newRentEquipment.getId(), LocalDateTime.now());
             request.getSession().removeAttribute("new_rent_equipment");
         }
