@@ -1,0 +1,9 @@
+DROP TABLE IF EXISTS messages;
+
+CREATE TABLE messages(
+    id INT PRIMARY KEY,
+    name VARCHAR(250) NOT NULL,
+    email VARCHAR(250) NOT NULL,
+    topic VARCHAR(250) NOT NULL,
+    text VARCHAR(250) NOT NULL
+);

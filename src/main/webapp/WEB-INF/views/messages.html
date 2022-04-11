@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+</head>
+<div class="hidefeedback container_feednack" id="feed_id">
+    <form method="post" th:action="@{/equipment/add_message}" th:object="${message}">
+        <input name="name" th:field="*{name}" placeholder="Name" class="textbox" required />
+        <input name="emailaddress" th:field="*{email}" placeholder="E-mail" class="textbox" type="email" required />
+        <input name="theme" placeholder="Topic" th:field="*{topic}" class="textbox" required />
+        <textarea rows="4" cols="50" name="subject" th:field="*{text}" placeholder="Enter your message:" class="message" required></textarea>
+        <input name="submit" class="button" type="submit" value="Submit" />
+    </form>
+</div>
+<div class='cart_field cart_field_num2 show_cart' id="cart_field_id">
+    <div class="calc">
+        <input class='calcbutton' type="button" value="Calculation" onclick="calculateTotal()">
+        <input class='buybutton calcbutton' type="button" value="Buy">
+    </div>
+    <div class="total"></div>
+</div>
+<div class="footer">
+    <div class="main-footer">
+        <div class="image-block"><img th:src="@{/images/logo.jpg}"></div>
+        <div class="text-block">
+            <div><span><h3>TO THE RENT</h3><br>
+            <span><a href="#">How to rent
+</a></span><br>
+                <span><a href="#">Questions and answers</a></span><br></span></div>
+
+            <div><h3>TO THE LANDLORD</h3><br>
+                <span><a href="#">How to rent
+</a></span><br>
+                <span><a href="#">QPublication rules</a></span><br>
+
+                </a></span>
+                <span><a href="#">Collateral insurance</a></span><br></div>
+
+
+
+            <div><h3>ABOUT COMPANY</h3><br>
+                <span><a href="#">Documents
+                </a></span><br>
+                <span><a href="#">Publication rules</a></span><br>
+                <span><a href="#">Rental offer</a></span><br>
+                <span><a href="#">Rental management system</a></span><br>
+                <span><a href="#">Questions and answers
+</a></span><br>
+                <span><a href="#">Collateral insurance</a></span><br></div>
+        </div>
+    </div>
+    <div class="line"></div>
+    <div class="copy">
+        <div class="c">&#169; 2021 All rights reserved</div>
+        <div class="social"><img th:src="@{/images/twitter_logo.png}">
+            <img th:src="@{/images/inst_logo.png}">
+            <img th:src="@{/images/youtube_logo.png}"></div>
+    </div>
+</div>
+<style>
+    body{
+        background-color: #eee;
+        margin: 0;
+        padding: 0;
+    }
+    .container_feednack p{
+        color:rgba(0,0,0,.7);
+        width:100%;
+        margin: 100px auto;
+        font-weight:300;
+        text-align:center;
+    }
+
+    .container_feednack a{
+        text-decoration:none;
+        color:#0079f2;
+    }
+    .container_feednack .container{
+        max-width: 29em;
+    }
+    .hidefeedback{
+        display: none;
+    }
+    .container_feednack form{
+        position: fixed;
+        max-width: 20%;
+        box-sizing: border-box;
+        padding: 36px;
+        border-radius: 5px;
+        background: RGBA(255,255,255,1);
+        -webkit-box-shadow: 0px 0px 15px 0px rgb(0 0 0 / 45%);
+        box-shadow: 0px 0px 15px 0px rgb(0 0 0 / 45%);
+        bottom: 0;
+        right: 0;
+        margin-right: 30px;
+        margin-bottom: 100px;
+        z-index: 4;
+    }
+    .container_feednack .textbox{
+        height: 33px;
+        width: 100%;
+        border-radius: 3px;
+        border: rgba(0,0,0,.3) 2px solid;
+        box-sizing: border-box;
+        font-size: 13px;
+        padding: 14px;
+        margin-bottom: 15px;
+    }
+    .container_feednack .message:focus,
+    .textbox:focus{
+        outline:none;
+        border:rgba(24,149,215,1) 2px solid;
+        color:rgba(24,149,215,1);
+    }
+    .container_feednack .message{
+        background: rgba(255, 255, 255, 0.4);
+        width: 100%;
+        height: 80px;
+        border: rgba(0,0,0,.3) 2px solid;
+        box-sizing: border-box;
+        -moz-border-radius: 3px;
+        font-size: 15px;
+        webkit-border-radius: 3px;
+        border-radius: 3px;
+        display: block;
+        padding: 10px;
+        margin-bottom: 14px;
+        overflow: hidden;
+    }
+    .container_feednack .button{
+        height:40px;
+        width:100%;
+        border-radius:3px;
+        border:rgba(0,0,0,.3) 0px solid;
+        box-sizing:border-box;
+        padding:10px;background: rgb(252, 133, 7);
+        color:#FFF;
+        font-weight:400;
+        font-size: 15px;
+        transition:background .4s;
+        cursor:pointer;
+    }
+    .container_feednack .button:hover{
+        background: #C26705FF;
+    }
+    .calcbutton{
+        margin: auto;
+        width: 118px;
+        height: 34px;
+        background: #ffe100;
+        border: none;
+        border-radius: 2px;
+        transition: .2s;
+    }
+    .calcbutton:hover{
+        cursor: pointer;
+        transition: .2s;
+        background: #ffc711;
+    }
+
+    .cart{
+        cursor: pointer;
+    }
+    .cart_field{
+
+    }
+    .cart_field_num2{
+        display: none;
+    }
+    .calc{
+        display: flex;
+    }
+    .feedback{
+        position: fixed;
+        width: 27px;
+        box-shadow: 0 4px 12px 0 rgb(0 0 0 / 20%);
+        cursor: pointer;
+        height: 27px;
+        border-radius: 50%;
+        background: #fc8507;
+        margin-right: 24px;
+        padding: 17px;
+        right: 0;
+        margin-bottom: 24px;
+        bottom: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 6;
+    }
+    .total{
+        text-align: center;
+        margin: 10px;
+        font-weight: 600;
+        font-size: 15px;
+    }
+    .show_cart{
+        background: white;
+        position: absolute;
+        right: 7.5%;
+        width: 300px;
+        height: 350px;
+        z-index: 3;
+        border-radius: 8px;
+        box-shadow: 0 14px 28px rgba(0,0,0,0.02), 0 10px 10px rgba(0,0,0,0.02);
+    }
+    #categories {
+        float:left;
+        width:20%;
+        margin: 0 15px;
+        background: #aed4e4;
+        border-radius: 8px;
+    }
+    #catalogue-all {
+        float:left;
+        width:60%;
+        background: whitesmoke;
+        size: auto;
+    }
+    #equipment-all {
+        position: relative;
+        size: auto;
+    }
+    #equipment-submit-button, #equipment-submit-button-return-login-page, #equipment-name, #equipment-image {
+        position: relative;
+        float: inside;
+        width: auto;
+    }
+    #filter {
+        float:left;
+        width:20%;
+        background: #aed4e4;
+    }
+
+    #categories p, #filter p {
+        text-align: center;
+    }
+    .icon_cat{
+        text-align: left;
+        max-width: 40px;
+
+    }
+    .ul_categoies{
+        padding: 0;
+        margin: 0 ;
+        list-style: none;
+        font-family: Tahoma;
+        font-size: 19px;
+        color: #20498f;
+    }
+    .ul_categoies li:first-child:hover{
+        background: #9abbf3;
+        border-radius: 8px 8px 0 0;
+    }
+    .ul_categoies li:hover{
+        background: #9abbf3;
+    }
+    .ul_categoies li:last-child:hover{
+        background: #9abbf3;
+        border-radius:  0 0 8px 8px;
+        color: #9abbf3;
+    }
+    .ul_categoies a{
+        color: #122c58;
+    }
+
+    .div_header {
+        width: 84%;
+    }
+    header{
+        background: #242750;
+        display: flex;
+        justify-content: center;
+    }
+    .logo{
+        margin-top: 10px;
+        display: block;
+        height: 93px;
+    }
+    #search-bar{
+        border-radius: 20px 0 0 20px;
+        border: 0px;
+        margin-right: -5px;
+        padding: 0 0 0 20px;
+    }
+    .search {
+        width: 600px;
+    }
+    .search_logo{
+        display: flex;
+        width: 39px;
+        background: white;
+        height: 45px;
+        margin-right: 11px;
+        border-radius: 0px 20px 20px 0px;
+        align-items: center;
+    }
+    .search input {
+        width: 600px;
+        height: 45px;
+        margin-right: 0;
+    }
+    .button_go{
+        display: flex;
+        height: 105px;
+        align-items: center;
+    }
+
+    .button_go input{
+        padding: 0;
+        height: 45px;
+        width: 45px;
+        border-radius: 0 20px 20px 0;
+        background: #ffffff;
+        border:0;
+        margin: 0 0 0 -5px;
+    }
+    .button_go input:hover{
+        background: #dbd6d6;
+    }
+    .button_nav input{
+        margin-left: 25px;
+        border-radius: 20px;
+        width: 100px;
+        height: 45px;
+        background: #ffffff;
+    }
+    .button_nav input:hover{
+        border-radius: 20px;
+        width: 100px;
+        height: 45px;
+        background: #dbd6d6;
+    }
+    .button_signin{
+        width: 100%;
+    }
+    input{
+        outline: none;
+    }
+    .div_header input::placeholder{
+        margin-left: 10px;
+    }
+    .slider_input input{
+        width:80px;
+    }
+    .button_signin input{
+        float: right;
+        margin-right: 10px;
+        border-radius: 20px;
+        width: 100px;
+        height: 45px;
+        background: #ffffff;
+    }
+    .button_signin input:hover{
+        border-radius: 20px;
+        width: 100px;
+        height: 45px;
+        background: #dbd6d6;
+    }
+    .button-b10{
+        line-height: 1.2;
+        font-size: 12px;
+        color: #000;
+        font-family: Montserrat,sans-serif;
+        margin-bottom: 10px!important;
+        display: block;
+        text-decoration: none;
+        border: none!important;
+        background: linear-gradient(to bottom,#ffe500 0,#fd0 100%);
+        margin-top: 10px;
+    }
+    .button-b10 div{
+        font-family: Montserrat,sans-serif;
+        display: block;
+        text-decoration: none;
+        border: none!important;
+        text-align: center;
+        height: 37px;
+        line-height: 37px;
+        font-size: 12px;
+        color: #000;
+        cursor: pointer;
+    }
+    .button-b10 input{
+        font-family: Montserrat,sans-serif;
+        background: 0 0;
+        border: 0;
+        outline: 0;
+        margin: 0;
+        padding: 0;
+        display: block;
+        width: 100%;
+        height: 37px;
+        line-height: 37px;
+        font-size: 12px;
+        color: #000;
+        cursor: pointer;
+        -webkit-border-radius: 0;
+        appearance: none;
+    }
+    .button_grey{
+        line-height: 1.2;
+        font-size: 12px;
+        font-family: Montserrat,sans-serif;
+        display: block;
+        text-decoration: none;
+        border: none!important;
+        background: linear-gradient(to bottom,#f4f5f5 0,#f1f1f1 100%);
+        color: #000;
+    }
+    .button_grey div{
+        font-family: Montserrat,sans-serif;
+        display: block;
+        text-decoration: none;
+        border: none!important;
+        text-align: center;
+        height: 37px;
+        line-height: 37px;
+        font-size: 12px;
+        color: #000;
+        cursor: pointer;
+    }
+    .button_grey input{
+        ffont-family: Montserrat,sans-serif;
+        background: 0 0;
+        border: 0;
+        outline: 0;
+        margin: 0;
+        padding: 0;
+        display: block;
+        width: 100%;
+        -webkit-appearance: none;
+        -webkit-border-radius: 0;
+        height: 37px;
+        line-height: 37px;
+        font-size: 12px;
+        cursor: pointer;
+        color: #000;
+    }
+
+    .tabs { width: 100%; padding: 0; margin: 0 auto; }
+    .tabs>input { display: none; }
+    .tabs>div {
+        display: none;
+        padding: 12px;
+        /*border: 1px solid #C0C0C0;*/
+        background: #FFFFFF;
+    }
+    .tabs>label {
+        display: inline-block;
+        padding: 5px 23.5px;
+        margin: 0 -5px -1px 0;
+        text-align: center;
+        color: #666666;
+        border: 1px solid #C0C0C0;
+        background: #E0E0E0;
+        cursor: pointer;
+    }
+    .tabs>input:checked + label {
+        color: #000000;
+        border: 1px solid #C0C0C0;
+        border-bottom: 1px solid #FFFFFF;
+        background: #FFFFFF;
+    }
+
+    #left {
+
+        padding: 10px;
+
+    }
+
+    #right {
+
+        padding: 10px;
+
+    }
+    .footer{
+        font-family: Montserrat,sans-serif;
+        position: absolute;
+        background: #242750;
+        left: 0;
+        top: 500px;
+        width: 100%;
+        height: 320px;
+        color: #f5f5f5;
+    }
+    .footer h3{
+        font-family: Montserrat,sans-serif;
+        font-size: 14px;
+
+    }
+    .main-footer{
+        height: 250px;
+    }
+    .image-block{
+        float: left;
+        width:25%;
+    }
+    .image-block img{
+        width:150px;
+        margin-top:62px;
+        margin-left: 20%;
+        text-align: center;
+    }
+    .text-block{
+        margin:5px;
+        margin-top: 50px;
+        float: left;
+        width: 70%;
+        height:100px;
+    }
+    .text-block div{
+        float:left;
+        width: 30%;
+    }
+    .footer a{
+        text-decoration: none;
+        color: #f5f5f5;
+    }
+    .footer a:hover{
+        color:#ba9797;
+    }
+    .line{
+        width:95%;
+        height: 1px;
+        background:#ba9797;
+        margin: auto;
+    }
+    .copy{
+        margin-top: 10px;
+    }
+    .c{
+        margin-top: 10px;
+        margin-left: 40px;
+        float: left;
+        font-size: 14px;
+    }
+    .social{
+        margin-right: 40px;
+        float: right;
+    }
+    .social img{
+        margin: 10px;
+        width:30px;
+    }
+    .div-fields{
+        font-family: Montserrat,sans-serif;
+        font-size: 12px;
+        width: 50%;
+        height: 504px;
+        margin: auto;
+        border: solid 1px #d7d7d7;
+        background: aliceblue;
+        overflow-y: scroll;
+    }
+    #submit-changes-button{
+        margin-top: 5px;
+        padding: 5px;
+        font-family: Montserrat,sans-serif;
+        background: #242750;
+        color: #f5f5f5;
+        border: 0px;
+        width: 100%;
+    }
+    #submit-changes-button:hover{
+        background: #575c99;
+    }
+    table input{
+        height:20px;
+        background: #f0f0f7;
+        border: 1px solid #C0C0C0;
+    }
+
+    .tables{
+        margin: auto;
+    }
+    .details{
+        width:500px;
+
+    }
+    #tab_1:checked ~ #txt_1,
+    #tab_2:checked ~ #txt_2,
+    #tab_4:checked ~ #txt_4 { display: block; }
+    .all_review{
+        width: 80%;
+        margin: auto;
+        padding: 5px;
+        margin-bottom: 5px;
+    }
+    .text-part{
+        margin-bottom: 10px;
+    }
+    .info_part{
+        display: flex;
+        justify-content: space-evenly;
+    }
+    .review{
+        border-top: 1px solid;
+        border-bottom: 1px solid;
+        margin-bottom: 50px;
+    }
+    h1{
+        text-align: center;
+    }
+</style>
+
+<body>
+
+<header th:insert="fragments/header :: head (equipmentNameToFind)"></header>
+<div class="div-fields">
+    <h1>Reviews</h1>
+    <div class="all_review" th:each="message : ${messageList}">
+        <div class="review">
+            <div class="text-part" th:text="${message.text}">
+                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci dignissimos eius iste neque omnis! A aliquid doloremque error fugiat illum laudantium modi omnis tempora temporibus. Debitis dolores illum laborum omnis.
+            </div>
+            <div class="info_part">
+                <div class="name" th:text="${message.name} ? ${message.name} : ${message.email}">
+                    Иван Иванов
+                </div>
+                <div class="mail" th:text="${message.email}">
+                    ivan@ivanov.ru
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<footer th:insert="fragments/footer :: foot"></footer>
+
+</body>
+<script>
+    prices = new Map();
+    let sum = 0;
+    let counter_equip = 0;
+    let cart_field = document.querySelector('.cart_field');
+    let cart_field_id = document.getElementById('cart_field_id');
+    let totalsum = cart_field.querySelector('.total');
+    function showCart() {
+        console.log('123');
+        cart_field.classList.toggle('cart_field_num2');
+    }
+    function counter(elem){
+        let number = elem.value
+        total = number*Number(elem.parentNode.parentNode.querySelector('.pricethis').innerHTML);
+        prices.set(elem, total);
+    }
+    function calculateTotal(){
+        if(sum != 0){
+            sum=0;
+        }
+        for(let [key, value] of prices){
+            sum += value;
+        }
+        totalsum.innerHTML = String(sum);
+    }
+    function addToCart(element){
+        let parent = element.parentNode.parentNode;
+        let name_equipment = parent.querySelector('.name').innerHTML;
+        let cost_equipment = parent.querySelector('.cost_equipmant').innerHTML;
+
+        cart_field.insertAdjacentHTML('afterbegin','<div class="part_equipment">\n' +
+            '        <div class="name_equipment">'+ name_equipment +'</div>\n' +
+            '        <div className="counter"><input type="number" min=\'0\' value=\'0\' onClick="counter(this)"></div>' +
+            '        <div class="pricethis">'+cost_equipment+'</div>\n' +
+            '    </div>');
+        element.onclick = null;
+        counter_equip++;
+        console.log(counter_equip);
+    }
+    let feedback_field = document.getElementById('feed_id');
+    function openfeedback(){
+        feedback_field.classList.toggle('hidefeedback');
+    }
+    let cart_button = document.getElementById('cart_id');
+    let feedback_button = document.getElementById('feedback_button_id');
+    document.addEventListener('click', (e) => {
+        const withinCart = e.composedPath().includes(cart_field);
+        const withinFeedback = e.composedPath().includes(feedback_field);
+        const withinCartbutton = e.composedPath().includes(cart_button);
+        const withinFeedbackbutton = e.composedPath().includes(feedback_button);
+
+
+        if((!withinCart)&&(!withinFeedback)&&(!withinCartbutton)&&(!withinFeedbackbutton)){
+            cart_field.classList.add('cart_field_num2');
+            feedback_field.classList.add('hidefeedback');
+        }
+    })
+
+</script>
+</html>
