@@ -94,7 +94,7 @@ public class EquipmentRentController {
         User user = (User) request.getSession().getAttribute("login_user");
 
         for (int i = 0; i < Objects.requireNonNull(numList).size(); i++) {
-            if(numList.size() != 0 && numList.get(i) != 0) {
+            if(numList.get(i) != 0) {
                 user.getUserEquipment()
                         .addToRentHistory(equipmentRentService.getEquipmentByName(cartList.get(i)), numList.get(i));
             }

@@ -63,6 +63,7 @@ public class LoginService {
             String exp = "INSERT INTO users_table(id,email,password) VALUES (:id,:email,:password)";
             jdbcTemplate.update(exp, params);
             exp = "INSERT INTO person(id,name,lastName,age,phone) VALUES (:id,null,null,null,null)";
+            jdbcTemplate.update(exp, params);
             return false;
         }
         return true;

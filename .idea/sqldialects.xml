@@ -4,9 +4,9 @@
     <file url="file://$PROJECT_DIR$/src/main/java/org/example/app/services/EquipmentUnitRepository.java" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/data.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/data_users.sql" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/src/main/resources/person.sql" dialect="H2" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/person.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/schema.sql" dialect="GenericSQL" />
     <file url="file://$PROJECT_DIR$/src/main/resources/users.sql" dialect="GenericSQL" />
-    <file url="file://$PROJECT_DIR$/src/main/resources/users_equipment.sql" dialect="H2" />
+    <file url="file://$PROJECT_DIR$/src/main/resources/users_equipment.sql" dialect="GenericSQL" />
   </component>
 </project>

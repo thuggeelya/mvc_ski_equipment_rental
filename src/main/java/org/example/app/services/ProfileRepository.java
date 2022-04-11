@@ -34,7 +34,7 @@ public class ProfileRepository implements ApplicationContextAware {
 
     public void saveProfileChanges(@NotNull User user) {
         Person person = user.getPerson();
-        String exp = "UPDATE person SET name=:name, lastName=:lastname, age=:age, phone=:phone WHERE id=:id";
+        String exp = "UPDATE person SET name=:name, lastName=:lastName, age=:age, phone=:phone WHERE id=:id";
         jdbcTemplate.update(exp, new MapSqlParameterSource()
                 .addValue("name", person.getName())
                 .addValue("lastName", person.getLastName())

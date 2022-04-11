@@ -53,13 +53,8 @@ public class EquipmentRentService {
     }
 
     public void saveUserEquipment(@NotNull User user, @NotNull List<String> cartList) {
-        Set<Equipment> equipmentSet = new HashSet<>();
-        if (!user.getUserEquipment().getRentHistory().isEmpty()) {
-            equipmentSet = user.getUserEquipment().getRentHistory().keySet();
-        }
-        if (!user.getUserEquipment().getOnRentNow().isEmpty()) {
-            equipmentSet.addAll(user.getUserEquipment().getOnRentNow().keySet());
-        }
+        Set<Equipment> equipmentSet = user.getUserEquipment().getRentHistory().keySet();
+        equipmentSet.addAll(user.getUserEquipment().getOnRentNow().keySet());
         Set<Equipment> cartSet = cartList.stream().map(this::getEquipmentByName).collect(Collectors.toSet());
 
         for (Equipment e : cartSet) {
