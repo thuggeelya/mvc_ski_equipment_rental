@@ -837,6 +837,11 @@
         }
         totalsum.innerHTML = String(sum);
     }
+    function func(elem){
+        let par = elem.querySelector('.size-name').innerHTML;
+        console.log(par);
+        location.href = 'https://onlinerentshop.herokuapp.com/equipment/'+par;
+    }
     function addToCart(element){
         let parent = element.parentNode.parentNode;
         let name_equipment = parent.querySelector('.name').innerHTML;
