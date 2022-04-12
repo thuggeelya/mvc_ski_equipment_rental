@@ -3,6 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Equipment</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body th:object="${equipment}">
 
@@ -112,11 +115,13 @@
 
         </table>
 
-        <a th:if="${is_lease} == false and ${is_on_rent_now} == false" href="equipment_rent.html" th:href="@{/equipment/rent}">
+        <div class="div_back">
+            <a th:if="${is_lease} == false and ${is_on_rent_now} == false" href="equipment_rent.html" th:href="@{/equipment/rent}">
             <button class="button-rent">Back</button>
-        </a>
+            </a>
+        </div>
         <a th:if="${is_lease}">
-            <input type="submit" value="Save">
+            <input type="submit" class="sub-save" value="Save">
         </a>
     </div>
     </div>
@@ -125,17 +130,110 @@
 <div id="on-rent-now" th:if="${is_lease} == false and ${is_on_rent_now} == true">
 
     <form method="get" th:action="@{/equipment/back}">
-        <p th:if="${hours}" th:text="'You have rent it at ' + ${time_rent} + ' for ' + ${hours} + ' hours'"></p>
-        <i><p th:if="${is_rent_time_passed}">Rent time has been passed</p></i>
-        <input type="submit" value="OK">
+        <p th:if="${hours}" class="you-have-rent" th:text="'You have rent it at ' + ${time_rent} + ' for ' + ${hours} + ' hours'"></p>
+        <i><p class='rent-time' th:if="${is_rent_time_passed}">Rent time has been passed</p></i>
+        <input type="submit" class='value-ok' value="OK">
     </form>
-
 </div>
 
 <footer th:insert="fragments/footer :: foot"></footer>
 
 </body>
 <style>
+    .div_header {
+        width: 84%;
+    }
+    header{
+        background: #242750;
+        display: flex;
+        justify-content: center;
+    }
+    .logo{
+        margin-top: 10px;
+        display: block;
+        height: 93px;
+        cursor: pointer;
+    }
+    #search-bar{
+        border-radius: 20px 0 0 20px;
+        border: 0px;
+        margin-right: -5px;
+        padding: 0 0 0 20px;
+    }
+    .search {
+        width: 600px;
+    }
+    .search_logo{
+        display: flex;
+        width: 39px;
+        background: white;
+        height: 45px;
+        margin-right: 11px;
+        border-radius: 0px 20px 20px 0px;
+        align-items: center;
+    }
+    .search input {
+        width: 600px;
+        height: 45px;
+        margin-right: 0;
+    }
+    .button_go{
+        display: flex;
+        height: 105px;
+        align-items: center;
+    }
+
+    .button_go input{
+        padding: 0;
+        height: 45px;
+        width: 45px;
+        border-radius: 0 20px 20px 0;
+        background: #ffffff;
+        border:0;
+        margin: 0 0 0 -5px;
+    }
+    .button_go input:hover{
+        background: #dbd6d6;
+    }
+    .button_nav input{
+        margin-left: 25px;
+        border-radius: 20px;
+        width: 100px;
+        height: 45px;
+        background: #ffffff;
+    }
+    .button_nav input:hover{
+        border-radius: 20px;
+        width: 100px;
+        height: 45px;
+        background: #dbd6d6;
+    }
+    .button_signin{
+        width: 100%;
+    }
+    input{
+        outline: none;
+    }
+    .div_header input::placeholder{
+        margin-left: 10px;
+    }
+    .slider_input input{
+        width:80px;
+    }
+    .button_signin input{
+        float: right;
+        margin-right: 10px;
+        border-radius: 20px;
+        width: 100px;
+        height: 45px;
+        background: #ffffff;
+    }
+    .button_signin input:hover{
+        border-radius: 20px;
+        width: 100px;
+        height: 45px;
+        background: #dbd6d6;
+    }
     body{
         background-color: #eee;
         margin:0;
@@ -278,16 +376,17 @@
     .all-info{
 
         width:25%;
-        margin:auto;
-        margin-top:10px;
-        border: solid 1px #d7d7d7;
+        margin: 20px auto;
+        background: white;
         padding: 25px 30px 30px;
+        border-radius: 5px;
     }
     .img-item{
         text-align: center;
+
     }
     .img-item img{
-        width:350px;
+        width:200px;
     }
     #content td p{
         border-bottom: 1px solid #d7d7d7;
@@ -295,17 +394,37 @@
     #content td:last-child{
         border-bottom: 0px;
     }
+    #on-rent-now{
+        display: flex;
+        justify-content: center;
+        height: 45px;
+    }
+    #on-rent-now input {
+        outline: none;
+        width: 154px;
+        height: 27px;
+        border: none;
+        background: #383a5e;
+        color: white;
+        border-radius: 16px;
+        cursor: pointer;
+        transition: .2s;
+    } #on-rent-now input:hover{
+              transition: .2s;
+        background: #383A5EFF;
+          }
+
     table{
         width: 100%;
+        margin-bottom: 10px;
     }
     .footer{
         font-family: Montserrat,sans-serif;
         position: absolute;
         background: #242750;
         left: 0;
-        top: 1100px;
         width: 100%;
-        height: 320px;
+        height: 250px;
         color: #f5f5f5;
     }
     .footer h3{
@@ -314,7 +433,7 @@
 
     }
     .main-footer{
-        height: 250px;
+
     }
     .image-block{
         float: left;
@@ -349,7 +468,7 @@
     }
     .c{
         margin-top: 10px;
-        margin-left: 40px;
+        margin-left: 75px;
         float: left;
         font-size: 14px;
     }
@@ -368,14 +487,224 @@
         background: #242750;
         color: #f5f5f5;
         border: 0px;
-        width:100%;
+        width: 200px;
+        height: 30px;
+        border-radius: 12px;
+    }
+    .div_back{
+        display: flex;
+        justify-content: center;
     }
     .button-rent:hover{
         background: #575c99;
     }
+    .div_header {
+        width: 84%;
+    }
+    header{
+        background: #242750;
+        display: flex;
+        justify-content: center;
+    }
+    .logo{
+        margin-top: 10px;
+        display: block;
+        height: 93px;
+    }
+    #search-bar{
+        border-radius: 20px 0 0 20px;
+        border: 0px;
+        margin-right: -5px;
+        padding: 0 0 0 20px;
+    }
+    .search {
+        width: 600px;
+    }
+    .search_logo{
+        display: flex;
+        width: 39px;
+        background: white;
+        height: 45px;
+        margin-right: 11px;
+        border-radius: 0px 20px 20px 0px;
+        align-items: center;
+        cursor: pointer;
+    }
+    .search input {
+        width: 600px;
+        height: 45px;
+        margin-right: 0;
+    }
+    .button_go{
+        display: flex;
+        height: 105px;
+        align-items: center;
+    }
+
+    .button_go input{
+        padding: 0;
+        height: 45px;
+        width: 45px;
+        border-radius: 0 20px 20px 0;
+        background: #ffffff;
+        border:0;
+        margin: 0 0 0 -5px;
+    }
+    .button_go input:hover{
+        background: #dbd6d6;
+    }
+    .button_nav input{
+        margin-left: 25px;
+        border-radius: 20px;
+        width: 100px;
+        height: 45px;
+        background: #ffffff;
+    }
+    .button_nav input:hover{
+        border-radius: 20px;
+        width: 100px;
+        height: 45px;
+        background: #dbd6d6;
+    }
+    .button_signin{
+        width: 100%;
+    }
+    input{
+        outline: none;
+    }
+    .div_header input::placeholder{
+        margin-left: 10px;
+    }
+    .slider_input input{
+        width:80px;
+    }
+    .button_signin input{
+        float: right;
+        margin-right: 10px;
+        border-radius: 20px;
+        width: 100px;
+        height: 45px;
+        background: #ffffff;
+    }
+    .button_signin input:hover{
+        border-radius: 20px;
+        width: 100px;
+        height: 45px;
+        background: #dbd6d6;
+    }
+    #firmname{
+        border: none;
+    }
+    #cost{
+        border: none;
+    }
+    #description{
+        border: none;
+    }
+    #content td p{
+        border: none;
+    }
+    .sub-save{
+        width: 150px;
+        height: 23px;
+        border-radius: 12px;
+        outline: none;
+        border: none;
+        background: #5258a3;
+        color: white;
+        margin-left: 30%;
+        cursor: pointer;
+        transition: .2s;
+    }
+    .sub-save:hover{
+        background: #2c3069;
+    }
 </style>
 <script>
+    prices = new Map();
+    let sum = 0;
+    let counter_equip = 0;
+    let cart_field = document.querySelector('.cart_field');
+    let cart_field_id = document.getElementById('cart_field_id');
+    let totalsum = cart_field.querySelector('.total');
+    function func(elem){
+        let par = elem.querySelector('.size-name').innerHTML;
+        console.log(par);
+        location.href = 'https://onlinerentshop.herokuapp.com/equipment/'+par;
+    }
+    function showCart() {
+        console.log('123');
+        cart_field.classList.toggle('cart_field_num2');
+    }
+    function counter(elem){
+        let number = elem.value;
+        let total = number * Number(elem.parentNode.parentNode.querySelector('.pricethis').innerHTML);
+        prices.set(elem, total);
+    }
+
+    setInterval(function() {
+        calculateTotal();
+    }, 100);
+
+    function calculateTotal(){
+        for(let [key, value] of prices){
+            sum += value;
+        }
+        totalsum.innerHTML = String(sum);
+        sum = 0;
+    }
+    function addToCart(element){
+        let parent = element.parentNode.parentNode;
+        let name_equipment = parent.querySelector('.name').innerHTML;
+        let cost_equipment = parent.querySelector('.cost_equipmant').innerHTML;
+
+        cart_field.insertAdjacentHTML('afterbegin','<div class="part_equipment">\n' +
+            '        <div class="name_equipment">'+ name_equipment +'</div>\n' +
+            '        <div className="counter"><input type="number" min=\'0\' value=\'0\' onClick="counter(this)"></div>' +
+            '        <div class="pricethis">'+cost_equipment+'</div>\n' +
+            '    </div>');
+
+        element.onclick = null;
+        counter_equip++;
+    }
+
+    function buy() {
+        let partEquipment = document.getElementsByClassName("part_equipment");
+
+        let pathVars = "";
+        for (let i = 0; i < partEquipment.length; i++) {
+            let name = partEquipment.item(i).getElementsByTagName('div').item(0).textContent.trim();
+            let num = partEquipment.item(i).getElementsByTagName('div').item(1)
+                .getElementsByTagName('input').item(0).getAttribute('value');
+            pathVars += name + "," + num + ",";
+        }
+
+        window.location.assign(
+            "https://onlinerentshop.herokuapp.com/equipment/buy/"
+            // "/mvc_ski_equipment_rental_war_exploded/equipment/buy/"
+            + pathVars.substr(0, pathVars.length - 1));
+    }
+
+    let feedback_field = document.getElementById('feed_id');
+    function openfeedback(){
+        feedback_field.classList.toggle('hidefeedback');
+    }
+    let cart_button = document.getElementById('cart_id');
+    let feedback_button = document.getElementById('feedback_button_id');
+    document.addEventListener('click', (e) => {
+        const withinCart = e.composedPath().includes(cart_field);
+        const withinFeedback = e.composedPath().includes(feedback_field);
+        const withinCartbutton = e.composedPath().includes(cart_button);
+        const withinFeedbackbutton = e.composedPath().includes(feedback_button);
+
+
+        if((!withinCart)&&(!withinFeedback)&&(!withinCartbutton)&&(!withinFeedbackbutton)){
+            cart_field.classList.add('cart_field_num2');
+            feedback_field.classList.add('hidefeedback');
+        }
+    })
     function tomain(){
-    location.href = 'https://onlinerentshop.herokuapp.com/equipment/rent';
-}</script>
+        location.href = 'https://onlinerentshop.herokuapp.com/equipment/rent';
+    }
+</script>
 </html>

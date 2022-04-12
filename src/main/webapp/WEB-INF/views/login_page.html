@@ -2,6 +2,9 @@
 <head>
     <title>Login</title>
     <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
@@ -18,7 +21,8 @@
             background-color: white;
             margin: 20px auto;
             width: 500px;
-            box-shadow: 0 14px 28px rgba(0,0,0,0.02), 0 10px 10px rgba(0,0,0,0.02);
+            box-shadow: 0 14px 28px rgb(0 0 0 / 2%), 0 10px 10px rgb(0 0 0 / 2%);
+            border-radius: 20px;
 
         }
 
@@ -29,11 +33,13 @@
             display: inline-block;
             border: none;
             background: #f1f1f1;
+            border-radius: 11px;
         }
 
         input[type=text]:focus, input[type=password]:focus {
             background-color: #ddd;
             outline: none;
+            border-radius: 11px;
         }
 
         /* Overwrite default styles of hr */
@@ -44,7 +50,7 @@
 
         /* Set a style for the submit button */
         .registerbtn {
-            background-color: #4CAF50;
+            background-color: #678099;
             color: white;
             padding: 16px 20px;
             margin: 8px 0;
@@ -52,10 +58,14 @@
             cursor: pointer;
             width: 100%;
             opacity: 0.9;
+            border-radius: 11px;
         }
 
         .registerbtn:hover {
-            opacity: 1;
+            cursor: pointer;
+            transition: .2s;
+            background: #41668a;
+            color: white;
         }
     </style>
 </head>

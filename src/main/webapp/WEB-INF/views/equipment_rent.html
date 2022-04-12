@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <title>My equipment rent</title>
     <link rel="stylesheet" th:href="@{/main_styles.css}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -23,7 +26,6 @@
 </div>
 <div class='cart_field cart_field_num2 show_cart' id="cart_field_id">
     <div class="calc">
-        <input class='calcbutton' type="button" value="Calculation" onclick="calculateTotal()">
         <input class='buybutton calcbutton' type="submit" value="Buy" onclick="buy()">
     </div>
     <div class="total"></div>
@@ -322,7 +324,8 @@
         border-radius:3px;
         border:rgba(0,0,0,.3) 0px solid;
         box-sizing:border-box;
-        padding:10px;background: rgb(252, 133, 7);
+        padding:10px;
+        background: rgb(252, 133, 7);
         color:#FFF;
         font-weight:400;
         font-size: 15px;
@@ -556,6 +559,7 @@
         margin-top: 10px;
         display: block;
         height: 93px;
+        cursor: pointer;
     }
     #search-bar{
         border-radius: 20px 0 0 20px;
@@ -574,6 +578,7 @@
         margin-right: 11px;
         border-radius: 0px 20px 20px 0px;
         align-items: center;
+        cursor: pointer;
     }
     .search input {
         width: 600px;
@@ -820,9 +825,135 @@
         margin: 10px;
         width:30px;
     }
+
+
+
+  /*  //////////////////////////*/
+    #BuyButton{
+        background: #a4ccf3;
+        border-radius: 50px;
+    }
+    #BuyButton:hover {
+        cursor: pointer;
+        transition: .2s;
+        background: #41668a;
+        color: white;
+    }
+    .button-b10{
+        background: #a4ccf3;
+        margin-top: 10px;
+        border-radius: 50px;
+        width: 200px;
+        margin: auto;
+        margin-top: 10px;
+    }
+    .button-b10:hover{
+        cursor: pointer;
+        transition: .2s;
+        background: #41668a;
+        color: white;
+    }
+    .button-b10 input:hover{
+        color: white;
+    }
+    .feedback{
+        background: #508dfd;
+    }
+    .button_grey{
+        background: #a4ccf3;
+        color: #000;
+        width: 200px;
+        border-radius: 50px;
+        margin: 10px auto;
+    }
+    .button_grey:hover{
+        cursor: pointer;
+        transition: .2s;
+        background: #41668a;
+        color: white;
+    }
+    a {
+        text-decoration: none;
+    }
+    .container_feednack{
+        font-family: Montserrat,sans-serif;
+    }
+    .container_feednack .button{
+        border-radius: 50px;
+        background: #a4ccf3;
+        color: #000;
+    }
+    .container_feednack .button:hover{
+        cursor: pointer;
+        transition: .2s;
+        background: #41668a;
+        color: white;
+    }
+    .value_price{
+        color: #122c58;
+    }
+    h3, h4{
+        color: #122c58;
+    }
+    .calcbutton{
+        background: #a4ccf3;
+        border: none;
+        border-radius: 38px;
+        margin-top: 20px;
+    }
+    .calcbutton:hover{
+        cursor: pointer;
+        transition: .2s;
+        background: #41668a;
+        color: white;
+    }
+    .container_feednack .textbox {
+        height: 33px;
+        width: 100%;
+        border-radius: 3px;
+        border: rgba(0,0,0,.3) 2px solid;
+        box-sizing: border-box;
+        font-size: 13px;
+        padding: 14px;
+        margin-bottom: 15px;
+        font-family: 'Montserrat';
+        border-radius: 5px;
+    }.container_feednack .message {
+         background: rgba(255, 255, 255, 0.4);
+         width: 100%;
+         height: 80px;
+         border: rgba(0,0,0,.3) 2px solid;
+         box-sizing: border-box;
+         -moz-border-radius: 3px;
+         font-size: 15px;
+         webkit-border-radius: 3px;
+         border-radius: 3px;
+         display: block;
+         padding: 10px;
+         margin-bottom: 14px;
+         overflow: hidden;
+         font-family: 'Montserrat';
+         border-radius: 9px;
+     }
+    .container_feednack form {
+        position: fixed;
+        font-style: inherit;
+        max-width: 20%;
+        box-sizing: border-box;
+        padding: 36px;
+        border-radius: 5px;
+    }
+    #filter {
+        float: left;
+        width: 15%;
+        height: 40%;
+        background: whitesmoke;
+        padding: 1%;
+        box-shadow: 0 14px 28px rgb(0 0 0 / 2%), 0 10px 10px rgb(0 0 0 / 2%);
+    }
+
 </style>
 <script>
-
     prices = new Map();
     let sum = 0;
     let counter_equip = 0;
@@ -843,14 +974,17 @@
         let total = number * Number(elem.parentNode.parentNode.querySelector('.pricethis').innerHTML);
         prices.set(elem, total);
     }
+
+    setInterval(function() {
+        calculateTotal();
+    }, 100);
+
     function calculateTotal(){
-        if(sum !== 0){
-            sum=0;
-        }
         for(let [key, value] of prices){
             sum += value;
         }
         totalsum.innerHTML = String(sum);
+        sum = 0;
     }
     function addToCart(element){
         let parent = element.parentNode.parentNode;
@@ -859,12 +993,12 @@
 
         cart_field.insertAdjacentHTML('afterbegin','<div class="part_equipment">\n' +
             '        <div class="name_equipment">'+ name_equipment +'</div>\n' +
-            '        <div className="counter"><input type="number" min=\'0\' value=\'1\' onClick="counter(this)"></div>' +
+            '        <div className="counter"><input type="number" min=\'0\' value=\'0\' onClick="counter(this)"></div>' +
             '        <div class="pricethis">'+cost_equipment+'</div>\n' +
             '    </div>');
+
         element.onclick = null;
         counter_equip++;
-        console.log(counter_equip);
     }
 
     function buy() {
@@ -879,7 +1013,7 @@
         }
 
         window.location.assign(
-            "https://onlinerentshop.herokuapp.com/equipment/buy/"
+            "http://localhost:8080/mvc_ski_equipment_rental_war_exploded/equipment/buy/"
             // "/mvc_ski_equipment_rental_war_exploded/equipment/buy/"
                                                                             + pathVars.substr(0, pathVars.length - 1));
     }
