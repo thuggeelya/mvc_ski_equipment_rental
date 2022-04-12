@@ -41,7 +41,7 @@ public class EquipmentUnitController {
         logger.info("this equipment is " + equipment);
         // if equipment comes from lease history (is_lease = true)
         if (map.get(equipment)) {
-            equipment.setOwner(user);
+//            equipment.setOwner(user);
             user.getUserEquipment().addToLeaseHistory(equipment);
             logger.info("adding to lease history: " + equipment);
             request.getSession().setAttribute("old_lease_equipment", equipment);
@@ -137,6 +137,6 @@ public class EquipmentUnitController {
 
     @GetMapping("/back")
     public String backToProfile() {
-        return "redirect:/profile";
+        return "redirect:/equipment/rent";
     }
 }

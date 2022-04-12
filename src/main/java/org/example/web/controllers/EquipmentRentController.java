@@ -100,7 +100,6 @@ public class EquipmentRentController {
             }
         }
         equipmentRentService.saveUserEquipment(user, cartList);
-
         return "commit_rent_page";
     }
 

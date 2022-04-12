@@ -126,7 +126,7 @@
                                     <span th:text="${equipment.cost}" class="value cost_equipmant"></span> Rub/H
                                 </div>
                             </div>
-                            <input th:if="${session.login_user} == null or ${equipment.owner} != null and ${equipment.owner.id} != ${session.login_user.getId()}" id='BuyButton' type="button" value="Add to cart" onclick="addToCart(this)">
+                            <input th:if="${session.login_user} == null or ${session.login_user} != null and ${equipment.owner} != null and ${equipment.owner.id} != ${session.login_user.getId()}" id='BuyButton' type="button" value="Add to cart" onclick="addToCart(this)">
                         </div>
                     </div>
                 </div>
@@ -242,6 +242,22 @@
         font-family: Montserrat,sans-serif;
         font-size: 12px;
 
+    }
+    .info_part .text {
+        transition: .2s;
+        display: flex;
+        padding: 10px;
+        flex-direction: column;
+        justify-content: space-evenly;
+        width: 90%;
+    }
+    .info_part .price {
+        float: right;
+        width: 40%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
     }
     .container_feednack p{
         color:rgba(0,0,0,.7);
