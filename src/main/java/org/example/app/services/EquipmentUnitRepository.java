@@ -39,25 +39,9 @@ public class EquipmentUnitRepository implements ApplicationContextAware {
     public Map<Equipment, Boolean> findEquipmentByName(String name, @NotNull HttpServletRequest request) {
         logger.info("findEquipmentByName():");
         User user = (User) request.getSession().getAttribute("login_user");
-        if (user == null) {
-            user = new User();
-            logger.info("user is null");
-            return null;
-        }
-        logger.info("user is not null");
-
         final Equipment[] searchedEquipment = {null};
 
         Map<Equipment, Boolean> map = new HashMap<>();
-
-        for (Equipment equipment : user.getUserEquipment().getLeaseHistory()) {
-            if (equipment.getName().equals(name)) {
-                map.put(equipment, true); // isLease = true
-                logger.info("equipment is in lease history: " + equipment);
-                return map;
-            }
-        }
-
         jdbcTemplate.query("SELECT * FROM equipment", (ResultSet rs, int rowNum) -> {
             if (rs.getString("name").equals(name)) {
                 searchedEquipment[0] = new Equipment();
@@ -76,6 +60,16 @@ public class EquipmentUnitRepository implements ApplicationContextAware {
 
         if (searchedEquipment[0] != null) {
             return map;
+        }
+
+        if (user != null) {
+            for (Equipment equipment : user.getUserEquipment().getLeaseHistory()) {
+                if (equipment.getName().equals(name)) {
+                    map.put(equipment, true); // isLease = true
+                    logger.info("equipment is in lease history: " + equipment);
+                    return map;
+                }
+            }
         }
 
         logger.info("equipment is null");

@@ -29,13 +29,14 @@ public class ProfileRepository implements ApplicationContextAware {
 
     public void saveProfileChanges(@NotNull User user) {
         Person person = user.getPerson();
+        logger.info("person to update: " + person);
         String exp = "UPDATE person SET name=:name,lastname=:lastname,age=:age,phone=:phone WHERE id=:id";
-//        jdbcTemplate.update(exp, new MapSqlParameterSource()
-//                .addValue("id", person.getId())
-//                .addValue("name", person.getName())
-//                .addValue("lastname", person.getLastName())
-//                .addValue("age", person.getAge())
-//                .addValue("phone", person.getPhone()));
+        jdbcTemplate.update(exp, new MapSqlParameterSource()
+                .addValue("id", person.getId())
+                .addValue("name", person.getName())
+                .addValue("lastname", person.getLastName())
+                .addValue("age", person.getAge())
+                .addValue("phone", person.getPhone()));
     }
 
     public boolean exit() {

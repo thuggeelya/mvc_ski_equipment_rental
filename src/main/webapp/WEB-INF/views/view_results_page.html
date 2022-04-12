@@ -92,22 +92,20 @@
 
             <div class="equipment_part" th:each="equipment : ${equipmentFound}">
                 <div class="image_part">
-                    <a th:href="@{#}"><img th:if="${'/images/' + #strings.replace(equipment.name,' ','_') + '.png'}" th:src="@{${'/images/' + #strings.replace(equipment.name,' ','_') + '.png'}}" width="200px" height="200px" alt="No image"></a>
-                    <a th:href="@{#}"><img th:if="${'/images/' + #strings.replace(equipment.name,' ','_') + '.png'} == null" th:src="@{/images/empty_img.png}"  width="200px" height="200px"alt="No image"></a>
+                    <a><img th:if="${'/images/' + #strings.replace(equipment.name,' ','_') + '.png'}" th:src="@{${'/images/' + #strings.replace(equipment.name,' ','_') + '.png'}}" width="200px" height="200px" alt="No image"></a>
+                    <a><img th:if="${'/images/' + #strings.replace(equipment.name,' ','_') + '.png'} == null" th:src="@{/images/empty_img.png}" width="200px" height="200px" alt="No image"></a>
                 </div>
                 <div class="info_part">
                     <div class="text" onclick="func(this)">
                         <div class="name">
                             <span th:text="${equipment.name}" class="size-name" id="size_name_id"></span>
                         </div>
-                        <div class="description">
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur cum doloremque eligendi enim error laudantium non omnis voluptas? Aliquam architecto, atque culpa dolorum facilis in necessitatibus odio qui quos sunt?
-                        </div>
+                        <div class="description" th:text="${equipment.description} ?: ${equipment.name}"></div>
                         <div class="brandseason"><div class="brand">
                             Brand:<span class="brand" th:text="${equipment.firmName}"></span>
                         </div>
                             <div class="season">
-                                Season: 2021
+                                Season: 2022
                             </div>
                         </div>
                     </div>
@@ -118,7 +116,7 @@
                             <span th:text="${equipment.cost}" class="value cost_equipmant"></span> Rub/H
                         </div>
                         </div>
-                        <input id='BuyButton' type="button" value="Add to cart" onclick="addToCart(this)">
+                        <input th:if="${session.login_user} == null or ${equipment.owner} != null and ${equipment.owner.id} != ${session.login_user.getId()}" id='BuyButton' type="button" value="Add to cart" onclick="addToCart(this)">
                     </div>
                 </div>
             </div>
@@ -215,12 +213,7 @@
 
                     <div class="check"><input type="checkbox" name="year[]" id="collection2015/2016" value="2015/2016"><label for="collection2015/2016">2015/2016</label><i></i></div>
 
-
-
                 </div>
-
-
-
 
 
                 <div class="button-b10"><div ><input type="submit" value="Show"></div></div>
@@ -1103,14 +1096,16 @@
             let name = partEquipment.item(i).getElementsByTagName('div').item(0).textContent.trim();
             let num = partEquipment.item(i).getElementsByTagName('div').item(1)
                 .getElementsByTagName('input').item(0).getAttribute('value');
-            pathVars += name + "," + num + ",";
+            if (num > 0) {
+                pathVars += name + "," + num + ",";
+            }
         }
 
         window.location.assign(
-            "/mvc_ski_equipment_rental_war_exploded/equipment/buy/"
+            // "/mvc_ski_equipment_rental_war_exploded/equipment/buy/"
             // "/mvc_ski_equipment_rental_war_exploded/equipment/buy/
-            // https://onlinerentshop.herokuapp.com/equipment/buy/"
-            + pathVars.substr(0, pathVars.length - 1));
+            "https://onlinerentshop.herokuapp.com/equipment/buy/"
+                    + pathVars.substr(0, pathVars.length - 1));
     }
 
     let feedback_field = document.getElementById('feed_id');

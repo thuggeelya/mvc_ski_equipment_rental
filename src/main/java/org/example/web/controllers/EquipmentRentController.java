@@ -70,7 +70,7 @@ public class EquipmentRentController {
         return "redirect:/equipment/rent";
     }
 
-    @PostMapping("/buy")
+    @PostMapping("/buy/")
     public String buyNull() {
         return "redirect:/equipment/rent";
     }
