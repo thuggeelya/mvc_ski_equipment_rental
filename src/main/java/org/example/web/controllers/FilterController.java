@@ -26,7 +26,7 @@ public class FilterController {
     }
 
     @GetMapping("/found")
-    public String equipmentFound(@NotNull HttpServletRequest request, Model model) {
+    public String equipmentFound(@NotNull HttpServletRequest request, @NotNull Model model) {
         logger.info("got equipment found");
 
         model.addAttribute("message", new Message());
