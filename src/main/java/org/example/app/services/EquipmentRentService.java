@@ -62,7 +62,7 @@ public class EquipmentRentService {
                 Map<String, Object> params = new HashMap<>();
                 params.put("id", user.getId());
                 params.put("eq_id", e.getId());
-                String exp = "INSERT INTO userequipment(id,eq_id) VALUES (:id,:eq_id)";
+                String exp = "INSERT INTO users_equipment(id,eq_id) VALUES (:id,:eq_id)";
                 jdbcTemplate.update(exp, params);
             }
         }

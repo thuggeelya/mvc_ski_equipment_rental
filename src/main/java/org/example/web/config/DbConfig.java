@@ -19,7 +19,7 @@ public class DbConfig {
                 .setType(EmbeddedDatabaseType.H2)
                 .addScript("schema.sql")
                 .addScript("users.sql")
-                .addScript("userequipment.sql")
+                .addScript("users_equipment.sql")
                 .addScript("person.sql")
                 .addScript("messages.sql")
                 .addScript("data.sql")
