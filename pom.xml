@@ -98,7 +98,11 @@
       <artifactId>h2</artifactId>
       <version>2.1.210</version>
     </dependency>
-
+    <dependency>
+      <groupId>org.example</groupId>
+      <artifactId>mvc_ski_equipment_rental</artifactId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
   </dependencies>
 
   <build>
@@ -142,14 +146,14 @@
       </plugins>
     </pluginManagement>
       <plugins>
-<!--          <plugin>-->
-<!--              <groupId>org.apache.maven.plugins</groupId>-->
-<!--              <artifactId>maven-compiler-plugin</artifactId>-->
-<!--              <configuration>-->
-<!--                  <source>8</source>-->
-<!--                  <target>8</target>-->
-<!--              </configuration>-->
-<!--          </plugin>-->
+          <plugin>
+              <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-compiler-plugin</artifactId>
+              <configuration>
+                  <source>8</source>
+                  <target>8</target>
+              </configuration>
+          </plugin>
       </plugins>
   </build>
 </project>
