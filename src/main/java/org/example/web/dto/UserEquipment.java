@@ -2,10 +2,7 @@ package org.example.web.dto;
 
 import org.example.app.comparators.Comparators;
 
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.TreeSet;
+import java.util.*;
 
 public class UserEquipment {
 
@@ -24,7 +21,7 @@ public class UserEquipment {
     }
 
     public Map<Equipment, Integer> getRentHistory() {
-        return rentHistory;
+        return rentHistory == null ? new HashMap<>() : rentHistory;
     }
 
     public void setRentHistory(Map<Equipment, Integer> rentHistory) {
@@ -52,7 +49,7 @@ public class UserEquipment {
     }
 
     public Map<Equipment, Integer> getOnRentNow() {
-        return onRentNow;
+        return onRentNow == null ? new HashMap<>() : onRentNow;
     }
 
     public void setOnRentNow(Map<Equipment, Integer> onRentNow) {

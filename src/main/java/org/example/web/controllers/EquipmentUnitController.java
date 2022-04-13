@@ -55,7 +55,7 @@ public class EquipmentUnitController {
             return "equipment_unit";
         }
 
-        boolean isOnRentNow = user.getUserEquipment().getRentHistory().containsKey(equipment);
+        boolean isOnRentNow = user != null && user.getUserEquipment().getRentHistory().containsKey(equipment);
 
         model.addAttribute("is_on_rent_now", isOnRentNow);
         if (isOnRentNow) {
