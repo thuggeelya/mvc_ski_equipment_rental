@@ -32,7 +32,10 @@ public class EquipmentUnitController {
     }
 
     @GetMapping("/{name}")
-    public String equipmentInfo(@PathVariable String name, @NotNull HttpServletRequest request, Model model) {
+    public String equipmentInfo(@NotNull @PathVariable String name, @NotNull HttpServletRequest request, Model model) {
+        if (name.equals("buy")) {
+            return "redirect:/equipment/rent";
+        }
         User user = (User) request.getSession().getAttribute("login_user");
         logger.info("name is " + name);
         Map<Equipment, Boolean> map = equipmentUnitService.findEquipmentByName(name, request);

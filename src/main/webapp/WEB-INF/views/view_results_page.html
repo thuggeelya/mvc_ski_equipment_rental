@@ -91,7 +91,7 @@
         <form>
 
             <div class="equipment_part" th:each="equipment : ${equipmentFound}">
-                <a th:href="@{/equipment/{name}(name=${equipment.name})}">
+                <a th:href="@{/equipment/{name}(name=${equipment.name})}" href="equipment_unit.html">
                 <div class="image_part">
                     <a><img th:if="${'/images/' + #strings.replace(equipment.name,' ','_') + '.png'}" th:src="@{${'/images/' + #strings.replace(equipment.name,' ','_') + '.png'}}" width="200px" height="200px" alt="No image"></a>
                     <a><img th:if="${'/images/' + #strings.replace(equipment.name,' ','_') + '.png'} == null" th:src="@{/images/empty_img.png}" width="200px" height="200px" alt="No image"></a>
@@ -103,7 +103,7 @@
                         </div>
                         <div class="description" th:text="${equipment.description} ?: ${equipment.name}"></div>
                         <div class="brandseason"><div class="brand">
-                            Brand:<span class="brand" th:text="${equipment.firmName}"></span>
+                            Brand: <span class="brand" th:text="${equipment.firmName}"></span>
                         </div>
                             <div class="season">
                                 Season: 2022
@@ -111,13 +111,12 @@
                         </div>
                     </div>
 
-
                     <div class="price">
                         <div class="wrap_valueprice"><div class="value_price">
                             <span th:text="${equipment.cost}" class="value cost_equipmant"></span> Rub/H
                         </div>
                         </div>
-                        <input th:if="${session.login_user} == null or ${equipment.owner} != null and ${equipment.owner.id} != ${session.login_user.getId()} or ${session.login_user} != null and ${equipment.owner} == null" id='BuyButton' type="button" value="Add to cart" onclick="addToCart(this)">
+                        <input th:if="${equipment.owner} != null and ${equipment.owner.id} != ${session.login_user.getId()} or ${session.login_user} != null and ${equipment.owner} == null" id='BuyButton' type="button" value="Add to cart" onclick="addToCart(this)">
                     </div>
                 </div>
                 </a>
