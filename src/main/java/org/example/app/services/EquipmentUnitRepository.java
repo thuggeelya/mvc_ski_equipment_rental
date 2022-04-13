@@ -37,7 +37,7 @@ public class EquipmentUnitRepository implements ApplicationContextAware {
     }
 
     public Map<Equipment, Boolean> findEquipmentByName(String name, @NotNull HttpServletRequest request) {
-        logger.info("findEquipmentByName():");
+        logger.info("findEquipmentByName(): ");
         User user = (User) request.getSession().getAttribute("login_user");
         final Equipment[] searchedEquipment = {null};
 

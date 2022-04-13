@@ -45,7 +45,9 @@ public class EquipmentUnitController {
         // if equipment comes from lease history (is_lease = true)
         if (map.get(equipment)) {
 //            equipment.setOwner(user);
-            user.getUserEquipment().addToLeaseHistory(equipment);
+            if (user != null) {
+                user.getUserEquipment().addToLeaseHistory(equipment);
+            }
             logger.info("adding to lease history: " + equipment);
             request.getSession().setAttribute("old_lease_equipment", equipment);
             request.getSession().setAttribute("is_lease", true);
@@ -55,7 +57,11 @@ public class EquipmentUnitController {
             return "equipment_unit";
         }
 
-        boolean isOnRentNow = user != null && user.getUserEquipment().getRentHistory().containsKey(equipment);
+        boolean isOnRentNow = false;
+
+        if (user != null) {
+            isOnRentNow = user.getUserEquipment().getRentHistory().containsKey(equipment);
+        }
 
         model.addAttribute("is_on_rent_now", isOnRentNow);
         if (isOnRentNow) {
