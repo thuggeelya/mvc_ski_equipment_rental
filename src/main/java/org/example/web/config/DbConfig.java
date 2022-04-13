@@ -18,18 +18,19 @@ public class DbConfig {
                 .setName("equipment-store")
                 .setType(EmbeddedDatabaseType.H2)
                 .addScript("schema.sql")
-                .addScript("data.sql")
                 .addScript("users.sql")
-                .addScript("users_equipment.sql")
+                .addScript("userequipment.sql")
                 .addScript("person.sql")
                 .addScript("messages.sql")
+                .addScript("data.sql")
                 .addScript("data_users.sql")
                 .setScriptEncoding("UTF-8")
                 .ignoreFailedDrops(true)
                 .build();
     }
 
-    @Bean(value = "jdbc_template")
+    @Bean
+//            (value = "jdbc_template")
     public NamedParameterJdbcTemplate namedParameterJdbcTemplate() {
         return new NamedParameterJdbcTemplate(dataSource());
     }
