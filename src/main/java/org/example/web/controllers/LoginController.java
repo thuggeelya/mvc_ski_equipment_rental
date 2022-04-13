@@ -43,6 +43,7 @@ public class LoginController {
             authorizedUserService.getAuthorizedUser(user);
             request.getSession().setAttribute("login_user", user); // session user
             logger.info("login OK redirect to rent");
+            logger.info("user: " + user);
             return "redirect:/equipment/rent";
         } else {
             logger.info("login FAIL redirect back to login");
