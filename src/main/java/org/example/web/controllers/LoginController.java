@@ -2,6 +2,7 @@ package org.example.web.controllers;
 
 import org.apache.log4j.Logger;
 import org.example.app.exceptions.MyLoginException;
+import org.example.app.services.AuthorizedUser;
 import org.example.app.services.LoginService;
 import org.example.web.dto.User;
 import org.jetbrains.annotations.NotNull;
@@ -21,10 +22,12 @@ public class LoginController {
 
     private final Logger logger = Logger.getLogger(LoginController.class);
     private LoginService loginService;
+    private AuthorizedUser authorizedUserService;
 
     @Autowired
-    public LoginController(LoginService loginService){
+    public LoginController(LoginService loginService, AuthorizedUser authorizedUserService){
         this.loginService = loginService;
+        this.authorizedUserService = authorizedUserService;
     }
 
     @GetMapping()
@@ -37,6 +40,7 @@ public class LoginController {
     @PostMapping("/auth")
     public String authenticate(@ModelAttribute("login_user") User user, HttpServletRequest request) throws MyLoginException {
         if (loginService.authenticate(user)) {
+            authorizedUserService.getAuthorizedUser(user);
             request.getSession().setAttribute("login_user", user); // session user
             logger.info("login OK redirect to rent");
             return "redirect:/equipment/rent";

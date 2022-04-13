@@ -53,8 +53,7 @@ public class ProfileController {
             logger.info("Session attribute: " + attribute);
         }
 
-        profileService.getUserEquipment(user).forEach(e -> user.getUserEquipment().addToRentHistory(e, 1));
-        model.addAttribute("person", profileService.getPerson(user));
+        model.addAttribute("person", user.getPerson());
         model.addAttribute("rent_equipment", user.getUserEquipment().getRentHistory().keySet());
         model.addAttribute("lease_equipment", user.getUserEquipment().getLeaseHistory());
         model.addAttribute("user", user);
