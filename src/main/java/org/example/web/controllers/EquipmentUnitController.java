@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-@RequestMapping(value = "/equipment")
+@RequestMapping(value = "equipment")
 public class EquipmentUnitController {
 
     private final Logger logger = Logger.getLogger(EquipmentUnitController.class);
@@ -42,34 +42,8 @@ public class EquipmentUnitController {
         Equipment equipment = (Equipment) map.keySet().toArray()[0];
 
         logger.info("this equipment is " + equipment);
-
-        boolean isOnRentNow = false;
-
-        if (user != null) {
-            isOnRentNow = user.getUserEquipment().getRentHistory().containsKey(equipment);
-            logger.info("user is not null");
-        }
-
-        logger.info("user is null");
-
-        if (isOnRentNow) {
-            logger.info("isOnRentNow is true");
-            Integer hours = (Integer) request.getSession().getAttribute("rent_hours");
-            model.addAttribute("hours", hours == null ? 1 : hours);
-            LocalDateTime timeRentCurrentEquipment = (LocalDateTime) request.getSession().getAttribute("time_rent_" + equipment.getId());
-            model.addAttribute("time_rent", timeRentCurrentEquipment == null ? "today" : timeRentCurrentEquipment.toString());
-            model.addAttribute("is_rent_time_passed", false);
-        }
-
-        logger.info("isOnRentNow is false");
-        request.getSession().setAttribute("old_lease_equipment", equipment);
-        request.getSession().setAttribute("is_lease", false);
-        model.addAttribute("is_lease", false);
-        model.addAttribute("equipment", equipment);
-        model.addAttribute("is_on_rent_now", isOnRentNow);
         // if equipment comes from lease history (is_lease = true)
-        if (map.get(equipment) != null) {
-            logger.info("eq found");
+        if (map.get(equipment)) {
 //            equipment.setOwner(user);
             if (user != null) {
                 user.getUserEquipment().addToLeaseHistory(equipment);
@@ -83,26 +57,44 @@ public class EquipmentUnitController {
             return "equipment_unit";
         }
 
-        logger.info("open unit page");
-        return "equipment_unit";
-    }
+        boolean isOnRentNow = false;
 
-    @PostMapping("/save_lease")
-    public String saveLease(Equipment equipment, @NotNull HttpServletRequest request) {
-        User user = (User) request.getSession().getAttribute("login_user");
-
-        boolean isLease = false;
-        Enumeration<String> attributesSession = request.getSession().getAttributeNames();
-        while (attributesSession.hasMoreElements()) {
-            String attribute = attributesSession.nextElement();
-            if (attribute.equals("is_lease")) {
-                isLease = (boolean) request.getSession().getAttribute("is_lease");
-                logger.info("isLease = " + isLease);
-            }
-            logger.info("Session attribute: " + attribute);
+        if (user != null) {
+            isOnRentNow = user.getUserEquipment().getRentHistory().containsKey(equipment);
         }
 
-        Equipment newEquipment = (Equipment) request.getSession().getAttribute("old_lease_equipment");
+        model.addAttribute("is_on_rent_now", isOnRentNow);
+        if (isOnRentNow) {
+            Integer hours = (Integer) request.getSession().getAttribute("rent_hours");
+            model.addAttribute("hours", hours);
+            LocalDateTime timeRentCurrentEquipment = (LocalDateTime) request.getSession().getAttribute("time_rent_" + equipment.getId());
+            model.addAttribute("time_rent", timeRentCurrentEquipment == null ? "today" : timeRentCurrentEquipment.toString());
+            model.addAttribute("is_rent_time_passed", false);
+        }
+        request.getSession().setAttribute("old_lease_equipment", equipment); // not lease, but I need this to be old_lease_equipment
+        request.getSession().setAttribute("is_lease", false);                                                       //
+        model.addAttribute("is_lease", false);                                                    //
+        model.addAttribute("equipment", equipment);                                                          //
+                                                                                                                        //
+        return "equipment_unit";                                                                                        //
+    }                                                                                                                   //
+                                                                                                                        //
+    @PostMapping("/save_lease")                                                                                      //
+    public String saveLease(Equipment equipment, @NotNull HttpServletRequest request) {                                 //
+        User user = (User) request.getSession().getAttribute("login_user");                                          //
+                                                                                                                        //
+        boolean isLease = false;                                                                                        //
+        Enumeration<String> attributesSession = request.getSession().getAttributeNames();                               //
+        while (attributesSession.hasMoreElements()) {                                                                   //
+            String attribute = attributesSession.nextElement();                                                         //
+            if (attribute.equals("is_lease")) {                                                                         //
+                isLease = (boolean) request.getSession().getAttribute("is_lease");                                   //
+                logger.info("isLease = " + isLease);                                                                   //
+            }                                                                                                         //
+            logger.info("Session attribute: " + attribute);                                                          //
+        }                                                                                                           //
+                                                                                                                   //
+        Equipment newEquipment = (Equipment) request.getSession().getAttribute("old_lease_equipment");          // that's it
         // re-save only cost, firmName, description if not null
         if (equipment.getCost() != null) {
             newEquipment.setCost(equipment.getCost());
