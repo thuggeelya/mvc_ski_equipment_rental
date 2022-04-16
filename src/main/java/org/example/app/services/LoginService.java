@@ -30,6 +30,7 @@ public class LoginService {
             User user = new User();
             if (rs.getString("email").equals(email)) {
                 logger.info("user " + email + " is registered");
+                user.setId(rs.getInt("id"));
                 user.setEmail(rs.getString("email"));
                 user.setPassword(rs.getString("password"));
                 regUser.set(user);
