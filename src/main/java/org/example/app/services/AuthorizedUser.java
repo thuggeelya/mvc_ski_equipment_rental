@@ -3,6 +3,7 @@ package org.example.app.services;
 import org.example.web.dto.Equipment;
 import org.example.web.dto.Person;
 import org.example.web.dto.User;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -21,9 +22,23 @@ public class AuthorizedUser {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public void getAuthorizedUser(User user) {
-        getUserEquipment(user).forEach(e -> user.getUserEquipment().addToRentHistory(e, 1));
+    public void getAuthorizedUser(@NotNull User user) {
+        user.setId(getUserByEmail(user.getEmail()).getId());
         user.setPerson(getPerson(user));
+        getUserEquipment(user).forEach(e -> user.getUserEquipment().addToRentHistory(e, 1));
+    }
+
+    public User getUserByEmail(String email) {
+        User user = new User();
+        jdbcTemplate.query("SELECT * FROM users_table", (ResultSet rs, int rowNum) -> {
+            if (rs.getString("email").equals(email)) {
+                user.setId(rs.getInt("id"));
+                user.setEmail(rs.getString("email"));
+                user.setPassword(rs.getString("password"));
+            }
+            return user;
+        });
+        return user;
     }
 
     public Person getPerson(User user) {
