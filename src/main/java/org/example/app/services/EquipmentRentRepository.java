@@ -38,6 +38,9 @@ public class EquipmentRentRepository implements ProjectRepository<Equipment>, Ap
             equipment.setName(rs.getString("name"));
             equipment.setFirmName(rs.getString("firm_name"));
             equipment.setCost(rs.getString("cost"));
+            equipment.setDescription(rs.getString("description"));
+            equipment.setAvailable(rs.getBoolean("available"));
+            equipment.setAvailableLeft(rs.getInt("available_left"));
             store(equipment);
             return equipment;
         });
