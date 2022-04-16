@@ -42,6 +42,14 @@ public class EquipmentUnitController {
         Equipment equipment = (Equipment) map.keySet().toArray()[0];
 
         logger.info("this equipment is " + equipment);
+
+        boolean isOnRentNow = false;
+
+        if (user != null) {
+            isOnRentNow = user.getUserEquipment().getRentHistory().containsKey(equipment);
+        }
+
+        model.addAttribute("is_on_rent_now", isOnRentNow);
         // if equipment comes from lease history (is_lease = true)
         if (map.get(equipment)) {
 //            equipment.setOwner(user);
@@ -57,13 +65,6 @@ public class EquipmentUnitController {
             return "equipment_unit";
         }
 
-        boolean isOnRentNow = false;
-
-        if (user != null) {
-            isOnRentNow = user.getUserEquipment().getRentHistory().containsKey(equipment);
-        }
-
-        model.addAttribute("is_on_rent_now", isOnRentNow);
         if (isOnRentNow) {
             Integer hours = (Integer) request.getSession().getAttribute("rent_hours");
             model.addAttribute("hours", hours);
