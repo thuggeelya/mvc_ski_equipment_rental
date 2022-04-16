@@ -47,8 +47,10 @@ public class EquipmentUnitController {
 
         if (user != null) {
             isOnRentNow = user.getUserEquipment().getRentHistory().containsKey(equipment);
-            logger.info("user not null");
+            logger.info("user is not null");
         }
+
+        logger.info("user is null");
 
         if (isOnRentNow) {
             logger.info("isOnRentNow is true");
@@ -58,6 +60,8 @@ public class EquipmentUnitController {
             model.addAttribute("time_rent", timeRentCurrentEquipment == null ? "today" : timeRentCurrentEquipment.toString());
             model.addAttribute("is_rent_time_passed", false);
         }
+
+        logger.info("isOnRentNow is false");
         request.getSession().setAttribute("old_lease_equipment", equipment);
         request.getSession().setAttribute("is_lease", false);
         model.addAttribute("is_lease", false);
