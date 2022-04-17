@@ -33,11 +33,11 @@ public class LoginService {
         jdbcTemplate.query("SELECT * FROM users_table", (ResultSet rs, int rowNum) -> {
             User user = new User();
             if (rs.getString("email").equals(email)) {
-                logger.info("user " + email + " is registered");
                 user.setId(rs.getInt("id"));
                 user.setEmail(rs.getString("email"));
                 user.setPassword(rs.getString("password"));
                 regUser.set(user);
+                logger.info("user " + user + " is registered");
             }
             return user;
         });
@@ -86,6 +86,7 @@ public class LoginService {
         Person person = new Person();
         jdbcTemplate.query("SELECT * FROM person", (ResultSet rs, int rowNum) -> {
             if (rs.getInt("id") == user.getId()) {
+                person.setId(rs.getInt("id"));
                 person.setName(rs.getString("name"));
                 person.setLastName(rs.getString("lastname"));
                 person.setAge(String.valueOf(rs.getInt("age")));

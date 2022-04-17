@@ -1,4 +1,4 @@
-create table users_table
+create table if not exists users_table
 (
     id       INTEGER primary key ,
     email    VARCHAR not null,
@@ -9,7 +9,7 @@ INSERT INTO users_table(id,email,password) VALUES (11,'thuggeelya@mail.ru', 123)
 INSERT INTO users_table(id,email,password) VALUES (21,'example@example.com', 123);
 INSERT INTO users_table(id,email,password) VALUES (31,'root@mail.ru', 123);
 INSERT INTO users_table(id,email,password) VALUES (41,'ilya@yandex.ru', 123);
-create table person
+create table if not exists person
 (
     id       INTEGER primary key ,
     name     VARCHAR,

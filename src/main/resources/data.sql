@@ -1,4 +1,4 @@
-create table equipment
+create table if not exists equipment
 (
     id             INTEGER primary key ,
     name           VARCHAR not null,
@@ -14,7 +14,7 @@ INSERT INTO equipment(id,name,firm_name,cost,description,available,available_lef
 INSERT INTO equipment(id,name,firm_name,cost,description,available,available_left) VALUES (345,'Snowboard Beepo','Smth',400,'Average quality',true,200);
 INSERT INTO equipment(id,name,firm_name,cost,description,available,available_left) VALUES (456,'Sticks Pro','Atom',50,'Sticks to "Ski Pro"',true,100);
 INSERT INTO equipment(id,name,firm_name,cost,description,available,available_left) VALUES (567,'Skates Glitters','Burton',300,'Glitter on ice',true,100);
-create table users_equipment
+create table if not exists users_equipment
 (
     id    INTEGER primary key,
     eq_id VARCHAR not null
@@ -24,7 +24,7 @@ INSERT INTO users_equipment(id,eq_id) VALUES (11,234);
 INSERT INTO users_equipment(id,eq_id) VALUES (21,345);
 INSERT INTO users_equipment(id,eq_id) VALUES (31,456);
 INSERT INTO users_equipment(id,eq_id) VALUES (41,567);
-create table messages
+create table if not exists messages
 (
     id    INTEGER primary key,
     name  VARCHAR not null,
