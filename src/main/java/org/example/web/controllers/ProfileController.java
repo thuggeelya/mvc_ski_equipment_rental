@@ -35,15 +35,14 @@ public class ProfileController {
     @GetMapping("/profile")
     public String openProfile(@NotNull Model model, @NotNull HttpServletRequest request) {
         User user = getSessionUser(request);
-
-        model.addAttribute("message", new Message());
-
-        request.getSession().setAttribute("isLease", false);
-
         if (user == null) {
             logger.info("redirect to /login for authorization");
             return "redirect:/login";
         }
+
+        model.addAttribute("message", new Message());
+        request.getSession().setAttribute("isLease", false);
+
         logger.info("(USER): " + user);
 
         Enumeration<String> attributesSession = request.getSession().getAttributeNames();

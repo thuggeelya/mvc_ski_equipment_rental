@@ -35,6 +35,7 @@ public class EquipmentRentRepository implements ProjectRepository<Equipment>, Ap
     public List<Equipment> retrieveAll() {
         List<Equipment> equipmentList = jdbcTemplate.query("SELECT * FROM equipment", (ResultSet rs, int rowNum) -> {
             Equipment equipment = new Equipment();
+            equipment.setId(rs.getInt("id"));
             equipment.setName(rs.getString("name"));
             equipment.setFirmName(rs.getString("firm_name"));
             equipment.setCost(rs.getString("cost"));
@@ -54,7 +55,6 @@ public class EquipmentRentRepository implements ProjectRepository<Equipment>, Ap
 
     @Override
     public void store(@NotNull Equipment equipment) {
-        equipment.setId(equipment.hashCode());
         logger.info("store new equipment: " + equipment);
         repo.add(equipment);
     }

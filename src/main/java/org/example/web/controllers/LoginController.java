@@ -38,9 +38,9 @@ public class LoginController {
     public String authenticate(@ModelAttribute("login_user") User user, HttpServletRequest request) throws MyLoginException {
         if (loginService.authenticate(user)) {
             User login_user = loginService.getAuthorizedUser(user);
-            logger.info("id = " + user.getId());
+            logger.info("id = " + login_user.getId());
             request.getSession().setAttribute("login_user", login_user); // session user
-            logger.info("login OK redirect to rent");
+            logger.info("login OK redirect to rent page");
             logger.info("user: " + login_user);
             return "redirect:/equipment/rent";
         } else {
