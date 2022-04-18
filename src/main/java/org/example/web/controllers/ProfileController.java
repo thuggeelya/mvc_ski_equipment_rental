@@ -54,6 +54,8 @@ public class ProfileController {
 
         model.addAttribute("person", user.getPerson());
         model.addAttribute("rent_equipment", user.getUserEquipment().getRentHistory().keySet());
+        logger.info("user equipment:");
+        user.getUserEquipment().getRentHistory().keySet().forEach(logger::info);
         model.addAttribute("lease_equipment", user.getUserEquipment().getLeaseHistory());
         model.addAttribute("user", user);
         model.addAttribute("isLease", true);

@@ -7,10 +7,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 </head>
-<div class="hidefeedback container_feednack" id="feed_id">
+<div class="hidefeedback container_feednack" id="feed_id" th:with="user=${session.login_user}">
     <form method="post" th:action="@{/equipment/add_message}" th:object="${message}">
-        <input name="name" th:field="*{name}" placeholder="Name" class="textbox" required />
-        <input name="emailaddress" th:field="*{email}" placeholder="E-mail" class="textbox" type="email" required />
+        <input name="name" th:field="*{name}" placeholder="Name" th:value="${user?.person?.getName()}" class="textbox" required />
+        <input name="emailaddress" th:field="*{email}" placeholder="E-mail" th:value="${user?.email}" class="textbox" type="email" required />
         <input name="theme" placeholder="Topic" th:field="*{topic}" class="textbox" required />
         <textarea rows="4" cols="50" name="subject" th:field="*{text}" placeholder="Enter your message:" class="message" required></textarea>
         <input name="submit" class="button" type="submit" value="Submit" />
@@ -1136,7 +1136,10 @@
     function func(elem){
         let par = elem.querySelector('.size-name').innerHTML;
         console.log(par);
-        location.href = 'https://onlinerentshop.herokuapp.com/equipment/'+par;
+        location.href =
+            // 'https://onlinerentshop.herokuapp.com/equipment/'
+        "/mvc_ski_equipment_rental_war_exploded/equipment/"
+            +par;
     }
     function showCart() {
         console.log('123');
@@ -1166,7 +1169,7 @@
 
         cart_field.insertAdjacentHTML('afterbegin','<div class="part_equipment">\n' +
             '        <div class="name_equipment">'+ name_equipment +'</div>\n' +
-            '        <div className="counter"><input type="number" min=\'0\' value=\'0\' onClick="counter(this)"></div>' +
+            '        <div className="counter"><input type="number" min=\'0\' value=\'1\' onClick="counter(this)"></div>' +
             '        <div class="pricethis">'+cost_equipment+'</div>\n' +
             '    </div>');
 
@@ -1186,8 +1189,8 @@
         }
 
         window.location.assign(
-            "https://onlinerentshop.herokuapp.com/equipment/buy/"
-            // "/mvc_ski_equipment_rental_war_exploded/equipment/buy/"
+            // "https://onlinerentshop.herokuapp.com/equipment/buy/"
+            "/mvc_ski_equipment_rental_war_exploded/equipment/buy/"
             + pathVars.substr(0, pathVars.length - 1));
     }
 
@@ -1210,7 +1213,10 @@
         }
     })
     function tomain(){
-        location.href = 'https://onlinerentshop.herokuapp.com/equipment/rent';
+        location.href =
+            // 'https://onlinerentshop.herokuapp.com/equipment/rent'
+        "/mvc_ski_equipment_rental_war_exploded/equipment/rent"
+        ;
     }
 </script>
 

@@ -101,15 +101,17 @@ public class EquipmentRentController {
         for (int i = 0; i < Objects.requireNonNull(numList).size(); i++) {
             if(numList.get(i) > 0) {
                 noZerosCartList.add(cartList.get(i));
-                user.getUserEquipment()
-                        .addToRentHistory(equipmentRentService.getEquipmentByName(cartList.get(i)), numList.get(i));
+//                user.getUserEquipment()
+//                        .addToRentHistory(equipmentRentService.getEquipmentByName(cartList.get(i)), numList.get(i));
             }
         }
 
         if (noZerosCartList.isEmpty()) {
             return "redirect:/equipment/rent";
         }
+
         equipmentRentService.saveUserEquipment(user, noZerosCartList);
+        user.getUserEquipment().addToRentHistory(equipmentRentService.getEquipmentByName(noZerosCartList.get(noZerosCartList.size()-1)), 1);
         return "commit_rent_page";
     }
 

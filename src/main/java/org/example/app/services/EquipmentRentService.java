@@ -1,5 +1,7 @@
 package org.example.app.services;
 
+import org.apache.log4j.Logger;
+import org.example.web.controllers.EquipmentRentController;
 import org.example.web.dto.Equipment;
 import org.example.web.dto.Message;
 import org.example.web.dto.User;
@@ -15,6 +17,7 @@ import java.util.stream.Collectors;
 public class EquipmentRentService {
     private final ProjectRepository<Equipment> equipmentRepo;
     private final NamedParameterJdbcTemplate jdbcTemplate;
+    private final Logger logger = Logger.getLogger(EquipmentRentService.class);
 
     @Autowired
     public EquipmentRentService(EquipmentRentRepository equipmentRepo, NamedParameterJdbcTemplate jdbcTemplate) {
@@ -52,20 +55,45 @@ public class EquipmentRentService {
         jdbcTemplate.update(exp, params);
     }
 
-    public void saveUserEquipment(@NotNull User user, @NotNull List<String> cartList) {
+    public List<Equipment> saveUserEquipment(@NotNull User user, @NotNull List<String> cartList) {
         Set<Equipment> equipmentSet = user.getUserEquipment().getRentHistory().keySet();
         equipmentSet.addAll(user.getUserEquipment().getOnRentNow().keySet());
         Set<Equipment> cartSet = cartList.stream().map(this::getEquipmentByName).collect(Collectors.toSet());
 
+        logger.info("cart set is");
         for (Equipment e : cartSet) {
-            if (!equipmentSet.contains(e)) {
-                Map<String, Object> params = new HashMap<>();
-                params.put("id", user.getId());
-                params.put("eq_id", e.getId());
-                String exp = "INSERT INTO users_equipment(id,eq_id) VALUES (:id,:eq_id)";
+            logger.info(e);
+        }
+
+        Set<String> equipmentNames = new HashSet<>();
+        equipmentSet.forEach(e -> equipmentNames.add(e.getName()));
+        logger.info("user equipment is");
+        for (String e : equipmentNames) {
+            logger.info(e);
+        }
+
+        List<Equipment> result = new ArrayList<>();
+
+        cartSet.forEach(e -> {
+            Map<String, Object> params = new HashMap<>();
+            params.put("id", new Random().nextInt());
+            params.put("u_id", user.getId());
+            params.put("eq_id", e.getId());
+            logger.info("is equipment " + e + " in equipment set?");
+            boolean isInSet = equipmentNames.contains(e.getName());
+            logger.info(isInSet);
+            if (!isInSet) {
+                String exp = "INSERT INTO users_equipment(id,u_id,eq_id) VALUES (:id,:u_id,:eq_id)";
+                result.add(e);
+                logger.info("user equipment updated:");
+                boolean put = user.getUserEquipment().addToRentHistory(e, 1);
+                logger.info(e.getName() + " has been put - " + put);
+//                user.getUserEquipment().getRentHistory().keySet().forEach(logger::info);
                 jdbcTemplate.update(exp, params);
             }
-        }
+        });
+
+        return result;
     }
 
     public void setFave(Equipment equipment) {

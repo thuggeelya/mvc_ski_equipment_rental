@@ -1,11 +1,14 @@
 package org.example.web.dto;
 
+import org.apache.log4j.Logger;
 import org.example.app.comparators.Comparators;
+import org.example.web.controllers.ProfileController;
 
 import java.util.*;
 
 public class UserEquipment {
 
+    private final Logger logger = Logger.getLogger(UserEquipment.class);
     private int id;
     private Map<Equipment, Integer> rentHistory = new TreeMap<>(Comparators.equipmentCostComparator);
     private Set<Equipment> leaseHistory = new TreeSet<>(Comparators.equipmentCostComparator);
@@ -27,8 +30,10 @@ public class UserEquipment {
     public void setRentHistory(Map<Equipment, Integer> rentHistory) {
         this.rentHistory = rentHistory;
     }
-    public void addToRentHistory(Equipment equipment, int i) {
+    public boolean addToRentHistory(Equipment equipment, int i) {
         rentHistory.put(equipment, i);
+        rentHistory.keySet().forEach(logger::info);
+        return rentHistory.containsKey(equipment);
     }
     public void removeFromRentHistory(Equipment equipment) {
         rentHistory.remove(equipment);

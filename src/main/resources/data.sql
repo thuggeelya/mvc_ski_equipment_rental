@@ -17,13 +17,14 @@ INSERT INTO equipment(id,name,firm_name,cost,description,available,available_lef
 create table if not exists users_equipment
 (
     id    INTEGER primary key,
+    u_id    INTEGER not null,
     eq_id VARCHAR not null
 );
-INSERT INTO users_equipment(id,eq_id) VALUES (01,123);
-INSERT INTO users_equipment(id,eq_id) VALUES (11,234);
-INSERT INTO users_equipment(id,eq_id) VALUES (21,345);
-INSERT INTO users_equipment(id,eq_id) VALUES (31,456);
-INSERT INTO users_equipment(id,eq_id) VALUES (41,567);
+INSERT INTO users_equipment(id,u_id,eq_id) VALUES (01,01,123);
+INSERT INTO users_equipment(id,u_id,eq_id) VALUES (11,11,234);
+INSERT INTO users_equipment(id,u_id,eq_id) VALUES (21,21,345);
+INSERT INTO users_equipment(id,u_id,eq_id) VALUES (31,31,456);
+INSERT INTO users_equipment(id,u_id,eq_id) VALUES (41,41,567);
 create table if not exists messages
 (
     id    INTEGER primary key,

@@ -63,10 +63,13 @@ public class EquipmentRentRepository implements ProjectRepository<Equipment>, Ap
         Equipment equipment = new Equipment();
         jdbcTemplate.query("SELECT * FROM equipment", (ResultSet rs, int rowNum) -> {
             if (rs.getString("name").equals(name)) {
+                equipment.setId(rs.getInt("id"));
                 equipment.setName(rs.getString("name"));
                 equipment.setFirmName(rs.getString("firm_name"));
                 equipment.setCost(rs.getString("cost"));
                 equipment.setDescription(rs.getString("description"));
+                equipment.setAvailable(rs.getBoolean("available"));
+                equipment.setAvailableLeft(rs.getInt("available_left"));
             }
             return equipment;
         });
