@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Leasing</title>
+    <title>Лизинг</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -21,17 +21,17 @@
                 <tr>
                     <td>
                         <p>
-                            Equipment
+                            Название
                         </p>
                     </td>
                     <td>
-                        <input id="equipment-name" type="text" required placeholder="Ski" th:field="*{equipment.name}">
+                        <input id="equipment-name" type="text" required placeholder="Борд" th:field="*{equipment.name}">
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <p>
-                            Firm
+                            Бренд
                         </p>
                     </td>
                     <td>
@@ -41,25 +41,25 @@
                 <tr>
                     <td>
                         <p>
-                            Cost
+                            Цена
                         </p>
                     </td>
                     <td>
-                        <input id="equipment-cost" pattern="\d+" maxlength="10" type="number" required placeholder="350" th:field="*{equipment.cost}">
+                        <input id="equipment-cost" pattern="\d+" min="0" maxlength="10" type="number" required placeholder="350" th:field="*{equipment.cost}">
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <p>
-                            Comments
+                            Детали
                         </p>
                     </td>
                     <td>
-                        <input id="equipment-description" maxlength="20" type="text" placeholder="Details if necessary" th:field="*{equipment.description}">
+                        <input id="equipment-description" maxlength="20" type="text" placeholder="Что-то важное" th:field="*{equipment.description}">
                     </td>
                 </tr>
             </table>
-            <input id="leasing-submit-button" type="submit" value="Submit leasing">
+            <input id="leasing-submit-button" type="submit" value="Сдать в аренду">
         </form>
 
     </div>
@@ -693,7 +693,7 @@
         for (let i = 0; i < partEquipment.length; i++) {
             let name = partEquipment.item(i).getElementsByTagName('div').item(0).textContent.trim();
             let num = partEquipment.item(i).getElementsByTagName('div').item(1)
-                .getElementsByTagName('input').item(0).getAttribute('value');
+                .getElementsByTagName('input').item(0).value;
             pathVars += name + "," + num + ",";
         }
 

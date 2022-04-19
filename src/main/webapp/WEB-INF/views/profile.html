@@ -2,7 +2,7 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Profile</title>
+    <title>Профиль</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -24,66 +24,20 @@
     <img th:src="@{/images/chat.svg}" width="26px" alt="">
 </div>
 <div class="hidefeedback container_feednack" id="feed_id" th:with="user=${session.login_user}">
-    <form method="post" th:action="@{/equipment/add_message}" th:object="${message}">
-        <label>
-            <input name="name" th:field="*{name}" placeholder="Name" th:value="${user?.person?.getName()}" class="textbox" required />
-        </label>
-        <label>
-            <input name="emailaddress" th:field="*{email}" placeholder="E-mail" th:value="${user?.email}" class="textbox" type="email" required />
-        </label>
-        <label>
-            <input name="theme" placeholder="Topic" th:field="*{topic}" class="textbox" required />
-        </label>
-        <label>
-            <textarea rows="4" cols="50" name="subject" th:field="*{text}" placeholder="Enter your message:" class="message" required></textarea>
-        </label>
-        <input name="submit" class="button" type="submit" value="Submit" />
+    <input name="name" th:field="*{name}" placeholder="Имя" th:value="${user?.person?.getName()}" class="textbox" required />
+    <input name="emailaddress" th:field="*{email}" placeholder="E-mail" th:value="${user?.email}" class="textbox" type="email" required />
+    <input name="theme" placeholder="Тема" th:field="*{topic}" class="textbox" required />
+    <textarea rows="4" cols="50" name="subject" th:field="*{text}" placeholder="Введите ваше сообщение:" class="message" required></textarea>
+    <input name="submit" class="button" type="submit" value="Отправить" />
     </form>
 </div>
 <div class='cart_field cart_field_num2 show_cart' id="cart_field_id">
     <div class="calc">
-        <input class='buybutton calcbutton' type="button" value="Buy">
+        <input class='buybutton calcbutton' type="button" value="Оплатить">
     </div>
     <div class="total"></div>
 </div>
-<div class="footer">
-    <div class="main-footer">
-        <div class="image-block"><img src="logo.jpg "></div>
-        <div class="text-block">
-            <div><span><h3>TO THE RENT</h3><br>
-            <span><a href="#">How to rent
-</a></span><br>
-                <span><a href="#">Questions and answers</a></span><br></span></div>
-
-            <div><h3>TO THE LANDLORD</h3><br>
-                <span><a href="#">How to rent
-</a></span><br>
-                <span><a href="#">QPublication rules</a></span><br>
-
-                </a></span>
-                <span><a href="#">Collateral insurance</a></span><br></div>
-
-
-
-            <div><h3>ABOUT COMPANY</h3><br>
-                <span><a href="#">Documents
-                </a></span><br>
-                <span><a href="#">Publication rules</a></span><br>
-                <span><a href="#">Rental offer</a></span><br>
-                <span><a href="#">Rental management system</a></span><br>
-                <span><a href="#">Questions and answers
-</a></span><br>
-                <span><a href="#">Collateral insurance</a></span><br></div>
-        </div>
-    </div>
-    <div class="line"></div>
-    <div class="copy">
-        <div class="c">&#169; 2021 All rights reserved</div>
-        <div class="social"><img th:src="@{/images/twitter_logo.png}">
-            <img th:src="@{/images/inst_logo.png}">
-            <img th:src="@{/images/youtube_logo.png}"></div>
-    </div>
-</div>
+<footer th:insert="fragments/footer :: foot"></footer>
 <style>
     body{
         background-color: #eee;

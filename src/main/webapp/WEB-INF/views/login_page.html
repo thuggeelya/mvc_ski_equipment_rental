@@ -1,6 +1,6 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Login</title>
+    <title>Вход</title>
     <meta charset="UTF-8">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -76,38 +76,38 @@
 
     <form method="post" th:action="@{/login/register}" th:object="${user}">
         <div id="reg">
-            <h1>Register</h1>
-            <p>Please fill in this form to create an account.</p>
+            <h1>Регистрация</h1>
+            <p>Заполните форму, чтобы присоединиться к нам.</p>
             <hr>
 
-            <label for="email"><b>Email</b></label>
-            <input type="text" th:field="*{email}" placeholder="Enter Email" id="email" required>
+            <label for="email"><b>E-mail</b></label>
+            <input type="text" th:field="*{email}" placeholder="Введите e-mail" id="email" required>
 
-            <label for="psw"><b>Password</b></label>
-            <input type="password" th:field="*{password}" placeholder="Enter Password" id="psw" required>
+            <label for="psw"><b>Пароль</b></label>
+            <input type="password" th:field="*{password}" placeholder="Введите пароль" id="psw" required>
 
-            <label for="psw-repeat"><b>Repeat Password</b></label>
-            <input type="password" placeholder="Repeat Password" id="psw-repeat" required>
+            <label for="psw-repeat"><b>Пароль</b></label>
+            <input type="password" placeholder="Повторите пароль" id="psw-repeat" required>
             <hr>
 
-            <button type="submit" class="registerbtn" id="reg-btn">Register</button>
+            <button type="submit" class="registerbtn" id="reg-btn">Зарегистрироваться</button>
         </div>
     </form>
 
     <form method="post" th:action="@{/login/auth}" th:object="${user}">
         <div id="log">
-            <h1>Sign In</h1>
-            <p>Please fill in this form to sign in.</p>
+            <h1>Вход</h1>
+            <p>Заполните форму, чтобы войти в систему.</p>
             <hr>
 
-            <label for="login"><b>Email</b></label>
-            <input type="text" th:field="*{email}" placeholder="Enter Email" id="login" required>
+            <label for="login"><b>E-mail</b></label>
+            <input type="text" th:field="*{email}" placeholder="Введите e-mail" id="login" required>
 
-            <label for="pswd"><b>Password</b></label>
-            <input type="password" th:field="*{password}" placeholder="Enter Password" id="pswd" required>
+            <label for="pswd"><b>Пароль</b></label>
+            <input type="password" th:field="*{password}" placeholder="Введите пароль" id="pswd" required>
             <hr>
 
-            <button type="submit" class="registerbtn" id="log-btn">Sign In</button>
+            <button type="submit" class="registerbtn" id="log-btn">Войти</button>
         </div>
     </form>
 </div>
