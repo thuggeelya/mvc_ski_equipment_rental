@@ -1009,10 +1009,10 @@
     <div class="div-fields">
     <div class="tabs">
         <input type="radio" name="inset" value="" id="tab_1" checked>
-        <label for="tab_1">Personal details</label>
+        <label for="tab_1">Личная информация</label>
 
         <input type="radio" name="inset" value="" id="tab_2">
-        <label for="tab_2">Equipment details</label>
+        <label for="tab_2">Аренда и лизинг</label>
 
         <div id="txt_1">
 
@@ -1021,7 +1021,7 @@
                     <tr>
                         <td>
                             <p>
-                                Name
+                                Имя
                             </p>
                         </td>
                         <td>
@@ -1032,7 +1032,7 @@
                     <tr>
                         <td>
                             <p>
-                                Last Name
+                                Фамилия
                             </p>
                         </td>
                         <td>
@@ -1043,7 +1043,7 @@
                     <tr>
                         <td>
                             <p>
-                                Age
+                                Возраст
                             </p>
                         </td>
                         <td>
@@ -1054,7 +1054,7 @@
                     <tr>
                         <td>
                             <p>
-                                Phone
+                                Телефон
                             </p>
                         </td>
                         <td>
@@ -1075,7 +1075,7 @@
 
                 </table>
 
-                <input id="submit-changes-button" type="submit" value="Save">
+                <input id="submit-changes-button" type="submit" value="Сохранить изменения">
             </form>
         </div>
 
@@ -1083,28 +1083,28 @@
             <div class="details">
             <div id="left">
                 <b><p>
-                    RENT HISTORY
+                    ИСТОРИЯ АРЕНДЫ
                 </p></b>
 
                 <form>
                     <table id="rent-table">
                             <tr>
-                                <th>No</th>
-                                <th>Equipment</th>
-                                <th>Firm</th>
-                                <th>Cost</th>
-                                <th>Details</th>
+                                <th>№</th>
+                                <th>Товар</th>
+                                <th>Бренд</th>
+                                <th>Цена</th>
+                                <th>Детали</th>
                                 <th></th>
                             </tr>
                             <tr th:each="equipment_rent, iter : ${rent_equipment}">
-                                <td th:if="${equipment_rent}" th:utext="${iter.count}">No</td>
-                                <td th:if="${equipment_rent}" th:utext="${equipment_rent.name}">Equipment</td>
-                                <td th:if="${equipment_rent}" th:utext="${equipment_rent.firmName}">Firm</td>
-                                <td th:if="${equipment_rent}" th:utext="${equipment_rent.cost}">Cost</td>
-                                <td th:if="${equipment_rent}" th:utext="${equipment_rent.description}">Details</td>
+                                <td th:if="${equipment_rent}" th:utext="${iter.count}">№</td>
+                                <td th:if="${equipment_rent}" th:utext="${equipment_rent.name}">Товар</td>
+                                <td th:if="${equipment_rent}" th:utext="${equipment_rent.firmName}">Бренд</td>
+                                <td th:if="${equipment_rent}" th:utext="${equipment_rent.cost}">Цена</td>
+                                <td th:if="${equipment_rent}" th:utext="${equipment_rent.description}">Детали</td>
                                 <td><p th:if="${equipment_rent}">
                                     <a href="equipment_unit.html" th:href="@{/equipment/{name}(name=${equipment_rent.name})}">
-                                        <input type="button" id="${iter.index}" class="det-value" value="Info">
+                                        <input type="button" id="${iter.index}" class="det-value" value="Больше">
                                     </a>
                                 </p></td>
                             </tr>
@@ -1116,26 +1116,26 @@
             <div id="right">
                 <form>
                     <b><p>
-                        LEASE HISTORY
+                        ИСТОРИЯ ЛИЗИНГА
                     </p></b>
                     <table id="lease-table">
                         <tr>
-                            <th>No</th>
-                            <th>Equipment</th>
-                            <th>Firm</th>
-                            <th>Cost</th>
-                            <th>Details</th>
+                            <th>№</th>
+                            <th>Товар</th>
+                            <th>Бренд</th>
+                            <th>Цена</th>
+                            <th>Детали</th>
                             <th></th>
                         </tr>
                         <tr th:each="equipment_lease, iter : ${lease_equipment}">
-                            <td th:if="${equipment_lease}" th:utext="${iter.count}">No</td>
-                            <td th:if="${equipment_lease}" th:utext="${equipment_lease.name}">Equipment</td>
-                            <td th:if="${equipment_lease}" th:utext="${equipment_lease.firmName}">Firm</td>
-                            <td th:if="${equipment_lease}" th:utext="${equipment_lease.cost}">Cost</td>
-                            <td th:if="${equipment_lease}" th:utext="${equipment_lease.description}">Details</td>
+                            <td th:if="${equipment_lease}" th:utext="${iter.count}">№</td>
+                            <td th:if="${equipment_lease}" th:utext="${equipment_lease.name}">Товар</td>
+                            <td th:if="${equipment_lease}" th:utext="${equipment_lease.firmName}">Бренд</td>
+                            <td th:if="${equipment_lease}" th:utext="${equipment_lease.cost}">Цена</td>
+                            <td th:if="${equipment_lease}" th:utext="${equipment_lease.description}">Детали</td>
                             <td><p th:if="${equipment_lease}">
                                 <a href="equipment_unit.html" th:href="@{/equipment/{name}(name=${equipment_lease.name})}">
-                                    <input type="button" class="Edit-button" value="Info">
+                                    <input type="button" class="Edit-button" value="Больше">
                                 </a>
                             </p></td>
                         </tr>
