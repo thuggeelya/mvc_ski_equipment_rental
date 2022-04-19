@@ -23,12 +23,13 @@
 <div class="feedback" id='feedback_button_id' onclick="openfeedback()">
     <img th:src="@{/images/chat.svg}" width="26px" alt="">
 </div>
-<div class="hidefeedback container_feednack" id="feed_id" th:with="user=${session.login_user}">
-    <input name="name" th:field="*{name}" placeholder="Имя" th:value="${user?.person?.getName()}" class="textbox" required />
-    <input name="emailaddress" th:field="*{email}" placeholder="E-mail" th:value="${user?.email}" class="textbox" type="email" required />
-    <input name="theme" placeholder="Тема" th:field="*{topic}" class="textbox" required />
-    <textarea rows="4" cols="50" name="subject" th:field="*{text}" placeholder="Введите ваше сообщение:" class="message" required></textarea>
-    <input name="submit" class="button" type="submit" value="Отправить" />
+<div class="hidefeedback container_feednack" id="feed_id">
+    <form method="post" th:action="@{/equipment/add_message}" th:object="${message}">
+        <input name="name" th:field="*{name}" placeholder="Имя" class="textbox" required />
+        <input name="emailaddress" th:field="*{email}" placeholder="E-mail" class="textbox" type="email" required />
+        <input name="theme" placeholder="Тема" th:field="*{topic}" class="textbox" required />
+        <textarea rows="4" cols="50" name="subject" th:field="*{text}" placeholder="Введите ваше сообщение:" class="message" required></textarea>
+        <input name="submit" class="button" type="submit" value="Отправить" />
     </form>
 </div>
 <div class='cart_field cart_field_num2 show_cart' id="cart_field_id">

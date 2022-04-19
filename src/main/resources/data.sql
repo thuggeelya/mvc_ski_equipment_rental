@@ -17,7 +17,7 @@ INSERT INTO equipment(id,name,firm_name,cost,description,available,available_lef
 create table if not exists users_equipment
 (
     id    INTEGER primary key,
-    u_id    INTEGER not null,
+    u_id  INTEGER not null,
     eq_id VARCHAR not null
 );
 INSERT INTO users_equipment(id,u_id,eq_id) VALUES (01,01,123);
