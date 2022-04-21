@@ -13,7 +13,7 @@
 
     <div id="leasing-form">
         <p class="hzhz">
-        <h3>Leasing form</h3>
+        <h3>Заполните форму</h3>
         </p>
 
         <form method="post" th:action="@{/leasing_form}">
@@ -648,7 +648,10 @@
     function func(elem){
         let par = elem.querySelector('.size-name').innerHTML;
         console.log(par);
-        location.href = 'https://onlinerentshop.herokuapp.com/equipment/'+par;
+        location.href =
+            // 'https://onlinerentshop.herokuapp.com/equipment/'
+            '/mvc_ski_equipment_rental_war_exploded/equipment/'
+            +par;
     }
     function showCart() {
         console.log('123');
@@ -698,8 +701,8 @@
         }
 
         window.location.assign(
-            "https://onlinerentshop.herokuapp.com/equipment/buy/"
-            // "/mvc_ski_equipment_rental_war_exploded/equipment/buy/"
+            // "https://onlinerentshop.herokuapp.com/equipment/buy/"
+            "/mvc_ski_equipment_rental_war_exploded/equipment/buy/"
             + pathVars.substr(0, pathVars.length - 1));
     }
 
@@ -723,8 +726,8 @@
     })
     function tomain(){
         location.href =
-            'https://onlinerentshop.herokuapp.com/equipment/rent'
-        // "/mvc_ski_equipment_rental_war_exploded/equipment/rent/"
+            // 'https://onlinerentshop.herokuapp.com/equipment/rent'
+        "/mvc_ski_equipment_rental_war_exploded/equipment/rent/"
         ;
     }
 </script>
