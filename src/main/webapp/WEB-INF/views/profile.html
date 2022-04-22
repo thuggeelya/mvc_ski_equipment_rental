@@ -593,6 +593,11 @@
         flex-direction: column;
         height: 252px;
     }
+    .tabs {
+        width: 382px;
+        padding: 0;
+        margin: 0 auto;
+    }
     #submit-changes-button{
         width: 231px;
         border-radius: 9px;
@@ -642,6 +647,9 @@
         background: #ffffff;
         border:0;
         margin: 0 0 0 -5px;
+    }
+    #txt_2{
+        width: 336px;
     }
     .button_go input:hover{
         background: #dbd6d6;
@@ -1002,6 +1010,13 @@
         background: #5c5c98;
         color: white;
     }
+    .margin_tab2{
+        width: 133px;
+    }
+    #tab_1:checked ~ #txt_1, #tab_2:checked ~ #txt_2, #tab_4:checked ~ #txt_4 {
+        /* display: block; */
+        border-radius: 0 0 10px 10px;
+    }
 </style>
 
 <body>
@@ -1013,7 +1028,7 @@
         <label for="tab_1">Личная информация</label>
 
         <input type="radio" name="inset" value="" id="tab_2">
-        <label for="tab_2">Аренда и лизинг</label>
+        <label class="margin_tab2" for="tab_2">Аренда и лизинг</label>
 
         <div id="txt_1">
 
